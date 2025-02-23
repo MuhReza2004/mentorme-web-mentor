@@ -25,6 +25,7 @@ export const loginMentor = async (formData) => {
     const response = await axios.post(`${API_URL}/api/login/user`, formData);
     return response.data;
   } catch (error) {
+    alert("email or password Incorrect");
     console.error("Error logging in mentor:", error);
     throw error;
   }

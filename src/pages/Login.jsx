@@ -20,53 +20,108 @@ const Login = () => {
     try {
       const response = await loginMentor(formData);
       console.log("Login successful", response);
-      localStorage.setItem("token", response.data.token);
+
+      const token = response.data.token;
+      const name =
+        response.data.categories.length > 0
+          ? response.data.categories[0].name
+          : "Unknown";
+
+      localStorage.setItem("name", name);
+      localStorage.setItem("user", JSON.stringify(response.data));
+      localStorage.setItem("token", token);
       navigate("/dashboard");
     } catch (error) {
-      setError(error.response?.data?.message || "Login failed");
+      if (error.response?.status === 401) {
+        const errorMessage = error.response.data.message;
+        setError(errorMessage);
+      } else {
+        setError("terjadi kesalahan saat login");
+      }
     } finally {
       setLoading(false);
     }
   };
 
+  const handleRegisterClick = () => {
+    navigate("/register");
+  };
   return (
-    <div className="flex items-center justify-center h-screen bg-gradient-to-r from-blue-500 to-purple-500">
-      <div className="bg-white shadow-lg rounded-lg p-8 w-96">
-        <h2 className="text-2xl font-semibold text-gray-700 text-center">
-          Mentor Login
+    <div className="flex min-h-screen bg-white">
+      {/* Left Side */}
+      <div>
+        <img
+          src="/src/assets/Logo/LOGO MENTORME NEW (1).png"
+          alt="MentorME Logo"
+          className="w-40 ml-2"
+        />
+      </div>
+      <div className="w-1/2 flex flex-col items-center justify-center  p-8">
+        <img
+          src="/src/assets/Icon/Maskot.png"
+          alt="Mentor Mascot"
+          className="w-64 mb-4"
+        />
+        <p className="text-gray-600 text-lg font-medium">
+          To be mentor, unlock your potential
+        </p>
+      </div>
+
+      {/* Right Side */}
+      <div className="w-1/2 flex flex-col justify-center bg-green-300 p-12 rounded-l-3xl">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">
+          Masuk Sebagai Mentor
         </h2>
+        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
-        {error && (
-          <p className="text-red-500 text-sm text-center mt-2">{error}</p>
-        )}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="text-gray-700 font-medium">Email</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email address"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none bg-white focus:ring-2 focus:ring-green-500"
+            />
+          </div>
 
-        <form onSubmit={handleSubmit} className="mt-4">
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-3"
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-3"
-          />
+          <div>
+            <label className="text-gray-700  font-medium">Password</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter your password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-green-500"
+            />
+            <div className="text-right text-sm text-gray-700 cursor-pointer mt-1">
+              Forgot Password?
+            </div>
+          </div>
+
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-md transition duration-200"
+            className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded-md transition duration-200"
           >
-            {loading ? "Logging in..." : "Login"}
+            {loading ? "Logging in..." : "Masuk"}
           </button>
         </form>
+
+        <p className="text-center text-gray-700 mt-4">
+          Belum punya akun?{" "}
+          <span
+            className="text-blue-700 cursor-pointer"
+            onClick={handleRegisterClick}
+          >
+            Daftar
+          </span>
+        </p>
       </div>
     </div>
   );

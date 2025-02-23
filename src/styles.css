@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+.clip-path-bottom {
+    clip-path: ellipse(100% 30% at 50% 0%);
+  }
+  
+  
