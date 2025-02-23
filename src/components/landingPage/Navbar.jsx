@@ -1,18 +1,20 @@
 import { Link } from "react-router-dom";
-import "../styles.css";
 
 const Navbar = () => {
   return (
-    <nav className="flex items-center justify-between p-4 bg-white shadow-md">
+    <nav className="flex justify-between items-center px-10 py-4 border-b shadow-sm bg-white">
+      {/* Logo */}
       <div className="flex items-center">
         <img
           src="/src/assets/Logo/LOGO MENTORME NEW (1).png"
-          alt="Logo"
+          alt="MentorME Logo"
           className="h-20"
         />
       </div>
-      <div className="flex space-x-4 gap-4 ml-2">
-        <Link to="/" className="text-gray-700 hover:text-teal-600">
+
+      {/* Navigation Links */}
+      <ul className="flex space-x-8 text-lg font-medium align-items ">
+        <Link to="/" className="text-gray-700 hover:text-teal-600 ">
           Beranda
         </Link>
         <Link to="/mentors" className="text-gray-700 hover:text-teal-600">
@@ -30,7 +32,7 @@ const Navbar = () => {
         >
           Daftar Mentor
         </Link>
-      </div>
+      </ul>
     </nav>
   );
 };

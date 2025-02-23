@@ -1,9 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Register from "./pages/Register";
-import Home from "./pages/Home";
+import Home from "./pages/HomePage";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AboutPage from "./pages/about";
+import MentorsPage from "./pages/mentors";
+import AdminDashboard from "./pages/DashboardAdmin";
 
 function App() {
   return (
@@ -12,6 +15,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/mentors" element={<MentorsPage />} />
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route
           path="/dashboard"
           element={
