@@ -7,10 +7,14 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AboutPage from "./pages/about";
 import MentorsPage from "./pages/mentors";
 import AdminDashboard from "./pages/DashboardAdmin";
+import MyCourse from "./pages/MyCource";
+import SideBar from "./components/Sidebar";
+import CreateCourse from "./pages/CreateCourse";
 
 function App() {
   return (
     <Router>
+      {/* <SideBar /> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
@@ -18,8 +22,10 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/mentors" element={<MentorsPage />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/MyCourse" element={<MyCourse />} />
+        <Route path="/CreateCourse" element={<CreateCourse />} />
         <Route
-          path="/dashboard"
+          path="/Dashboard"
           element={
             <ProtectedRoute>
               <Dashboard />
