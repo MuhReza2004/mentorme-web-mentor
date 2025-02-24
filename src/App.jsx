@@ -10,6 +10,9 @@ import AdminDashboard from "./pages/DashboardAdmin";
 import MyCourse from "./pages/MyCource";
 import SideBar from "./components/Sidebar";
 import CreateCourse from "./pages/CreateCourse";
+import ProgressTrainee from "./pages/ProgressTrainee";
+import TraineeActivity from "./pages/TraineeActivity";
+import CreateSyllabus from "./pages/CreateSyllabus";
 
 function App() {
   return (
@@ -24,6 +27,9 @@ function App() {
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/MyCourse" element={<MyCourse />} />
         <Route path="/CreateCourse" element={<CreateCourse />} />
+        <Route path="/ProgressTrainee" element={<ProgressTrainee />} />
+        <Route path="/TraineeActivity" element={<TraineeActivity />} />
+        <Route path="/CreateSyllabus" element={<CreateSyllabus />} />
         <Route
           path="/Dashboard"
           element={

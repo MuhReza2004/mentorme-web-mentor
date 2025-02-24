@@ -28,9 +28,9 @@ const SideBar = () => {
       <nav className="flex flex-col p-4 m-4">
         <NavLink
           to="/Dashboard"
-          className={({ isActive }) =>
+className={({ isActive }) =>
             `flex items-center p-2 text-gray-800 rounded-lg w-full ${
-              isActive ? "bg-white" : "hover:bg-white"
+              isActive || location.pathname.includes("ProgressTrainee") || location.pathname.includes("TraineeActivity") ? "bg-white" : "hover:bg-white"
             }`
           }
         >

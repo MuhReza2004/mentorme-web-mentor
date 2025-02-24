@@ -19,59 +19,27 @@ const MyCourse = () => {
                             Create Course                    
                         </button>
                     </div>
-                    <div className="grid grid-flow-col gap-6 overflow-x-auto">
-                        {/* Card 1 */}
-                        <div className="bg-white p-4 rounded-lg shadow-lg w-[300px]">
-                            <img
-                                src="/src/assets/Icon/Maskot.png"
-                                alt="Course 1"
-                                className="w-full h-[200px] object-cover rounded-t-lg"
-                            />
-                            <div className="p-4">
-                                <h3 className="text-lg font-bold">Pemrograman Web</h3>
-                                <p className="mt-2 text-gray-600">Nama Trainee: Mahmud</p>
-                                <p className="mt-2 text-gray-600">1 / 4 Lessons</p>
-                                <div className="mt-2 bg-gray-200 rounded-full h-2">
-                                    <div className="bg-blue-500 h-2 rounded-full" style={{ width: '25%' }}></div>
+                    <div className="grid grid-cols-3 gap-6">
+                        {[...Array(6)].map((_, index) => (
+                            <div key={index} className="bg-white p-4 rounded-lg shadow-lg w-[300px]">
+                                <img
+                                    src="/src/assets/Icon/Maskot.png"
+                                    alt="Course Icon"
+                                    className="w-full h-[200px] object-cover rounded-t-lg"
+                                />
+                                <div className="p-4 text-center">
+                                    <h3 className="text-lg font-bold">Pemrograman Web</h3>
+                                    <p className="mt-2 text-gray-600">Selamat datang di course</p>
+                                    <p className="mt-1 text-gray-600">Pemrograman Web! Di era digital</p>
+                                    <div className="flex items-center justify-center mt-2 text-gray-600">
+                                        <span className="mr-2">👥 1,211 Students</span>
+                                    </div>
+                                    <div className="flex items-center justify-center mt-1 text-gray-600">
+                                        <span className="mr-2">⭐ 4.7 (320 Reviews)</span>
+                                    </div>
                                 </div>
-                                <p className="mt-2 text-right text-gray-600">25%</p>
                             </div>
-                        </div>
-                        {/* Card 2 */}
-                        <div className="bg-white p-4 rounded-lg shadow-lg w-[300px]">
-                            <img
-                                src="/src/assets/Icon/Maskot.png"
-                                alt="Course 2"
-                                className="flex items-center w-full h-[200px] object-cover rounded-t-lg"
-                            />
-                            <div className="p-4">
-                                <h3 className="text-lg font-bold">Pemrograman Web</h3>
-                                <p className="mt-2 text-gray-600">Nama Trainee: Mahmud</p>
-                                <p className="mt-2 text-gray-600">2 / 4 Lessons</p>
-                                <div className="mt-2 bg-gray-200 rounded-full h-2">
-                                    <div className="bg-blue-500 h-2 rounded-full" style={{ width: '50%' }}></div>
-                                </div>
-                                <p className="mt-2 text-right text-gray-600">50%</p>
-                            </div>
-                        </div>
-                        {/* Card 3 */}
-                        <div className="bg-white p-4 rounded-lg shadow-lg w-[300px]">
-                            <img
-                                src="/src/assets/Icon/Maskot.png"
-                                alt="Course 3"
-                                className="w-full h-[200px] object-cover rounded-t-lg"
-                            />
-                            <div className="p-4">
-                                <h3 className="text-lg font-bold">Pemrograman Web</h3>
-                                <p className="mt-2 text-gray-600">Nama Trainee: Mahmud</p>
-                                <p className="mt-2 text-gray-600">3 / 4 Lessons</p>
-                                <div className="mt-2 bg-gray-200 rounded-full h-2">
-                                    <div className="bg-blue-500 h-2 rounded-full" style={{ width: '75%' }}></div>
-                                </div>
-                                <p className="mt-2 text-right text-gray-600">75%</p>
-                            </div>
-                        </div>
-                        {/* Add more cards as needed */}
+                        ))}
                     </div>
                 </main>
             </div>
