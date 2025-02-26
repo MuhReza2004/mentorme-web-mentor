@@ -12,7 +12,7 @@ const SideBar = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen w-64 bg-green-200 shadow-lg items-start">
+    <div className="flex flex-col h-screen w-64  bg-green-200 shadow-lg items-start">
       <div className="flex flex-col items-center">
         <img
           src="/src/assets/Logo/LOGO MENTORME NEW (1).png"
@@ -28,9 +28,13 @@ const SideBar = () => {
       <nav className="flex flex-col p-4 m-4">
         <NavLink
           to="/Dashboard"
-className={({ isActive }) =>
+          className={({ isActive }) =>
             `flex items-center p-2 text-gray-800 rounded-lg w-full ${
-              isActive || location.pathname.includes("ProgressTrainee") || location.pathname.includes("TraineeActivity") ? "bg-white" : "hover:bg-white"
+              isActive ||
+              location.pathname.includes("ProgressTrainee") ||
+              location.pathname.includes("TraineeActivity")
+                ? "bg-white"
+                : "hover:bg-white"
             }`
           }
         >
@@ -41,11 +45,16 @@ className={({ isActive }) =>
           to="/MyCourse"
           className={({ isActive }) =>
             `flex items-center p-2 text-gray-800 rounded-lg w-full ${
-              isActive || location.pathname.includes("CreateCourse") ? "bg-white" : "hover:bg-white"
+              isActive || location.pathname.includes("CreateCourse")
+                ? "bg-white"
+                : "hover:bg-white"
             }`
           }
         >
-          <img src="/src/assets/Icon/certificate.png" className="w-6 h-6 mr-2" />
+          <img
+            src="/src/assets/Icon/certificate.png"
+            className="w-6 h-6 mr-2"
+          />
           <span>My Course</span>
         </NavLink>
         <NavLink
@@ -78,7 +87,10 @@ className={({ isActive }) =>
             }`
           }
         >
-          <img src="/src/assets/Icon/message-circle-question.png" className="w-6 h-6 mr-2" />
+          <img
+            src="/src/assets/Icon/message-circle-question.png"
+            className="w-6 h-6 mr-2"
+          />
           <span>Help Center</span>
         </NavLink>
         <button

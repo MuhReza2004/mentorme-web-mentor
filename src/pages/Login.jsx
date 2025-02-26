@@ -19,9 +19,16 @@ const Login = () => {
 
     try {
       const response = await loginMentor(formData);
-      console.log("Login successful", response);
+      const { token, role } = response.data;
+      console.log(response);
+      console.log(response.code);
 
-      const token = response.data.token;
+      if (response.code === 401) {
+        const errorMessage = response.error;
+        setError(errorMessage);
+        // alert(errorMessage);
+      }
+
       const name =
         response.data.categories.length > 0
           ? response.data.categories[0].name
@@ -30,14 +37,15 @@ const Login = () => {
       localStorage.setItem("name", name);
       localStorage.setItem("user", JSON.stringify(response.data));
       localStorage.setItem("token", token);
-      navigate("/dashboard");
-    } catch (error) {
-      if (error.response?.status === 401) {
-        const errorMessage = error.response.data.message;
-        setError(errorMessage);
+
+      if (role === "admin") {
+        navigate("/admin/Dashboard");
       } else {
-        setError("terjadi kesalahan saat login");
+        navigate("/Dashboard");
       }
+    } catch (error) {
+      console.error("Error logging in:", error);
+      // setError("Terjadi kesalahan saat menghubungkan ke server");
     } finally {
       setLoading(false);
     }
@@ -46,6 +54,7 @@ const Login = () => {
   const handleRegisterClick = () => {
     navigate("/register");
   };
+
   return (
     <div className="flex min-h-screen bg-white">
       {/* Left Side */}
