@@ -23,27 +23,12 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/mentors" element={<MentorsPage />} />
-        <Route path="Dashboard/MyCourse" element={<MyCourse />} />
+        <Route path="/MyCourse" element={<MyCourse />} />
         <Route path="/CreateCourse" element={<CreateCourse />} />
         <Route path="/ProgressTrainee" element={<ProgressTrainee />} />
         <Route path="/TraineeActivity" element={<TraineeActivity />} />
         <Route path="/CreateSyllabus" element={<CreateSyllabus />} />
-        <Route
-          path="/Dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/Dashboard"
-          element={
-            <ProtectedRoute>
-              <AdminDashboard />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="Dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );
