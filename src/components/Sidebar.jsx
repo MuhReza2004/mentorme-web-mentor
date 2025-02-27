@@ -20,6 +20,7 @@ const SideBar = () => {
 
   return (
     <div className="flex flex-col h-screen w-64 bg-green-200 shadow-lg ">
+
       <div className="flex flex-col items-center">
         <img
           src="/src/assets/Logo/LOGO MENTORME NEW (1).png"
@@ -65,6 +66,7 @@ const SideBar = () => {
           }
         >
           <Layers className="w-5 h-5 mr-2" />
+
           <span>My Course</span>
         </NavLink>
         <NavLink
