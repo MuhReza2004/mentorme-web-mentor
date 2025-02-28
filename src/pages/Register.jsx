@@ -190,10 +190,10 @@ const Register = () => {
             <p className="text-center text-gray-700 mt-4">
               Belum punya akun?{" "}
               <span
-                className="text-blue-700 cursor-pointer"
+                className="text-green-600 cursor-pointer"
                 onClick={handleLoginClick}
               >
-                Login
+                Login Disini!
               </span>
             </p>
           </div>

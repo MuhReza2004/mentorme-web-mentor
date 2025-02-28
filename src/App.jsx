@@ -14,6 +14,7 @@ import ChatMentor from "./pages/Chat";
 import DetailMyCourse from "./pages/DetailMyCourse";
 import DetailSyllabus from "./pages/DetailSyllabus";
 import MateriPembelajaran from "./pages/MateriPembelajaran";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -30,11 +31,18 @@ function App() {
         <Route path="/ProgressTrainee" element={<ProgressTrainee />} />
         <Route path="/TraineeActivity" element={<TraineeActivity />} />
         <Route path="/CreateSyllabus" element={<CreateSyllabus />} />
-        <Route path="Dashboard" element={<Dashboard />} />
         <Route path="ChatMentor" element={<ChatMentor />} />
         <Route path="/DetailMyCourse" element={<DetailMyCourse />} />
         <Route path="/DetailSyllabus" element={<DetailSyllabus />} />
         <Route path="/MateriPembelajaran" element={<MateriPembelajaran />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );

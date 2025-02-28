@@ -32,3 +32,16 @@ export const loginMentor = async (formData) => {
     throw error;
   }
 };
+
+// tampilkan activity mentor
+
+const ActivittyMentor = `${API_URL}/api/activity/mentor`;
+export const getActivityMentor = async (mentorId) => {
+  try {
+    const response = await axios.get(`${ActivittyMentor}/${mentorId}`);
+    return response.data;
+  } catch (error) {
+    alert("Gagal Mengambil data", error);
+    throw error;
+  }
+};
