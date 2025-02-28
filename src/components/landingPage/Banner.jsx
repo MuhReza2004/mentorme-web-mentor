@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 
-const banners = ["/src/assets/Banner/slider1.png"];
+const banners = ["/Banner/slider1.png"];
 
 export default function BannerSlider() {
   const [currentIndex] = useState(0);

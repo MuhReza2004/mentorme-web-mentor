@@ -6,7 +6,7 @@ const Navbar = () => {
       {/* Logo */}
       <div className="flex items-center">
         <img
-          src="/src/assets/Logo/LOGO MENTORME NEW (1).png"
+          src="/Logo/LOGO MENTORME NEW (1).png"
           alt="MentorME Logo"
           className="h-20"
         />

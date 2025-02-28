@@ -4,7 +4,7 @@ const Footer = () => {
       <div className="container mx-auto px-6 md:px-12 grid grid-cols-4 md:grid-cols-4 gap-8 text-center md:text-left">
         <div className="flex flex-col justifty-start items-start md:items-start">
           <img
-            src="/src/assets/Icon/Maskot.png"
+            src="/Icon/Maskot.png"
             alt="MentorMe Logo"
             className="w-16 mb-2 "
           />
@@ -54,7 +54,7 @@ const Footer = () => {
               className="text-white text-2xl hover:text-gray-200"
             >
               <img
-                src="/src/assets/Logo/instagram.png"
+                src="/Logo/instagram.png"
                 alt="instagram logo"
                 className="w-full h-[40px]"
               />
@@ -64,7 +64,7 @@ const Footer = () => {
               className="text-white text-2xl hover:text-gray-200"
             >
               <img
-                src="/src/assets/Logo/tiktok.png"
+                src="/Logo/tiktok.png"
                 alt="instagram logo"
                 className="w-full h-[40px]"
               />

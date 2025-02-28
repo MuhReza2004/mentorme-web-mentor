@@ -21,7 +21,9 @@ const ChatContent = () => {
           {messages.map((msg) => (
             <div
               key={msg.id}
-              className={`flex ${msg.sender === "user" ? "justify-start" : "justify-end"}`}
+              className={`flex ${
+                msg.sender === "user" ? "justify-start" : "justify-end"
+              }`}
             >
               <div
                 className={`p-3 rounded-lg shadow-md max-w-xs ${
@@ -60,7 +62,7 @@ const ChatContent = () => {
             className="flex items-center gap-2 bg-white p-2 my-2 rounded-lg shadow-md cursor-pointer"
           >
             <img
-              src="/src/assets/Icon/Maskot.png"
+              src="/Icon/Maskot.png"
               alt="profile"
               className="w-10 h-10 rounded-full"
             />
@@ -73,6 +75,6 @@ const ChatContent = () => {
       </div>
     </div>
   );
-}
+};
 
 export default ChatContent;

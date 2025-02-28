@@ -20,7 +20,7 @@ const MyCourseContent = () => {
               className="bg-white p-4 rounded-lg shadow-lg w-[300px]"
             >
               <img
-                src="/src/assets/Icon/Maskot.png"
+                src="/Icon/Maskot.png"
                 alt="Course Icon"
                 className="w-full h-[200px] object-cover rounded-t-lg"
               />

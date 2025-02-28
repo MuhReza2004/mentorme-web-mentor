@@ -87,14 +87,14 @@ const Register = () => {
             alt="MentorME logo"
             className="mb-4"
             height="150"
-            src="/src/assets/Logo/LOGO MENTORME NEW (1).png"
+            src="/Logo/LOGO MENTORME NEW (1).png"
             width="150"
           />
           <img
             alt="Cartoon deer holding books"
             className="mb-4"
             height="200"
-            src="/src/assets/Icon/Maskot.png"
+            src="/Icon/Maskot.png"
             width="200"
           />
           <p className="text-center text-lg">

@@ -38,7 +38,7 @@ const DashboardMentorContent = () => {
               onClick={() => navigate(`/ProgressTrainee/${activity.id}`)}
             >
               <img
-                src={activity.imageUrl || "/src/assets/Icon/Maskot.png"}
+                src={activity.imageUrl || "/Icon/Maskot.png"}
                 alt={activity.courseName}
                 className="w-full h-[200px] object-cover rounded-t-lg"
               />

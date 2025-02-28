@@ -17,10 +17,10 @@ export default function Features() {
             </div>
           </div>
           <img
-            alt="Screenshot of 1:1 Consultation feature on a mobile phone"
+            alt="Screenshot of 1:1 Consultation feature on a mobile phone production app"
             className="w-40 h-auto"
             height="300"
-            src="/src/assets/Icon/Konsultasi.png"
+            src="/Icon/konsultasi.png"
             width="150"
           />
         </div>

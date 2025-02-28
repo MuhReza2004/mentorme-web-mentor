@@ -50,17 +50,13 @@ const Login = () => {
       {/* Left Side */}
       <div>
         <img
-          src="/src/assets/Logo/LOGO MENTORME NEW (1).png"
+          src="/Logo/LOGO MENTORME NEW (1).png"
           alt="MentorME Logo"
           className="w-40 ml-2"
         />
       </div>
       <div className="w-1/2 flex flex-col items-center justify-center  p-8">
-        <img
-          src="/src/assets/Icon/Maskot.png"
-          alt="Mentor Mascot"
-          className="w-64 mb-4"
-        />
+        <img src="/Icon/Maskot.png" alt="Mentor Mascot" className="w-64 mb-4" />
         <p className="text-gray-600 text-lg font-medium">
           To be mentor, unlock your potential
         </p>
