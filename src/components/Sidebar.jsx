@@ -20,7 +20,6 @@ const SideBar = () => {
 
   return (
     <div className="flex flex-col h-screen w-64 bg-green-200 shadow-lg ">
-
       <div className="flex flex-col items-center">
         <img
           src="/src/assets/Logo/LOGO MENTORME NEW (1).png"
@@ -59,7 +58,8 @@ const SideBar = () => {
           to="/MyCourse"
           className={({ isActive }) =>
             `flex items-center p-2 text-gray-800 rounded-lg w-full ${
-              isActive || location.pathname.includes("CreateCourse")
+              isActive || location.pathname.includes("CreateCourse") ||
+              location.pathname.includes("DetailMyCourse")
                 ? "bg-white"
                 : "hover:bg-white"
             }`
@@ -70,7 +70,7 @@ const SideBar = () => {
           <span>My Course</span>
         </NavLink>
         <NavLink
-          to="/chat"
+          to="/ChatMentor"
           className={({ isActive }) =>
             `flex items-center p-2 text-gray-800 rounded-lg w-full ${
               isActive ? "bg-white" : "hover:bg-white"
@@ -107,7 +107,7 @@ const SideBar = () => {
         </NavLink>
         <button
           onClick={handleLogout}
-          className="flex items-center p-2 text-gray-800 hover:bg-green-300 rounded-lg mt-35"
+          className="flex items-center p-2 text-gray-800 hover:bg-green-300 rounded-lg "
         >
           <img src="/src/assets/Icon/logout.png" className="w-6 h-6 mr-2" />
           <span>Logout</span>

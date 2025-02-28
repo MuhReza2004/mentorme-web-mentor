@@ -19,32 +19,22 @@ const Login = () => {
 
     try {
       const response = await loginMentor(formData);
-      const { token, role } = response.data;
       console.log(response);
       console.log(response.code);
 
       if (response.code === 401) {
         const errorMessage = response.error;
+
         setError(errorMessage);
         // alert(errorMessage);
       }
 
-      const name =
-        response.data.categories.length > 0
-          ? response.data.categories[0].name
-          : "Unknown";
-
       localStorage.setItem("name", name);
       localStorage.setItem("user", JSON.stringify(response.data));
-      localStorage.setItem("token", token);
-
-      if (role === "admin") {
-        navigate("/admin/Dashboard");
-      } else {
-        navigate("/Dashboard");
-      }
+      localStorage.setItem("token", response.data.token);
+      navigate("/dashboard");
     } catch (error) {
-      console.error("Error logging in:", error);
+      console.error("Terjadi kesalahan saat menghubungkan ke server!", error);
       // setError("Terjadi kesalahan saat menghubungkan ke server");
     } finally {
       setLoading(false);
@@ -125,10 +115,10 @@ const Login = () => {
         <p className="text-center text-gray-700 mt-4">
           Belum punya akun?{" "}
           <span
-            className="text-blue-700 cursor-pointer"
+            className="text-green-600 cursor-pointer"
             onClick={handleRegisterClick}
           >
-            Daftar
+            Daftar Disini!
           </span>
         </p>
       </div>

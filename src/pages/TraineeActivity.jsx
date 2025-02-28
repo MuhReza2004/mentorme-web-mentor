@@ -1,7 +1,10 @@
 import TraineeActivityLayout from "../layout/TraineeActivityLayout";
 
 const TraineeActivity = () => {
-    <TraineeActivityLayout />
+    return (
+        <TraineeActivityLayout />
+    )
+
 };
 
 export default TraineeActivity;
