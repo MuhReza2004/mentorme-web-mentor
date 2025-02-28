@@ -1,15 +1,20 @@
 import { Bell, Coins, Plus } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const NavbarMentor = () => {
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleCreateAdsClick = () => {
-    Navigate("/create-ads");
+  const handleCreateClick = () => {
+    if (location.pathname === "/MyCourse") {
+      navigate("/CreateCourse");
+    } else {
+      navigate("/create-ads");
+    }
   };
 
   const handleBellClick = () => {
-    Navigate("/notification");
+    navigate("/notification");
   };
 
   return (
@@ -43,12 +48,12 @@ const NavbarMentor = () => {
             </div>
           </button>
 
-          {/* Create Ads Button */}
+          {/* Create Button (Dinamically Changed) */}
           <button
-            onClick={handleCreateAdsClick}
+            onClick={handleCreateClick}
             className="bg-[#7DE2D1] px-4 py-2 rounded-xl text-white font-semibold hover:bg-teal-500 transition hover:scale-105"
           >
-            Create Ads
+            {location.pathname === "/MyCourse" ? "Create Course" : "Create Ads"}
           </button>
         </div>
       </div>

@@ -4,9 +4,7 @@ const MyCourse = () => {
     // Initialize the navigate function
 
     return (
-        <div>
-            <MyCourseLayout />
-        </div>
+        <MyCourseLayout />
     );
 };
 

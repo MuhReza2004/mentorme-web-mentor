@@ -1,4 +1,12 @@
+import { useNavigate } from "react-router-dom";
+
 const MyCourseContent = () => {
+  const navigate = useNavigate();
+
+  const handleGoToProgress = () => {
+    navigate("/DetailMyCourse");
+  };
+
   return (
     <div className="bg-gray-100">
       <main className="flex-1 p-6">
@@ -28,6 +36,14 @@ const MyCourseContent = () => {
                 <div className="flex items-center justify-center mt-1 text-gray-600">
                   <span className="mr-2">⭐ 4.7 (320 Reviews)</span>
                 </div>
+
+                {/* Button ke ProgressTrainee */}
+                <button
+                  onClick={handleGoToProgress}
+                  className="mt-4 bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600 transition"
+                >
+                  Lihat Details
+                </button>
               </div>
             </div>
           ))}

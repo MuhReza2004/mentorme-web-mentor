@@ -58,7 +58,8 @@ const SideBar = () => {
           to="/MyCourse"
           className={({ isActive }) =>
             `flex items-center p-2 text-gray-800 rounded-lg w-full ${
-              isActive || location.pathname.includes("CreateCourse")
+              isActive || location.pathname.includes("CreateCourse") ||
+              location.pathname.includes("DetailMyCourse")
                 ? "bg-white"
                 : "hover:bg-white"
             }`
@@ -69,7 +70,7 @@ const SideBar = () => {
           <span>My Course</span>
         </NavLink>
         <NavLink
-          to="/chat"
+          to="/ChatMentor"
           className={({ isActive }) =>
             `flex items-center p-2 text-gray-800 rounded-lg w-full ${
               isActive ? "bg-white" : "hover:bg-white"
