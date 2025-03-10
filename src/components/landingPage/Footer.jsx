@@ -66,7 +66,7 @@ const Footer = () => {
               <img
                 src="/Logo/tiktok.png"
                 alt="instagram logo"
-                className="w-full h-[40px]"
+                className="w-full h-[40px] "
               />
             </a>
           </div>

@@ -1,55 +1,70 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getCourseMentor } from "../../services/api";
 
 const MyCourseContent = () => {
   const navigate = useNavigate();
+  const [Courses, setCourses] = useState([]);
 
-  const handleGoToProgress = () => {
-    navigate("/DetailMyCourse");
-  };
+  useEffect(() => {
+    const fetchCourse = async () => {
+      try {
+        const response = await getCourseMentor();
+        console.log("Data dari API:", response);
+        setCourses(response.data || []); // Pastikan data default adalah array kosong
+      } catch (error) {
+        console.error("Terjadi kesalahan saat mengambil data Course", error);
+      }
+    };
+    fetchCourse();
+  }, []); // Dependency array agar useEffect hanya dijalankan sekali
 
   return (
-    <div className="bg-gray-100">
-      <main className="flex-1 p-6">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-bold">My Course</h2>
-        </div>
-        <div className="grid grid-cols-3 gap-6">
-          {[...Array(6)].map((_, index) => (
+    <main className="bg-gray-100 min-h-screen p-6">
+      <header className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold text-gray-800">My Courses</h2>
+      </header>
+
+      <div className="grid grid-cols-3 gap-6">
+        {Courses.length > 0 ? (
+          Courses.map((Course) => (
             <div
-              key={index}
-              className="bg-white p-4 rounded-lg shadow-lg w-[300px]"
+              key={Course.id}
+              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300"
             >
               <img
-                src="/Icon/Maskot.png"
-                alt="Course Icon"
-                className="w-full h-[200px] object-cover rounded-t-lg"
+                src={
+                  Course.picture
+                    ? `data:image/png;base64,${Course.picture}`
+                    : "/Icon/Maskot.png"
+                }
+                alt={Course.mentor}
+                className="w-full h-48 object-cover"
               />
-              <div className="p-4 text-center">
-                <h3 className="text-lg font-bold">Pemrograman Web</h3>
-                <p className="mt-2 text-gray-600">Selamat datang di course</p>
-                <p className="mt-1 text-gray-600">
-                  Pemrograman Web! Di era digital
+              <div className="p-4">
+                <h3 className="text-lg font-semibold text-gray-800 truncate">
+                  {Course.materialName}
+                </h3>
+                <p className="text-sm text-gray-600 mt-2">
+                  <span className="font-medium">Mentor:</span> {Course.mentor}
                 </p>
-                <div className="flex items-center justify-center mt-2 text-gray-600">
-                  <span className="mr-2">👥 1,211 Students</span>
-                </div>
-                <div className="flex items-center justify-center mt-1 text-gray-600">
-                  <span className="mr-2">⭐ 4.7 (320 Reviews)</span>
-                </div>
 
-                {/* Button ke ProgressTrainee */}
                 <button
-                  onClick={handleGoToProgress}
-                  className="mt-4 bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600 transition"
+                  onClick={() => navigate(`/DetailMyCourse/${Course.id}`)}
+                  className="mt-4 w-full bg-green-400 hover:bg-green-700 text-white text-sm font-medium py-2 rounded-md transition duration-300"
                 >
-                  Lihat Details
+                  Lihat Detail
                 </button>
               </div>
             </div>
-          ))}
-        </div>
-      </main>
-    </div>
+          ))
+        ) : (
+          <p className="text-gray-600 text-center col-span-3 py-20">
+            Belum ada Course yang dibuat.
+          </p>
+        )}
+      </div>
+    </main>
   );
 };
 

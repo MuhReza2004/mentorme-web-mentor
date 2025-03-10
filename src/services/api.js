@@ -1,9 +1,27 @@
 import axios from "axios";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
-const API_URL = API_BASE_URL;
+// Fungsi umum untuk menangani error
+const handleApiError = (error) => {
+  if (error.response) {
+    console.error("Server Error:", error.response.data);
+    throw new Error(error.response.data.message || "Server error");
+  } else if (error.request) {
+    console.error("No Response from Server:", error.request);
+    throw new Error("No response from server. Please try again.");
+  } else {
+    console.error("Request Error:", error.message);
+    throw new Error(error.message);
+  }
+};
 
+// 🔹 Helper untuk mendapatkan token dari localStorage
+const getAuthToken = () => {
+  return localStorage.getItem("token"); // Ambil token dari localStorage
+};
+
+// 🔹 1. Registrasi Mentor
 export const registerMentor = async (formData) => {
   try {
     const response = await axios.post(
@@ -17,31 +35,71 @@ export const registerMentor = async (formData) => {
     );
     return response.data;
   } catch (error) {
-    console.error("Error registering mentor:", error);
-    throw error;
+    handleApiError(error);
   }
 };
 
+// 🔹 2. Login Mentor
 export const loginMentor = async (formData) => {
   try {
     const response = await axios.post(`${API_URL}/api/login/user`, formData);
+    if (response.data.token) {
+      localStorage.setItem("token", response.data.token); // Simpan token ke localStorage
+    }
     return response.data;
   } catch (error) {
-    alert("email or password Incorrect");
-    console.error("Error logging in mentor:", error);
-    throw error;
+    handleApiError(error);
   }
 };
 
-// tampilkan activity mentor
-
-const ActivittyMentor = `${API_URL}/api/activity/mentor`;
+// 🔹 3. Mendapatkan Aktivitas Mentor (Butuh Token)
 export const getActivityMentor = async (mentorId) => {
   try {
-    const response = await axios.get(`${ActivittyMentor}/${mentorId}`);
+    const token = getAuthToken();
+    const response = await axios.get(
+      `${API_URL}/api/activity/mentor/${mentorId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // Tambahkan token ke header Authorization
+        },
+      }
+    );
     return response.data;
   } catch (error) {
-    alert("Gagal Mengambil data", error);
-    throw error;
+    handleApiError(error);
+  }
+};
+
+export const getCourseMentor = async () => {
+  try {
+    const token = getAuthToken();
+    if (!token)
+      throw new Error("Token tidak ditemukan. Silakan login kembali.");
+
+    const response = await axios.get(`${API_URL}/api/project/all/`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+// 🔹 Membuat Project Baru (Butuh Token)
+export const createCourseMentor = async (formData) => {
+  try {
+    const token = getAuthToken();
+    if (!token)
+      throw new Error("Token tidak ditemukan. Silakan login kembali.");
+
+    const response = await axios.post(`${API_URL}/api/project/new`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
   }
 };

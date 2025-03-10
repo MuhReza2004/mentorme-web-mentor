@@ -1,33 +1,56 @@
 import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
-import { FaArrowLeft, FaListUl, FaPen } from "react-icons/fa";
+import { useState } from "react";
+import { FaArrowLeft } from "react-icons/fa";
+import { createCourseMentor } from "../../services/api";
 
 const CreateCourseContent = () => {
   const navigate = useNavigate();
-  const [projectName, setProjectName] = useState("");
-  const [projectDescription, setProjectDescription] = useState("");
-  const [projectCategory, setProjectCategory] = useState("");
-  const [videoFile, setVideoFile] = useState(null);
-  const [price, setPrice] = useState("");
-  const [sessions, setSessions] = useState([
-    { id: 1, title: "Pertemuan 1", status: "Belum Dibuat" },
-    { id: 2, title: "Pertemuan 2", status: "Belum Dibuat" },
-    { id: 3, title: "Pertemuan 3", status: "Belum Dibuat" },
-    { id: 4, title: "Pertemuan 4", status: "Belum Dibuat" },
-  ]);
+  const [formData, setFormData] = useState({
+    info: "",
+    linkVideo: "",
+    materialName: "",
+    price: "",
+    learningPath: "",
+    picture: null,
+  });
 
-  const handleVideoChange = (e) => {
-    setVideoFile(e.target.files[0]);
+  // Handle perubahan input teks
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  const handleSubmit = (e) => {
+  // Handle perubahan file upload
+  const handleFileChange = (e) => {
+    setFormData({
+      ...formData,
+      picture: e.target.files[0],
+    });
+  };
+
+  // Handle submit form
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Project Name:", projectName);
-    console.log("Project Description:", projectDescription);
-    console.log("Project Category:", projectCategory);
-    console.log("Video File:", videoFile);
-    console.log("Price:", price);
-    console.log("Sessions:", sessions);
+
+    const courseData = new FormData();
+    courseData.append("info", formData.info);
+    courseData.append("linkVideo", formData.linkVideo);
+    courseData.append("materialName", formData.materialName);
+    courseData.append("price", formData.price);
+    courseData.append("learningPath", formData.learningPath);
+    courseData.append("picture", formData.picture);
+
+    try {
+      const response = await createCourseMentor(courseData);
+      alert("Course berhasil dibuat!");
+      console.log("Success:", response);
+      navigate("/dashboard"); // Arahkan ke halaman dashboard setelah sukses
+    } catch (error) {
+      alert("Gagal membuat course. Silakan coba lagi.");
+      console.error("Error:", error);
+    }
   };
 
   return (
@@ -47,106 +70,85 @@ const CreateCourseContent = () => {
         {/* Form */}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="projectName" className="block text-gray-700 font-bold mb-2">
+            <label className="block text-gray-700 font-bold mb-2">
+              Deskripsi Course
+            </label>
+            <input
+              type="text"
+              name="info"
+              value={formData.info}
+              onChange={handleChange}
+              className="w-full border rounded-lg p-2"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">
+              Link Video
+            </label>
+            <input
+              type="text"
+              name="linkVideo"
+              value={formData.linkVideo}
+              onChange={handleChange}
+              className="w-full border rounded-lg p-2"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">
               Project Name
             </label>
             <input
               type="text"
-              id="projectName"
-              value={projectName}
-              onChange={(e) => setProjectName(e.target.value)}
+              name="materialName"
+              value={formData.materialName}
+              onChange={handleChange}
               className="w-full border rounded-lg p-2"
               required
             />
           </div>
 
           <div className="mb-4">
-            <label htmlFor="projectDescription" className="block text-gray-700 font-bold mb-2">
-              Project Description
-            </label>
-            <textarea
-              id="projectDescription"
-              value={projectDescription}
-              onChange={(e) => setProjectDescription(e.target.value)}
+            <label className="block text-gray-700 font-bold mb-2">Price</label>
+            <input
+              type="number"
+              name="price"
+              value={formData.price}
+              onChange={handleChange}
               className="w-full border rounded-lg p-2"
-              rows="4"
               required
             />
           </div>
 
           <div className="mb-4">
-            <label htmlFor="projectCategory" className="block text-gray-700 font-bold mb-2">
-              Project Category
+            <label className="block text-gray-700 font-bold mb-2">
+              Learning Path
             </label>
-            <select
-              id="projectCategory"
-              value={projectCategory}
-              onChange={(e) => setProjectCategory(e.target.value)}
+            <input
+              type="text"
+              name="learningPath"
+              value={formData.learningPath}
+              onChange={handleChange}
               className="w-full border rounded-lg p-2"
               required
-            >
-              <option value="">Select Category</option>
-              <option value="web-development">Web Development</option>
-              <option value="data-science">Data Science</option>
-              <option value="design">Design</option>
-              <option value="marketing">Marketing</option>
-            </select>
+            />
           </div>
 
           <div className="mb-4">
-            <label htmlFor="videoUpload" className="block text-gray-700 font-bold mb-2">
-              Upload Video
+            <label className="block text-gray-700 font-bold mb-2">
+              Upload Picture
             </label>
             <input
               type="file"
-              id="videoUpload"
-              accept="video/*"
-              onChange={handleVideoChange}
+              name="picture"
+              accept="image/*"
+              onChange={handleFileChange}
               className="w-full border rounded-lg p-2"
               required
             />
-          </div>
-
-          <div className="mb-4">
-            <label htmlFor="price" className="block text-gray-700 font-bold mb-2">
-              Price
-            </label>
-            <input
-              type="number"
-              id="price"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              className="w-full border rounded-lg p-2"
-              required
-            />
-          </div>
-
-          {/* Daftar Pertemuan */}
-          <div className="mb-4">
-            <h3 className="text-lg font-bold mb-2">Daftar Pertemuan</h3>
-            {sessions.map((session) => (
-              <div
-                key={session.id}
-                className="bg-gray-100 shadow-sm rounded-lg p-4 mb-3 flex justify-between items-center"
-              >
-                <div>
-                  <h4 className="font-semibold">{session.title}</h4>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault(); // Mencegah reload
-                      navigate("/CreateSyllabus");
-                    }}
-                    className="bg-teal-500 text-white px-4 py-2 rounded mt-2 hover:bg-teal-600 transition"
-                  >
-                    Isi Silabus
-                  </button>
-                </div>
-                <div className="text-red-500 flex items-center">
-                  <FaListUl className="mr-2" /> <FaPen className="mr-2" />
-                  <span>{session.status}</span>
-                </div>
-              </div>
-            ))}
           </div>
 
           {/* Submit Button */}
