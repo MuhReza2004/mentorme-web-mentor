@@ -15,6 +15,7 @@ import DetailMyCourse from "./pages/DetailMyCourse";
 import DetailSyllabus from "./pages/DetailSyllabus";
 import MateriPembelajaran from "./pages/MateriPembelajaran";
 import ProtectedRoute from "./components/ProtectedRoute";
+import DetailCreateSyllabus from "./pages/DetailCreateSyllabus";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route path="/DetailMyCourse" element={<DetailMyCourse />} />
         <Route path="/DetailSyllabus" element={<DetailSyllabus />} />
         <Route path="/MateriPembelajaran" element={<MateriPembelajaran />} />
+        <Route path="/DetailCreateSyllabus" element={<DetailCreateSyllabus />} />
         <Route
           path="/dashboard"
           element={
