@@ -103,3 +103,63 @@ export const createCourseMentor = async (formData) => {
     handleApiError(error);
   }
 };
+
+// Menampilkan Data Mentor yang sudah di Acc
+
+export const getAccpetedMentor = async () => {
+  try {
+    const token = getAuthToken();
+    if (!token) {
+      throw new Error("Token tidak ditemukan. Silakan login kembali.");
+    }
+
+    const response = await axios.get(`${API_URL}/api/project/accepted`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+// Menampilkan data mentor yang masih pending
+
+export const getPendingMentor = async () => {
+  try {
+    const token = getAuthToken();
+    if (!token) {
+      throw new Error("Token tidak ditemukan. Silakan login kembali.");
+    }
+
+    const response = await axios.get(`${API_URL}/api/pending/mentor`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+// Menampilkan data course yang ditolak
+
+export const getRejectedMentor = async () => {
+  try {
+    const token = getAuthToken();
+    if (!token) {
+      throw new Error("Token tidak ditemukan. Silakan login kembali.");
+    }
+
+    const response = await axios.get(`${API_URL}/api/reject/mentor`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
