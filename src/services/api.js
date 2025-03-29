@@ -163,3 +163,21 @@ export const getRejectedMentor = async () => {
     handleApiError(error);
   }
 };
+
+export const GetBuyProject = async () => {
+  try {
+    const token = getAuthToken();
+    if (!token) {
+      throw new Error("Token tidak ditemukan. SIlahkan login terlebih dahulu.");
+    }
+
+    const response = await axios.get(`${API_URL}/api/project/buy`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
