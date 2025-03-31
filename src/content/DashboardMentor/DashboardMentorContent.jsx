@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { GetBuyProject } from "../../services/api";
 import { motion } from "framer-motion"; // Import Framer Motion
+import { Navigate, useNavigate } from "react-router-dom";
 
 const DashboardMentorContent = () => {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate(); 
+
 
   useEffect(() => {
     const fetchActivities = async () => {
@@ -45,12 +48,13 @@ const DashboardMentorContent = () => {
 
   // Komponen Card untuk menampilkan data mentor
   const MentorCard = ({ item }) => (
-    <motion.div
+    <motion.button
       key={item.ID}
       className="bg-white shadow-lg rounded-xl p-3 hover:shadow-xl transition w-40 sm:w-48"
       variants={cardVariants}
       initial="hidden"
       animate="visible"
+      onClick={() => navigate(`/DetailActivityTrainee/${item.ID}`)}
     >
       <img
         src={`data:image/png;base64,${item.picture}`}
@@ -85,7 +89,7 @@ const DashboardMentorContent = () => {
           </p>
         </div>
       </div>
-    </motion.div>
+    </motion.button>
   );
 
   return (

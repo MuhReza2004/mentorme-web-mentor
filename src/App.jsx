@@ -16,6 +16,7 @@ import DetailSyllabus from "./pages/DetailSyllabus";
 import MateriPembelajaran from "./pages/MateriPembelajaran";
 import ProtectedRoute from "./components/ProtectedRoute";
 import DetailCreateSyllabus from "./pages/DetailCreateSyllabus";
+import DetailActivityTrainee from "./pages/DashboardPages/DetailActivityTrainee";
 
 function App() {
   return (
@@ -30,13 +31,14 @@ function App() {
         <Route path="/MyCourse" element={<MyCourse />} />
         <Route path="/CreateCourse" element={<CreateCourse />} />
         <Route path="/ProgressTrainee" element={<ProgressTrainee />} />
-        <Route path="/TraineeActivity" element={<TraineeActivity />} />
+        <Route path="/TraineeActivity/:IDActivity" element={<TraineeActivity />} />
         <Route path="/CreateSyllabus" element={<CreateSyllabus />} />
         <Route path="ChatMentor" element={<ChatMentor />} />
         <Route path="/DetailMyCourse" element={<DetailMyCourse />} />
         <Route path="/DetailSyllabus" element={<DetailSyllabus />} />
         <Route path="/MateriPembelajaran" element={<MateriPembelajaran />} />
         <Route path="/DetailCreateSyllabus" element={<DetailCreateSyllabus />} />
+        <Route path="/DetailActivityTrainee/:activityId" element={<DetailActivityTrainee />} />
         <Route
           path="/dashboard"
           element={

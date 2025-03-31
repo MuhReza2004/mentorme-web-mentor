@@ -181,3 +181,42 @@ export const GetBuyProject = async () => {
     handleApiError(error);
   }
 };
+
+// Get Activity Trainee For Report
+export const GetDetailActivityTrainee = async (activityId) => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.get(
+      `${API_URL}/api/activity/${activityId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // Tambahkan token ke header Authorization
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+// 🔹 Report Content Activity By Mentor
+export const reportActivityByMentor = async (IDActivity, formData) => {
+  try {
+    const token = getAuthToken();
+    if (!token) {
+      throw new Error("Token tidak ditemukan. Silakan login terlebih dahulu.");
+    }
+
+    const response = await axios.put(`${API_URL}/api/report/${IDActivity}`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
