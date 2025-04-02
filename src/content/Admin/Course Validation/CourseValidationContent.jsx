@@ -53,11 +53,13 @@ const CourseValidationContent = () => {
       {loading && <p>Loading...</p>}
       
       {/* Course Cards Grid */}
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-wrap gap-4 ">
         {courses.length > 0 ? (
           courses.map((course, index) => (
-            <div key={index} className="bg-white shadow-md rounded-xl p-4 flex flex-col items-center text-center border">
-              <img src={course.picture || "https://via.placeholder.com/150"} alt="Course" className="w-32 h-32 object-cover rounded-lg mb-4" />
+            <div key={index} className="bg-white shadow-md rounded-xl p-2 w-48 h-60 flex flex-col items-center text-center border ">
+              <img src={`data:image/png;base64,${course.picture}`}
+                  alt="Course Image" 
+                  className="w-24 h-24 object-cover rounded-lg mb-4" />
               <h2 className="text-lg font-semibold">{course.mentor}</h2>
               <p className="text-gray-700">Course: {course.materialName}</p>
               <p className={`font-semibold ${selectedFilter === "Diterima" ? "text-green-500" : selectedFilter === "Ditolak" ? "text-red-500" : "text-yellow-500"}`}>{selectedFilter}</p>

@@ -7,7 +7,7 @@ const firebaseConfig = {
   authDomain: "mentorme-aaa37.firebaseapp.com",
   databaseURL: "https://mentorme-aaa37-default-rtdb.firebaseio.com",
   projectId: "mentorme-aaa37",
-  storageBucket: "mentorme-aaa37.firebasestorage.app",
+  storageBucket: "mentorme-aaa37.appspot.com", // ✅ Diperbaiki
   messagingSenderId: "131671305259",
   appId: "1:131671305259:web:d03a9db47d68e0c3618e6e",
   measurementId: "G-D7MXRJV2K9"
@@ -17,9 +17,5 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-
-console.log("Firebase Initialized:", app);
-console.log("Auth Instance:", auth);
-console.log("Firestore Instance:", db);
 
 export { auth, db };
