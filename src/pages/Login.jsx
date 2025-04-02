@@ -28,17 +28,21 @@ const Login = () => {
         setError(errorMessage);
         // alert(errorMessage);
       }
-
+      console.log("Response Data:", response.data);
       localStorage.setItem("name", response.data.name);  // Pastikan 'name' ada dalam response.data
+      console.log("Name saved to localStorage:", localStorage.getItem("name"));
       localStorage.setItem("user", JSON.stringify(response.data));
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("role", response.data.role.role);
       console.log("Role saved to localStorage:", localStorage.getItem("role"));
-      if(response.data.role.role === "MENTOR") {
-        navigate("/dashboard");
-      }else {
-        navigate("/DasboardAdmin")
-      }
+      
+      if (response.data.role.role === "MENTOR") {
+    navigate("/dashboard");
+  } else if (response.data.role.role === "ADMIN") {
+    navigate("/DashboardAdmin");
+  } else {
+  setError("Data pengguna tidak valid.");
+}
       
     } catch (error) {
       console.error("Terjadi kesalahan saat menghubungkan ke server!", error);

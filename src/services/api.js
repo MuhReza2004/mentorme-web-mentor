@@ -221,3 +221,98 @@ export const reportActivityByMentor = async (IDActivity, formData) => {
     handleApiError(error);
   }
 };
+
+// 🔹 List Project Pending By Admin
+export const ListProjectPendingByAdmin = async () => {
+  try {
+    const token = getAuthToken();
+    if (!token) {
+      throw new Error("Token tidak ditemukan. SIlahkan login terlebih dahulu.");
+    }
+
+    const response = await axios.get(`${API_URL}/api/project/pending`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+// 🔹 List Project Accepted By Admin
+export const ListProjectAcceptedByAdmin = async () => {
+  try {
+    const token = getAuthToken();
+    if (!token) {
+      throw new Error("Token tidak ditemukan. SIlahkan login terlebih dahulu.");
+    }
+
+    const response = await axios.get(`${API_URL}/api/project/all`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+// 🔹 List Project Rejected By Admin
+export const ListProjectRejectedByAdmin = async () => {
+  try {
+    const token = getAuthToken();
+    if (!token) {
+      throw new Error("Token tidak ditemukan. SIlahkan login terlebih dahulu.");
+    }
+
+    const response = await axios.get(`${API_URL}/api/project/reject`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+// 🔹 List Mentor Rejected By Admin
+export const ListMentorRejectedByAdmin = async () => {
+  try {
+    const token = getAuthToken();
+    if (!token) {
+      throw new Error("Token tidak ditemukan. SIlahkan login terlebih dahulu.");
+    }
+
+    const response = await axios.get(`${API_URL}/api/user/reject`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+// 🔹 List Mentor Pending By Admin
+export const ListMentorPendingByAdmin = async () => {
+  try {
+    const token = getAuthToken();
+    if (!token) {
+      throw new Error("Token tidak ditemukan. SIlahkan login terlebih dahulu.");
+    }
+
+    const response = await axios.get(`${API_URL}/api/mentor/pending`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};

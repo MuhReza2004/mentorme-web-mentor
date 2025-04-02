@@ -8,14 +8,21 @@ import { doc, getDoc } from "firebase/firestore";
 const SideBar = () => {
   const location = useLocation();
   const [role, setRole] = useState(null); // Default null
+  const [name, setName] = useState("");
 
   // Ambil role dari localStorage saat pertama kali render
   useEffect(() => {
     const storedRole = localStorage.getItem("role");
+    const storedName = localStorage.getItem("name");
     if (storedRole) {
       console.log("Role loaded from localStorage:", storedRole);
       setRole(storedRole);
     }
+
+      if (storedName) {
+    console.log("Name loaded from localStorage:", storedName);
+    setName(storedName); // Simpan ke state
+  }
   }, []);
 
   useEffect(() => {
@@ -47,7 +54,7 @@ const SideBar = () => {
           className="w-8 h-8 rounded-full"
         />
         <div>
-          <span className="block font-bold">User {role}</span>
+          <span className="block font-bold">{name}</span>
           <span className="block text-sm">{role}</span>
         </div>
         <ChevronDown size={16} />
