@@ -1,4 +1,6 @@
 import DashboardLayout from "../layout/dashboardLayout";
+import { auth, db } from "/src/firebaseConfig";
+
 
 const Dashboard = () => {
     

@@ -17,6 +17,8 @@ import MateriPembelajaran from "./pages/MateriPembelajaran";
 import ProtectedRoute from "./components/ProtectedRoute";
 import DetailCreateSyllabus from "./pages/DetailCreateSyllabus";
 import DetailActivityTrainee from "./pages/DashboardPages/DetailActivityTrainee";
+import CourseValidation from "./pages/AdminPages/CourseValidationPages/CourseValidation";
+import DashboardAdmin from "./pages/AdminPages/DashboardPages/DashboardAdminPages";
 
 function App() {
   return (
@@ -39,6 +41,8 @@ function App() {
         <Route path="/MateriPembelajaran" element={<MateriPembelajaran />} />
         <Route path="/DetailCreateSyllabus" element={<DetailCreateSyllabus />} />
         <Route path="/DetailActivityTrainee/:activityId" element={<DetailActivityTrainee />} />
+        <Route path="/CourseValidation" element={<CourseValidation />} />
+        <Route path="/DashboardAdmin" element={<DashboardAdmin />} />
         <Route
           path="/dashboard"
           element={

@@ -45,6 +45,7 @@ export const loginMentor = async (formData) => {
     const response = await axios.post(`${API_URL}/api/login/user`, formData);
     if (response.data.token) {
       localStorage.setItem("token", response.data.token); // Simpan token ke localStorage
+      localStorage.setItem("role", response.data.role.role); // Simpan token ke localStorage
     }
     return response.data;
   } catch (error) {

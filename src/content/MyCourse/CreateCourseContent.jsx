@@ -133,7 +133,7 @@ const CreateCourseContent = () => {
               value={formData.learningPath}
               onChange={handleChange}
               className="w-full border rounded-lg p-2"
-              required
+              // required
             />
           </div>
 
