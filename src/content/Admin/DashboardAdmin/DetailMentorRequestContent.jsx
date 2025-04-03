@@ -1,28 +1,39 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { ListMentorPendingByAdmin } from "../../../services/api"; // Sesuaikan dengan path yang benar
+import LoadingSpinner from "../../../components/Loading/LoadingSpinner";
 
 const DetailMentorRequestContent = () => {
   const { email } = useParams(); // Ambil email dari URL
   const [mentor, setMentor] = useState(null);
+  const [loading, setLoading] = useState(true); // 🔥 Tambahkan state loading
 
   useEffect(() => {
     fetchMentorDetail();
   }, []);
 
   const fetchMentorDetail = async () => {
+    setLoading(true);
     try {
       const response = await ListMentorPendingByAdmin();
       const mentorData = response?.data.find((m) => m.email === email) || null;
       setMentor(mentorData);
+     console.log(mentorData); // 🔥 Tambahkan log untuk melihat data mentor 
     } catch (error) {
       console.error("Gagal mengambil detail mentor:", error);
+    } finally {
+      setLoading(false); // 🔥 Matikan loading setelah data diambil
     }
   };
 
-  if (!mentor) {
-    return <p className="text-center w-full">Memuat data mentor...</p>;
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <LoadingSpinner size="10" color="gray-900" />
+      </div>
+    );
   }
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-3xl">
@@ -31,14 +42,13 @@ const DetailMentorRequestContent = () => {
         <div className="flex items-center gap-6 mb-6">
           <img 
             src={`data:image/png;base64,${mentor.picture}`} 
-            alt="Mentor Image" 
+            alt="Mentor Image"  
             className="w-24 h-24 object-cover rounded-lg mb-4" 
           />
           <div>
             <p className="text-lg font-semibold">Nama: <span className="font-normal">{mentor.fullName}</span></p>
-            
             <p className="text-lg font-semibold">Email: <span className="font-normal">{mentor.email}</span></p>
-            <p className="text-lg font-semibold">Role: <span className="font-normal">{mentor.ability}</span></p>
+            <p className="text-lg font-semibold">Ability: <span className="font-normal">{mentor.ability}</span></p>
             <p className="text-lg font-semibold">Portofolio: <span className="font-normal">{mentor.portfolio}</span></p>
           </div>
         </div>

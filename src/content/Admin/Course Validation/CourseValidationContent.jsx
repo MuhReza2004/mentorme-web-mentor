@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; 
 import { ListProjectPendingByAdmin, ListProjectAcceptedByAdmin, ListProjectRejectedByAdmin } from "../../../services/api"; 
+import LoadingSpinner from "../../../components/Loading/LoadingSpinner"; // Pastikan path importnya benar
 
 const CourseValidationContent = () => {
   const [selectedFilter, setSelectedFilter] = useState("Permintaan");
@@ -52,33 +53,41 @@ const CourseValidationContent = () => {
       </div>
       
       {/* Loading Indicator */}
-      {loading && <p>Loading...</p>}
-      
-      {/* Course Cards Grid */}
-      <div className="flex flex-wrap gap-4">
-        {courses.length > 0 ? (
-          courses.map((course, index) => (
-            <div key={index} className="bg-white shadow-md rounded-xl p-2 w-48 h-60 flex flex-col items-center text-center border">
-              <img 
-                src={`data:image/png;base64,${course.picture}`} 
-                alt="Course Image" 
-                className="w-24 h-24 object-cover rounded-lg mb-4" 
-              />
-              <h2 className="text-lg font-semibold">{course.mentor}</h2>
-              <p className="text-gray-700">Course: {course.materialName}</p>
-              <p className={`font-semibold ${selectedFilter === "Diterima" ? "text-green-500" : selectedFilter === "Ditolak" ? "text-red-500" : "text-yellow-500"}`}>{selectedFilter}</p>
-              <button 
-                className="text-blue-600 mt-2 font-medium"
-                onClick={() => handleDetailClick(course.ID)} 
-              >
-                Lihat Detail &gt;
-              </button>
-            </div>
-          ))
-        ) : (
-          <p>No courses available</p>
-        )}
-      </div>
+      {loading ? (
+        <div className="flex justify-center items-center min-h-screen">
+          <LoadingSpinner size="10" color="gray-900" />
+        </div>
+      ) : (
+        // Course Cards Grid
+        <div className="flex flex-wrap gap-4">
+          {courses.length > 0 ? (
+            courses.map((course, index) => (
+              <div key={index} className="bg-white shadow-md rounded-xl p-2 w-48 h-60 flex flex-col items-center text-center border">
+                <img 
+                  src={`data:image/png;base64,${course.picture}`} 
+                  alt="Course Image" 
+                  className="w-24 h-24 object-cover rounded-lg mb-4" 
+                />
+                <h2 className="text-lg font-semibold">{course.mentor}</h2>
+                <p className="text-gray-700">Course: {course.materialName}</p>
+                <p className={`font-semibold ${selectedFilter === "Diterima" ? "text-green-500" : selectedFilter === "Ditolak" ? "text-red-500" : "text-yellow-500"}`}>{selectedFilter}</p>
+
+                {/* Kondisi untuk menampilkan tombol detail hanya jika statusnya "Permintaan" */}
+                {selectedFilter === "Permintaan" && (
+                  <button 
+                    className="text-blue-600 mt-2 font-medium"
+                    onClick={() => handleDetailClick(course.ID)} 
+                  >
+                    Lihat Detail &gt;
+                  </button>
+                )}
+              </div>
+            ))
+          ) : (
+            <p>No courses available</p>
+          )}
+        </div>
+      )}
     </div>
   );
 };
