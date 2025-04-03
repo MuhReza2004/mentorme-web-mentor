@@ -85,12 +85,15 @@ const DashboardAdminContent = () => {
                   {mentor.fullName}
                 </h2>
                 <p className="text-sm text-red-500 font-semibold">{mentor.status}</p>
+
+                {selectedFilter ==="Permintaan" && (
                 <button
                   className="text-blue-600 mt-2 font-medium hover:underline"
                   onClick={() => navigate(`/DetailMentorRequest/${mentor.email}`)}
                 >
                   Lihat Detail &gt;
                 </button>
+                )}
               </motion.div>
             ))
           ) : (

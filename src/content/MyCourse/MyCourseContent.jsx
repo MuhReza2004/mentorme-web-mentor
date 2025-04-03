@@ -135,7 +135,7 @@ const CourseContent = () => {
         </div>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-4 gap-6">
         {getCurrentCourses().length > 0 ? (
           getCurrentCourses().map((Course) => (
             <div
@@ -229,7 +229,7 @@ const CourseContent = () => {
             </div>
           ))
         ) : (
-          <div className="col-span-3">
+          <div className="col-span-4">
             <div className="flex flex-col items-center justify-center py-20 bg-white rounded-xl shadow-md">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
