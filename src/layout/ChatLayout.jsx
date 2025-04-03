@@ -1,16 +1,20 @@
-import NavbarMentor from "../components/NavbarMentor"
-import SideBar from "../components/Sidebar"
-import ChatContent from "../content/Chat/ChatContent"
+import { useState } from "react";
+import SideBar from "../components/Sidebar";
+import RightSidebar from "../components/SidebarChat";
+import ChatContent from "../content/Chat/ChatContent";
 
 const ChatLayout = () => {
-    return (
-            <div className="flex">
-      <SideBar />
-      <main className="flex-1 pt-0">
-        <ChatContent />
-      </main>
-    </div>
-    )
-}
+  const [selectedChatRoom, setSelectedChatRoom] = useState(null);
 
-export default ChatLayout
+  return (
+    <div className="flex h-screen">
+      <SideBar />
+      <main className="flex-1">
+        <ChatContent selectedChatRoom={selectedChatRoom} /> {/* 🔥 Kirim ID room ke ChatContent */}
+      </main>
+      <RightSidebar onSelectChat={setSelectedChatRoom} /> {/* 🔥 Pilih chat dari RightSidebar */}
+    </div>
+  );
+};
+
+export default ChatLayout;

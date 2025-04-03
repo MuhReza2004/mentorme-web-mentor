@@ -19,6 +19,8 @@ import DetailCreateSyllabus from "./pages/DetailCreateSyllabus";
 import DetailActivityTrainee from "./pages/DashboardPages/DetailActivityTrainee";
 import CourseValidation from "./pages/AdminPages/CourseValidationPages/CourseValidation";
 import DashboardAdmin from "./pages/AdminPages/DashboardPages/DashboardAdminPages";
+import DetailMentorRequest from "./pages/AdminPages/DashboardPages/DetailMentorRequestPages";
+import DetailCourseValidation from "./pages/AdminPages/CourseValidationPages/DetailCourseValidationPages";
 
 function App() {
   return (
@@ -43,6 +45,8 @@ function App() {
         <Route path="/DetailActivityTrainee/:activityId" element={<DetailActivityTrainee />} />
         <Route path="/CourseValidation" element={<CourseValidation />} />
         <Route path="/DashboardAdmin" element={<DashboardAdmin />} />
+        <Route path="/DetailMentorRequest/:email" element={<DetailMentorRequest />} />
+        <Route path="/DetailCourseValidation/:ID" element={<DetailCourseValidation />} />
         <Route
           path="/dashboard"
           element={

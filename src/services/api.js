@@ -241,6 +241,25 @@ export const ListProjectPendingByAdmin = async () => {
   }
 };
 
+// 🔹 Detail Project Pending By Admin
+export const DetailProjectPendingByAdmin = async (projectId) => {
+  try {
+    const token = getAuthToken();
+    if (!token) {
+      throw new Error("Token tidak ditemukan. SIlahkan login terlebih dahulu.");
+    }
+
+    const response = await axios.get(`${API_URL}/api/project/pending/${projectId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
 // 🔹 List Project Accepted By Admin
 export const ListProjectAcceptedByAdmin = async () => {
   try {
@@ -260,6 +279,25 @@ export const ListProjectAcceptedByAdmin = async () => {
   }
 };
 
+// 🔹 Detail Project Accepted By Admin
+export const DetailProjectAcceptedByAdmin = async (projectId) => {
+  try {
+    const token = getAuthToken();
+    if (!token) {
+      throw new Error("Token tidak ditemukan. SIlahkan login terlebih dahulu.");
+    }
+
+    const response = await axios.get(`${API_URL}/api/project/all/${projectId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
 // 🔹 List Project Rejected By Admin
 export const ListProjectRejectedByAdmin = async () => {
   try {
@@ -269,6 +307,25 @@ export const ListProjectRejectedByAdmin = async () => {
     }
 
     const response = await axios.get(`${API_URL}/api/project/reject`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+// 🔹 Detail Project Rejected By Admin
+export const DetailProjectRejectedByAdmin = async (projectId) => {
+  try {
+    const token = getAuthToken();
+    if (!token) {
+      throw new Error("Token tidak ditemukan. SIlahkan login terlebih dahulu.");
+    }
+
+    const response = await axios.get(`${API_URL}/api/project/reject/${projectId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -316,3 +373,66 @@ export const ListMentorPendingByAdmin = async () => {
     handleApiError(error);
   }
 };
+
+// 🔹 Get History Chat
+export const GetHistoryChat = async () => {
+  try {
+    const token = getAuthToken();
+    if (!token) {
+      throw new Error("Token tidak ditemukan. SIlahkan login terlebih dahulu.");
+    }
+
+    const response = await axios.get(`${API_URL}/api/chat`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+// 🔹 3. Memulai Chat Pertama Kali
+export const StartChat = async (formData) => {
+  try {
+    const token = getAuthToken();
+    if (!token) {
+      throw new Error("Token tidak ditemukan. SIlahkan login terlebih dahulu.");
+    }
+    const response = await axios.post(`${API_URL}/api/chat`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+    
+// // 🔹 Accept Mentor PUT
+// export const acceptMentor = async (email, reason = null) => {
+//   try {
+//     const token = getAuthToken();
+//     if (!token) {
+//       throw new Error("Token tidak ditemukan. Silakan login kembali.");
+//     }
+
+//     const response = await axios.put(
+//       `${API_URL}/api/accepted/${mentorId}`,
+//       { reason, email }, // Body request sesuai spesifikasi API
+//       {
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//           "Content-Type": "application/json",
+//         },
+//       }
+//     );
+
+//     return response.data;
+//   } catch (error) {
+//     handleApiError(error);
+//   }
+// };
+

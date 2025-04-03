@@ -1,16 +1,16 @@
 import NavbarMentor from "../../../components/NavbarMentor";
 import SideBar from "../../../components/Sidebar";
-import DashboardAdminContent from "../../../content/Admin/DashboardAdmin/DashboardAdminContent";
+import DetailCourseValidationContent from "../../../content/Admin/Course Validation/DetailCourseValidationContent";
 
-const DashboardAdminLayout = () => {
+const DetailCourseValidationLayout = () => {
     return (
          <div className="flex">
       <SideBar />
       <main className="flex-1 pt-0">
-        <DashboardAdminContent />
+        <DetailCourseValidationContent />
       </main>
     </div>
     )
 };
 
-export default DashboardAdminLayout
+export default DetailCourseValidationLayout

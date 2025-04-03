@@ -29,8 +29,10 @@ const Login = () => {
         // alert(errorMessage);
       }
       console.log("Response Data:", response.data);
-      localStorage.setItem("name", response.data.name);  // Pastikan 'name' ada dalam response.data
-      console.log("Name saved to localStorage:", localStorage.getItem("name"));
+      localStorage.setItem("name", response.data.nameUser);  // Pastikan 'name' ada dalam response.data
+      console.log("Name saved to localStorage:", localStorage.getItem("nameUser"));
+      localStorage.setItem("email", response.data.email);  // Pastikan 'name' ada dalam response.data
+      console.log("Name saved to localStorage:", localStorage.getItem("email"));
       localStorage.setItem("user", JSON.stringify(response.data));
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("role", response.data.role.role);
