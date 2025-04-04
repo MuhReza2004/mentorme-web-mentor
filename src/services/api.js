@@ -436,3 +436,23 @@ export const StartChat = async (formData) => {
 //   }
 // };
 
+// 🔹 Update Mentor Profile
+export const updateMentorProfile = async (formData) => {
+  try {
+    const token = getAuthToken();
+    if (!token) {
+      throw new Error("Token tidak ditemukan. Silakan login kembali.");
+    }
+
+    const response = await axios.put(`${API_URL}/api/profile/mentor/update`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};

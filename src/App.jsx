@@ -21,6 +21,9 @@ import CourseValidation from "./pages/AdminPages/CourseValidationPages/CourseVal
 import DashboardAdmin from "./pages/AdminPages/DashboardPages/DashboardAdminPages";
 import DetailMentorRequest from "./pages/AdminPages/DashboardPages/DetailMentorRequestPages";
 import DetailCourseValidation from "./pages/AdminPages/CourseValidationPages/DetailCourseValidationPages";
+import EditProfile from "./pages/ProfilePages/EditProfile";
+import Exchange from "./pages/ProfilePages/Exchange";
+import DetailExchange from "./pages/ProfilePages/DetailExchange";
 
 function App() {
   return (
@@ -45,6 +48,9 @@ function App() {
         <Route path="/DetailActivityTrainee/:activityId" element={<DetailActivityTrainee />} />
         <Route path="/CourseValidation" element={<CourseValidation />} />
         <Route path="/DashboardAdmin" element={<DashboardAdmin />} />
+        <Route path="/EditProfile" element={<EditProfile />} />
+        <Route path="/Exchange" element={<Exchange />} />
+        <Route path="/DetailExchange" element={<DetailExchange />} />
         <Route path="/DetailMentorRequest/:email" element={<DetailMentorRequest />} />
         <Route path="/DetailCourseValidation/:ID" element={<DetailCourseValidation />} />
         <Route
