@@ -1,4 +1,4 @@
-import { Bell, Coins, Plus } from "lucide-react";
+import { Bell, Plus } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const NavbarMentor = () => {
@@ -6,16 +6,15 @@ const NavbarMentor = () => {
   const location = useLocation();
 
   const handleCreateClick = () => {
-    if (location.pathname === "/MyCourse") {
-      navigate("/CreateCourse");
-    } else {
-      navigate("/create-ads");
-    }
+    navigate("/CreateCourse");
   };
 
   const handleBellClick = () => {
     navigate("/notification");
   };
+
+  const showCreateCourseButton =
+    location.pathname === "/MyCourse" || location.pathname === "/dashboard";
 
   return (
     <div className="bg-white shadow-sm py-2">
@@ -39,22 +38,15 @@ const NavbarMentor = () => {
             <Bell className="w-5 h-5 text-white" />
           </button>
 
-          {/* Balance Button */}
-          <button className="bg-[#7DE2D1] px-4 py-2 rounded-xl flex items-center space-x-2 hover:bg-teal-500 transition">
-            <Coins className="w-5 h-5 text-yellow-300" />
-            <span className="text-white font-bold">125.75</span>
-            <div className="bg-[#339989] p-1 rounded-md flex items-center justify-center">
-              <Plus className="w-4 h-4 text-white" />
-            </div>
-          </button>
-
-          {/* Create Button (Dinamically Changed) */}
-          <button
-            onClick={handleCreateClick}
-            className="bg-[#7DE2D1] px-4 py-2 rounded-xl text-white font-semibold hover:bg-teal-500 transition hover:scale-105"
-          >
-            {location.pathname === "/MyCourse" ? "Create Course" : "Create Ads"}
-          </button>
+          {/* Create Course Button (for /MyCourse and /dashboard) */}
+          {showCreateCourseButton && (
+            <button
+              onClick={handleCreateClick}
+              className="bg-[#7DE2D1] px-4 py-2 rounded-xl text-white font-semibold hover:bg-teal-500 transition hover:scale-105"
+            >
+              Create Course
+            </button>
+          )}
         </div>
       </div>
     </div>

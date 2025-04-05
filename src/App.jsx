@@ -24,6 +24,7 @@ import DetailCourseValidation from "./pages/AdminPages/CourseValidationPages/Det
 import EditProfile from "./pages/ProfilePages/EditProfile";
 import Exchange from "./pages/ProfilePages/Exchange";
 import DetailExchange from "./pages/ProfilePages/DetailExchange";
+import Bantuan from "./pages/BantuanPages/BantuanPages";
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
         <Route path="/DashboardAdmin" element={<DashboardAdmin />} />
         <Route path="/EditProfile" element={<EditProfile />} />
         <Route path="/Exchange" element={<Exchange />} />
+        <Route path="/Bantuan" element={<Bantuan />} />
         <Route path="/DetailExchange" element={<DetailExchange />} />
         <Route path="/DetailMentorRequest/:email" element={<DetailMentorRequest />} />
         <Route path="/DetailCourseValidation/:ID" element={<DetailCourseValidation />} />

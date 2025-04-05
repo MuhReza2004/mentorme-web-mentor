@@ -6,13 +6,12 @@ const SideBar = () => {
   const location = useLocation();
   const [role, setRole] = useState(null);
   const [name, setName] = useState("");
-  const [isOpen, setIsOpen] = useState(true); // State untuk toggle sidebar
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State untuk toggle dropdown
+  const [isOpen, setIsOpen] = useState(true);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     const storedRole = localStorage.getItem("role");
     const storedName = localStorage.getItem("nameUser");
-    console.log(storedName);
     if (storedRole) setRole(storedRole);
     if (storedName) setName(storedName);
   }, []);
@@ -31,8 +30,7 @@ const SideBar = () => {
       {role === "MENTOR" && (
         <button
           className={`p-2 mt-2 rounded-full hover:bg-black-200 transition-all duration-300 
-          ${isOpen ? "self-end mr-3" : "mx-auto"}
-        `}
+          ${isOpen ? "self-end mr-3" : "mx-auto"}`}
           onClick={() => setIsOpen(!isOpen)}
         >
           <Menu size={24} />
@@ -69,12 +67,11 @@ const SideBar = () => {
           {isOpen && (isDropdownOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />)}
         </div>
 
-        {/* Dropdown Menu */}
-        {isDropdownOpen && isOpen && (
+        {/* Dropdown Menu hanya untuk Mentor */}
+        {isDropdownOpen && isOpen && role === "MENTOR" && (
           <div className="absolute top-full left-3 bg-white shadow-md rounded-lg p-3 mt-2 w-48 z-10">
             <NavLink to="/EditProfile" className="block p-2 hover:bg-gray-100">Edit Profile</NavLink>
             <NavLink to="/Exchange" className="block p-2 hover:bg-gray-100">Exchange</NavLink>
-            {/* <NavLink to="/history" className="block p-2 hover:bg-gray-100">History</NavLink> */}
           </div>
         )}
       </div>
@@ -84,33 +81,64 @@ const SideBar = () => {
       <nav className="flex flex-col py-7 gap-2 px-3">
         {role === "MENTOR" ? (
           <>
-            <NavLink to="/dashboard" className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${location.pathname.includes("dashboard") ? "bg-white" : ""}`}>
+            <NavLink
+              to="/dashboard"
+              className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${location.pathname.includes("/dashboard") ? "bg-white" : ""}`}
+            >
               <Home className="w-5 h-5 mr-2" />
               {isOpen && <span>Dashboard</span>}
             </NavLink>
-            <NavLink to="/MyCourse" className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${location.pathname.includes("MyCourse") ? "bg-white" : ""}`}>
+            <NavLink
+              to="/MyCourse"
+              className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${location.pathname.includes("/MyCourse") ? "bg-white" : ""}`}
+            >
               <Layers className="w-5 h-5 mr-2" />
               {isOpen && <span>My Course</span>}
             </NavLink>
           </>
         ) : role === "ADMIN" ? (
           <>
-            <NavLink to="/DashboardAdmin" className="flex items-center p-2 text-gray-800 rounded-lg w-full hover:bg-white">
+            <NavLink
+              to="/DashboardAdmin"
+              className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${location.pathname.includes("/DashboardAdmin") ? "bg-white" : ""}`}
+            >
               <Home className="w-5 h-5 mr-2" />
-              <span>Dashboard Admin</span>
+              {isOpen && <span>Dashboard Admin</span>}
             </NavLink>
-            <NavLink to="/CourseValidation" className="flex items-center p-2 text-gray-800 rounded-lg w-full hover:bg-white">
+            <NavLink
+              to="/CourseValidation"
+              className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${location.pathname.includes("/CourseValidation") ? "bg-white" : ""}`}
+            >
               <Layers className="w-5 h-5 mr-2" />
-              <span>Course Validation</span>
+              {isOpen && <span>Course Validation</span>}
             </NavLink>
           </>
         ) : null}
 
-        <NavLink to="/ChatMentor" className="flex items-center p-2 text-gray-800 rounded-lg w-full hover:bg-white">
+        {/* Semua role bisa akses Chat */}
+        <NavLink
+          to="/ChatMentor"
+          className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${location.pathname.includes("/ChatMentor") ? "bg-white" : ""}`}
+        >
           <Mail className="w-5 h-5 mr-2" />
           {isOpen && <span>Chat</span>}
         </NavLink>
-        <button onClick={handleLogout} className="flex items-center p-2 text-gray-800 hover:bg-green-300 rounded-lg">
+
+        {/* Bantuan khusus Mentor */}
+        {role === "MENTOR" && (
+          <NavLink
+            to="/Bantuan"
+            className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${location.pathname.includes("/Bantuan") ? "bg-white" : ""}`}
+          >
+            <Layers className="w-5 h-5 mr-2" />
+            {isOpen && <span>Bantuan</span>}
+          </NavLink>
+        )}
+
+        <button
+          onClick={handleLogout}
+          className="flex items-center p-2 text-gray-800 hover:bg-green-300 rounded-lg"
+        >
           <img src="/Icon/logout.png" className="w-6 h-6 mr-2" />
           {isOpen && <span>Logout</span>}
         </button>
