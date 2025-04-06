@@ -13,7 +13,7 @@ const RightSidebar = ({ onSelectChat }) => {
         if (response?.data) {
           let filteredChats = response.data;
 
-          if (role === "mentor") {
+          if (role === "MENTOR" || role === "ADMIN") {
             filteredChats = filteredChats.filter(
               (chat) => chat.nameMentor?.toLowerCase() !== "admin"
             );
@@ -41,7 +41,7 @@ const RightSidebar = ({ onSelectChat }) => {
   };
 
   return (
-    <div className="w-1/4 bg-gray-100 p-4 border-l">
+    <div className="w-1/5 min-h-screen bg-gray-100 p-4 border-l">
       <h2 className="font-bold mb-2">Daftar Chat</h2>
       {chatRooms.length > 0 ? (
         chatRooms.map((chat) => (

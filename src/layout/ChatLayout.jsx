@@ -7,7 +7,7 @@ const ChatLayout = () => {
   const [selectedChatRoom, setSelectedChatRoom] = useState(null);
 
   return (
-    <div className="flex h-screen">
+    <div className="flex min-h-screen">
       <SideBar />
       <main className="flex-1">
         <ChatContent selectedChatRoom={selectedChatRoom} /> {/* 🔥 Kirim ID room ke ChatContent */}

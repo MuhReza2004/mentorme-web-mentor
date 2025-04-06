@@ -25,6 +25,10 @@ import EditProfile from "./pages/ProfilePages/EditProfile";
 import Exchange from "./pages/ProfilePages/Exchange";
 import DetailExchange from "./pages/ProfilePages/DetailExchange";
 import Bantuan from "./pages/BantuanPages/BantuanPages";
+import CreateCategory from "./pages/AdminPages/CreateCategoryPages/CreateCategoryPages";
+import CreateLearningPath from "./pages/AdminPages/CreateLearningPathPages/CreateLearningPathPages";
+import CreateNotification from "./pages/AdminPages/CreateNotificationPages/CreateNotification";
+import Voucher from "./pages/AdminPages/VoucherPages/VoucherPages";
 
 function App() {
   return (
@@ -52,7 +56,11 @@ function App() {
         <Route path="/EditProfile" element={<EditProfile />} />
         <Route path="/Exchange" element={<Exchange />} />
         <Route path="/Bantuan" element={<Bantuan />} />
+        <Route path="/CreateNotification" element={<CreateNotification />} />
+        <Route path="/CreateLearningPath" element={<CreateLearningPath />} />
+        <Route path="/CreateCategory" element={<CreateCategory />} />
         <Route path="/DetailExchange" element={<DetailExchange />} />
+        <Route path="/Voucher" element={<Voucher />} />
         <Route path="/DetailMentorRequest/:email" element={<DetailMentorRequest />} />
         <Route path="/DetailCourseValidation/:ID" element={<DetailCourseValidation />} />
         <Route

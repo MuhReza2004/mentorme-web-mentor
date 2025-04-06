@@ -183,6 +183,9 @@ export const GetBuyProject = async () => {
   }
 };
 
+// ============================================
+// ✅ REPORT FEATURE SECTION
+// ============================================
 // Get Activity Trainee For Report
 export const GetDetailActivityTrainee = async (activityId) => {
   try {
@@ -221,6 +224,10 @@ export const reportActivityByMentor = async (IDActivity, formData) => {
     handleApiError(error);
   }
 };
+
+// ============================================
+// ✅ PROJECT FEATURE SECTION
+// ============================================
 
 // 🔹 List Project Pending By Admin
 export const ListProjectPendingByAdmin = async () => {
@@ -336,6 +343,9 @@ export const DetailProjectRejectedByAdmin = async (projectId) => {
   }
 };
 
+// ============================================
+// ✅ LIST MENTOR FEATURE SECTION
+// ============================================
 // 🔹 List Mentor Rejected By Admin
 export const ListMentorRejectedByAdmin = async () => {
   try {
@@ -373,6 +383,10 @@ export const ListMentorPendingByAdmin = async () => {
     handleApiError(error);
   }
 };
+
+// ============================================
+// ✅ CHAT FEATURE SECTION
+// ============================================
 
 // 🔹 Get History Chat
 export const GetHistoryChat = async () => {
@@ -436,6 +450,10 @@ export const StartChat = async (formData) => {
 //   }
 // };
 
+
+// ============================================
+// ✅ MENTOR FEATURE SECTION
+// ============================================
 // 🔹 Update Mentor Profile
 export const updateMentorProfile = async (formData) => {
   try {
@@ -451,6 +469,185 @@ export const updateMentorProfile = async (formData) => {
       },
     });
 
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+// ============================================
+// ✅ CATEGORY FEATURE SECTION
+// ============================================
+
+// 🔹 Create Category (Admin Only)
+export const createCategory = async (categoryName) => {
+  try {
+    const token = getAuthToken();
+    if (!token) {
+      throw new Error("Token tidak ditemukan. Silakan login terlebih dahulu.");
+    }
+
+    const response = await axios.post(
+      `${API_URL}/api/categories/new`,
+      { name: categoryName },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    return response.data; // Berisi list category terbaru
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+
+// 🔹 Mendapatkan Semua Kategori
+export const getCategories = async () => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.get(`${API_URL}/api/categories`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+
+// ============================================
+// ✅ LEARNING PATH FEATURE SECTION
+// ============================================
+// 🔹 Membuat Learning Path Baru (dengan upload file)
+export const createLearningPath = async (name, categoryName, pictureFile) => {
+  try {
+    const token = getAuthToken();
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("categories", categoryName);
+    formData.append("picture", pictureFile);
+
+    const response = await axios.post(`${API_URL}/api/learn/new`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+
+// ============================================
+// ✅ NOTIFICATION FEATURE SECTION
+// ============================================
+// 🔹 Membuat Notifikasi
+export const createNotification = async (title, message) => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.post(
+      `${API_URL}/api/notif/new`,
+      { title, message },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+// 🔹 Mendapatkan Semua Notifikasi
+export const getAllNotifications = async () => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.get(`${API_URL}/api/notif/all`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+
+// ============================================
+// ✅ VOUCHER FEATURE SECTION
+// ============================================
+
+/**
+ * 🔹 Membuat Voucher Baru
+ * Endpoint: POST /api/voucher/new
+ * Input: { name, discount, quota, expired }
+ * Authorization: Required (Bearer Token)
+ */
+export const createVoucher = async (voucherData) => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.post(
+      `${API_URL}/api/voucher/new`,
+      voucherData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+/**
+ * 🔹 Mengambil Semua Voucher
+ * Endpoint: GET /api/voucher/all
+ * Authorization: Required (Bearer Token)
+ * Output: Array of vouchers
+ */
+export const getAllVouchers = async () => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.get(`${API_URL}/api/voucher/all`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+/**
+ * 🔹 Menghapus Voucher berdasarkan ID
+ * Endpoint: DELETE /api/voucher/:id
+ * Authorization: Required (Bearer Token)
+ */
+export const deleteVoucher = async (voucherId) => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.delete(`${API_URL}/api/voucher/${voucherId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data;
   } catch (error) {
     handleApiError(error);
