@@ -188,7 +188,7 @@ const Register = () => {
           </form>
           <div className="text-center mt-4">
             <p className="text-center text-gray-700 mt-4">
-              Belum punya akun?{" "}
+              Sudah punya akun?{" "}
               <span
                 className="text-green-600 cursor-pointer"
                 onClick={handleLoginClick}
