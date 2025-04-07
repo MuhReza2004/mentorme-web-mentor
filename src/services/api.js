@@ -653,3 +653,18 @@ export const deleteVoucher = async (voucherId) => {
     handleApiError(error);
   }
 };
+
+// 🔹 Mendapatkan Detail MyCourse berdasarkan ID
+export const getDetailMyCourse = async (id) => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.get(`${API_URL}/api/learn/project/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};

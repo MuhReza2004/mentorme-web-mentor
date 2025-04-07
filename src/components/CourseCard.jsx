@@ -5,11 +5,11 @@ const CourseCard = ({
   course,
   status,
   detailPath,
-  labelRole = "Mentor",
+  labelRole = "MENTOR",
   progres,
 }) => {
   const navigate = useNavigate();
-
+  console.log(detailPath, course.id || course.ID)
   const getStatusLabel = () => {
     switch (status) {
       case "accepted":
@@ -66,6 +66,7 @@ const CourseCard = ({
 
         <button
           onClick={() => navigate(`${detailPath}/${course.id || course.ID}`)}
+          
           className="mt-4 w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2.5 rounded-lg transition duration-300 transform hover:scale-[1.02] flex items-center justify-center space-x-2"
         >
           <span>Lihat Detail</span>

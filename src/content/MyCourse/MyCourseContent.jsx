@@ -115,7 +115,7 @@ const CourseContent = () => {
       <div className="grid grid-cols-4 gap-6">
         {getCurrentCourses().length > 0 ? (
           getCurrentCourses().map((course) => (
-            <CourseCard key={course.id} course={course} status={activeTab} detailPath={'/DetailMyCourse'} labelRole="Trainee" />
+            <CourseCard key={course.id} course={course} status={activeTab} detailPath={'/DetailMyCourse'}  />
           ))
         ) : (
           <div className="col-span-4">
