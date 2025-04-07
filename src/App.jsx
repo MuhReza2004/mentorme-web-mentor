@@ -46,7 +46,7 @@ function App() {
         <Route path="/TraineeActivity/:IDActivity" element={<TraineeActivity />} />
         <Route path="/CreateSyllabus" element={<CreateSyllabus />} />
         <Route path="ChatMentor" element={<ChatMentor />} />
-        <Route path="/DetailMyCourse" element={<DetailMyCourse />} />
+        <Route path="/DetailMyCourse/:ID" element={<DetailMyCourse />} />
         <Route path="/DetailSyllabus" element={<DetailSyllabus />} />
         <Route path="/MateriPembelajaran" element={<MateriPembelajaran />} />
         <Route path="/DetailCreateSyllabus" element={<DetailCreateSyllabus />} />
