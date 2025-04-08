@@ -61,7 +61,7 @@ function App() {
         <Route path="/CreateCategory" element={<CreateCategory />} />
         <Route path="/DetailExchange" element={<DetailExchange />} />
         <Route path="/Voucher" element={<Voucher />} />
-        <Route path="/DetailMentorRequest/:email" element={<DetailMentorRequest />} />
+        <Route path="/DetailMentorRequest/:ID" element={<DetailMentorRequest />} />
         <Route path="/DetailCourseValidation/:ID" element={<DetailCourseValidation />} />
         <Route
           path="/dashboard"

@@ -1,30 +1,64 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { ListMentorPendingByAdmin } from "../../../services/api"; // Sesuaikan dengan path yang benar
+import { useParams, useNavigate } from "react-router-dom";
+import { ListMentorPendingByAdmin, acceptMentor } from "../../../services/api";
 import LoadingSpinner from "../../../components/Loading/LoadingSpinner";
 
 const DetailMentorRequestContent = () => {
-  const { email } = useParams(); // Ambil email dari URL
+  const { ID } = useParams(); // Ambil ID dari URL
+  const navigate = useNavigate();
   const [mentor, setMentor] = useState(null);
-  const [loading, setLoading] = useState(true); // 🔥 Tambahkan state loading
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchMentorDetail();
-  }, []);
+useEffect(() => {
+  fetchMentorDetail();
+}, [ID]);
 
-  const fetchMentorDetail = async () => {
-    setLoading(true);
-    try {
-      const response = await ListMentorPendingByAdmin();
-      const mentorData = response?.data.find((m) => m.email === email) || null;
-      setMentor(mentorData);
-     console.log(mentorData); // 🔥 Tambahkan log untuk melihat data mentor 
-    } catch (error) {
-      console.error("Gagal mengambil detail mentor:", error);
-    } finally {
-      setLoading(false); // 🔥 Matikan loading setelah data diambil
-    }
-  };
+
+ const fetchMentorDetail = async () => {
+  setLoading(true);
+  try {
+    const response = await ListMentorPendingByAdmin();
+    const idFromUrl = ID?.trim(); // pastikan tanpa spasi
+    const mentorData = response?.data.find((m) => m.ID.trim() === idFromUrl) || null;
+
+    console.log("ID dari URL:", idFromUrl);
+    console.log("List mentor dari API:", response?.data);
+    console.log("Mentor yang ditemukan:", mentorData);
+
+    setMentor(mentorData);
+  } catch (error) {
+    console.error("Gagal mengambil detail mentor:", error);
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+const handleAccept = async () => {
+  try {
+    await acceptMentor(mentor.ID, null, mentor.email); // Kirim null eksplisit
+    alert("Mentor berhasil diterima.");
+    navigate("/DashboardAdminContent");
+  } catch (error) {
+    console.error("Gagal menerima mentor:", error);
+    alert("Gagal menerima mentor.");
+  }};
+
+
+const handleReject = async () => {
+  const reason = prompt("Masukkan alasan penolakan:");
+  if (!reason || reason.trim() === "") return alert("Penolakan dibatalkan.");
+
+  try {
+    await acceptMentor(mentor.ID, reason.trim(), mentor.email); // Kirim reason jika diisi
+    alert("Mentor berhasil ditolak.");
+    navigate("/DashboardAdminContent");
+  } catch (error) {
+    console.error("Gagal menolak mentor:", error);
+    alert("Gagal menolak mentor.");
+  }
+};
+
 
   if (loading) {
     return (
@@ -33,7 +67,13 @@ const DetailMentorRequestContent = () => {
       </div>
     );
   }
-
+if (!mentor) {
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <p className="text-red-500 text-lg">Data mentor tidak ditemukan.</p>
+    </div>
+  );
+}
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-3xl">
@@ -72,9 +112,24 @@ const DetailMentorRequestContent = () => {
         </div>
 
         <div className="flex justify-end gap-2">
-          <button className="px-4 py-2 bg-gray-300 rounded-lg">Batal</button>
-          <button className="px-4 py-2 bg-red-500 text-white rounded-lg">Tolak</button>
-          <button className="px-4 py-2 bg-green-500 text-white rounded-lg">Terima</button>
+          <button
+            className="px-4 py-2 bg-gray-300 rounded-lg"
+            onClick={() => navigate(-1)}
+          >
+            Batal
+          </button>
+          <button
+            className="px-4 py-2 bg-red-500 text-white rounded-lg"
+            onClick={handleReject}
+          >
+            Tolak
+          </button>
+          <button
+            className="px-4 py-2 bg-green-500 text-white rounded-lg"
+            onClick={handleAccept}
+          >
+            Terima
+          </button>
         </div>
       </div>
     </div>

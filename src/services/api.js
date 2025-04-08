@@ -425,30 +425,31 @@ export const StartChat = async (formData) => {
   }
 };
     
-// // 🔹 Accept Mentor PUT
-// export const acceptMentor = async (email, reason = null) => {
-//   try {
-//     const token = getAuthToken();
-//     if (!token) {
-//       throw new Error("Token tidak ditemukan. Silakan login kembali.");
-//     }
+// 🔹 Accept Mentor PUT
+export const acceptMentor = async (id, reason, email) => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.put(
+      `${API_URL}/api/accepted`, // HAPUS SPASI di sini
+      {
+        reason: reason ?? null, // Pastikan null jika tidak ada alasan
+        email,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Request Error:", error);
+    throw error;
+  }
+};
 
-//     const response = await axios.put(
-//       `${API_URL}/api/accepted/${mentorId}`,
-//       { reason, email }, // Body request sesuai spesifikasi API
-//       {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//           "Content-Type": "application/json",
-//         },
-//       }
-//     );
 
-//     return response.data;
-//   } catch (error) {
-//     handleApiError(error);
-//   }
-// };
+
 
 
 // ============================================
