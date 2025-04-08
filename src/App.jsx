@@ -62,7 +62,7 @@ function App() {
         <Route path="/DetailExchange" element={<DetailExchange />} />
         <Route path="/Voucher" element={<Voucher />} />
         <Route path="/DetailMentorRequest/:ID" element={<DetailMentorRequest />} />
-        <Route path="/DetailCourseValidation/:ID" element={<DetailCourseValidation />} />
+        <Route path="/DetailCourseValidation/:id" element={<DetailCourseValidation />} />
         <Route
           path="/dashboard"
           element={

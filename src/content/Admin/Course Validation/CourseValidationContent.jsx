@@ -69,7 +69,7 @@ const CourseValidationContent = () => {
                   className="w-24 h-24 object-cover rounded-lg mb-4" 
                 />
                 <h2 className="text-lg font-semibold">{course.mentor}</h2>
-                
+
                 <p className="text-gray-700">Course: {course.materialName}</p>
                 <p className={`font-semibold ${selectedFilter === "Diterima" ? "text-green-500" : selectedFilter === "Ditolak" ? "text-red-500" : "text-yellow-500"}`}>{selectedFilter}</p>
 

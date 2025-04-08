@@ -7,7 +7,6 @@ const CreateCategoryContent = () => {
   const [error, setError] = useState("");
   const [categories, setCategories] = useState([]);
 
-  // 🔄 Ambil daftar kategori saat komponen dimount
   useEffect(() => {
     fetchCategories();
   }, []);
@@ -15,7 +14,7 @@ const CreateCategoryContent = () => {
   const fetchCategories = async () => {
     try {
       const data = await getCategories();
-      setCategories(data.data || []); // sesuaikan jika responsenya beda
+      setCategories(data.data || []);
     } catch (err) {
       setError("Gagal memuat kategori");
     }
@@ -29,10 +28,12 @@ const CreateCategoryContent = () => {
     try {
       await createCategory(name);
       setMessage("Kategori berhasil ditambahkan!");
+      alert("Kategori berhasil ditambahkan!");
       setName("");
-      fetchCategories(); // 🔄 Refresh daftar kategori
+      fetchCategories();
     } catch (err) {
-      setError(err.message);
+      setError("Gagal menambahkan kategori.");
+      alert("Gagal menambahkan kategori. Silakan coba lagi.");
     }
   };
 

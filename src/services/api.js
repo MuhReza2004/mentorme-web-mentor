@@ -449,6 +449,29 @@ export const acceptMentor = async (id, reason, email) => {
 };
 
 
+// 🔹 Accept Project
+export const acceptProject = async (id, reason, email) => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.put(
+      `${API_URL}/api/project/accepted/${id}`, // Masukkan ID di URL sesuai konvensi REST
+      {
+        reason: reason ?? null,
+        email,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Request Error (acceptProject):", error);
+    throw error;
+  }
+};
+
 
 
 
@@ -601,7 +624,7 @@ export const createVoucher = async (voucherData) => {
   try {
     const token = getAuthToken();
     const response = await axios.post(
-      `${API_URL}/api/voucher/new`,
+      `${API_URL}/api/voucher/created`,
       voucherData,
       {
         headers: {
