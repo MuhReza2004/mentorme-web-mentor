@@ -4,6 +4,16 @@ import { getDetailMyCourse } from "../../services/api";
 import { FaMoneyBillWave } from "react-icons/fa";
 import { FaChevronRight } from "react-icons/fa6";
 
+// Fungsi bantu untuk konversi YouTube URL ke embed
+const convertToEmbedUrl = (url) => {
+  try {
+    const videoId = new URL(url).searchParams.get("v");
+    return `https://www.youtube.com/embed/${videoId}`;
+  } catch {
+    return null;
+  }
+};
+
 const DetailMyCourseContent = () => {
   const { id } = useParams(); // Ambil ID dari URL
   const navigate = useNavigate();
@@ -55,17 +65,29 @@ const DetailMyCourseContent = () => {
         <div className="mb-6">
           <h3 className="font-semibold mb-2">Video Project</h3>
           <div className="rounded-lg overflow-hidden">
-            <video
-              className="w-full h-48 object-cover rounded-lg"
-              controls
-              aria-label="Video Project"
-            >
-              <source
-                src={course.linkVideo || "/default-video.mp4"}
-                type="video/mp4"
-              />
-              Your browser does not support the video tag.
-            </video>
+            {course.linkVideo?.includes("youtube.com") ? (
+              <div className="aspect-w-16 aspect-h-9">
+                <iframe
+                  className="w-full h-48 rounded-lg"
+                  src={convertToEmbedUrl(course.linkVideo)}
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            ) : course.linkVideo ? (
+              <video
+                className="w-full h-48 object-cover rounded-lg"
+                controls
+                aria-label="Video Project"
+              >
+                <source src={course.linkVideo} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            ) : (
+              <p className="text-sm text-gray-500">Video tidak tersedia.</p>
+            )}
           </div>
         </div>
 
@@ -79,7 +101,7 @@ const DetailMyCourseContent = () => {
 
         {/* Materi Pembelajaran */}
         <button
-          onClick={() => navigate("/MateriPembelajaran")}
+          onClick={() => navigate(`/MateriPembelajaran/${id}`)}
           className="w-full flex items-center justify-between bg-gray-50 p-4 rounded-lg shadow-md hover:bg-gray-200 transition cursor-pointer"
         >
           <span className="text-lg font-semibold">Materi Pembelajaran</span>

@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa";
-import { createCourseMentor } from "../../services/api";
+import { createCourseMentor, getAllLearnPath } from "../../services/api";
 
 const CreateCourseContent = () => {
   const navigate = useNavigate();
+
+  const [learningPaths, setLearningPaths] = useState([]);
   const [formData, setFormData] = useState({
     info: "",
     linkVideo: "",
@@ -14,7 +16,20 @@ const CreateCourseContent = () => {
     picture: null,
   });
 
-  // Handle perubahan input teks
+  useEffect(() => {
+    const fetchLearningPaths = async () => {
+      try {
+        const res = await getAllLearnPath();
+        if (res?.code === 200) {
+          setLearningPaths(res.data || []);
+        }
+      } catch (error) {
+        console.error("Gagal mengambil learning path:", error);
+      }
+    };
+    fetchLearningPaths();
+  }, []);
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -22,7 +37,6 @@ const CreateCourseContent = () => {
     });
   };
 
-  // Handle perubahan file upload
   const handleFileChange = (e) => {
     setFormData({
       ...formData,
@@ -30,7 +44,6 @@ const CreateCourseContent = () => {
     });
   };
 
-  // Handle submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -46,7 +59,7 @@ const CreateCourseContent = () => {
       const response = await createCourseMentor(courseData);
       alert("Course berhasil dibuat!");
       console.log("Success:", response);
-      navigate("/dashboard"); // Arahkan ke halaman dashboard setelah sukses
+      navigate("/dashboard");
     } catch (error) {
       alert("Gagal membuat course. Silakan coba lagi.");
       console.error("Error:", error);
@@ -123,18 +136,25 @@ const CreateCourseContent = () => {
             />
           </div>
 
+          {/* Dropdown Learning Path */}
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2">
               Learning Path
             </label>
-            <input
-              type="text"
+            <select
               name="learningPath"
               value={formData.learningPath}
               onChange={handleChange}
               className="w-full border rounded-lg p-2"
-              // required
-            />
+              required
+            >
+              <option value="">Pilih Learning Path</option>
+              {learningPaths.map((path) => (
+                <option key={path.ID} value={path.name}>
+                  {path.name}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="mb-4">

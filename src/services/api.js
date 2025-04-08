@@ -668,3 +668,69 @@ export const getDetailMyCourse = async (id) => {
     handleApiError(error);
   }
 };
+
+export const getMySylabus = async (id) => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.get(`${API_URL}/api/syllabus/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+export const getDetailSylabus = async (id) => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.get(`${API_URL}/api/syllabus/detail/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+// 🔹 Update Syllabus Berdasarkan ID
+export const updateSyllabus = async (syllabusId, formData) => {
+  try {
+    const token = getAuthToken();
+    if (!token) throw new Error("Token tidak ditemukan. Silakan login kembali.");
+
+    const response = await axios.put(
+      `${API_URL}/api/syllabus/update/${syllabusId}`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          // "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+
+export const getAllLearnPath = async () => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.get(`${API_URL}/api/all/learnpath`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
