@@ -55,27 +55,26 @@ const CreateCourseContent = () => {
     courseData.append("learningPath", formData.learningPath);
     courseData.append("picture", formData.picture);
 
-    try {
-      const response = await createCourseMentor(courseData);
-      console.log("Response dari createCourseMentor:", response);
+try {
+  const response = await createCourseMentor(courseData);
+  console.log("RESPON DARI API:", response);
 
-      // Cari ID course dari response (dukung berbagai kemungkinan struktur response)
-      const courseId =
-        response?.data?.id ||
-        response?.data?.data?.id ||
-        response?.id ||
-        response?.data?.result?.id;
+  if (response?.code === 201) {
+    // const courseId = response.data.ID || response.data.id;
+    // console.log("ID course:", courseId);
+    // console.log("RESPON DARI API:", response);
 
-      if (courseId) {
-        alert("Course berhasil dibuat!");
-        navigate(`/CreateSyllabus/${courseId}`);
-      } else {
-        alert("Course berhasil, tapi ID tidak ditemukan di response.");
-      }
-    } catch (error) {
-      alert("Gagal membuat course. Silakan coba lagi.");
-      console.error("Error saat membuat course:", error);
-    }
+    // if (!courseId) throw new Error("ID course tidak ditemukan di response");
+    const courseId = response.data.id;
+    alert("Course berhasil dibuat!");
+    navigate(`/CreateSyllabus/${courseId}`);
+  } else {
+    throw new Error("Response tidak valid");
+  }
+} catch (error) {
+  alert("Gagal membuat course. Silakan coba lagi.");
+  console.error("Error:", error);
+}
   };
 
   return (
@@ -186,7 +185,7 @@ const CreateCourseContent = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition"
+            className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition"
           >
             Create Course
           </button>

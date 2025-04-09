@@ -45,7 +45,7 @@ function App() {
         <Route path="/CreateCourse" element={<CreateCourse />} />
         <Route path="/ProgressTrainee" element={<ProgressTrainee />} />
         <Route path="/TraineeActivity/:IDActivity" element={<TraineeActivity />} />
-        <Route path="/CreateSyllabus:id" element={<CreateSyllabus />} />
+        <Route path="/CreateSyllabus/:courseId" element={<CreateSyllabus />} />
         <Route path="ChatMentor" element={<ChatMentor />} />
         <Route path="/DetailMyCourse/:id" element={<DetailMyCourse />} />
         <Route path="/DetailSyllabus/:id" element={<DetailSyllabus />} />

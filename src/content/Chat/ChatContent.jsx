@@ -19,7 +19,7 @@ const ChatContent = ({ selectedChatRoom }) => {
 
   const email = localStorage.getItem("email");
   const name = localStorage.getItem("nameUser") || "Anonim";
-  const role = localStorage.getItem("role") || "User";
+  const role = localStorage.getItem("role") || "Mentor";
   const chatEndRef = useRef(null);
 
   // Ambil pesan dari Firestore berdasarkan roomId
