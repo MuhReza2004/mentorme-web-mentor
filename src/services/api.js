@@ -693,6 +693,22 @@ export const getDetailMyCourse = async (id) => {
   }
 };
 
+// Membuat Syllabus Baru
+export const createSyllabus = async (formData) => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.post(`${API_URL}/api/syllabus/new`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+    }
+
 export const getMySylabus = async (id) => {
   try {
     const token = getAuthToken();

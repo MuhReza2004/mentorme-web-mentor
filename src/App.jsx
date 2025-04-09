@@ -29,6 +29,7 @@ import CreateCategory from "./pages/AdminPages/CreateCategoryPages/CreateCategor
 import CreateLearningPath from "./pages/AdminPages/CreateLearningPathPages/CreateLearningPathPages";
 import CreateNotification from "./pages/AdminPages/CreateNotificationPages/CreateNotification";
 import Voucher from "./pages/AdminPages/VoucherPages/VoucherPages";
+import NotificationPage from "./pages/Notification/NotificationPage";
 
 function App() {
   return (
@@ -44,7 +45,7 @@ function App() {
         <Route path="/CreateCourse" element={<CreateCourse />} />
         <Route path="/ProgressTrainee" element={<ProgressTrainee />} />
         <Route path="/TraineeActivity/:IDActivity" element={<TraineeActivity />} />
-        <Route path="/CreateSyllabus" element={<CreateSyllabus />} />
+        <Route path="/CreateSyllabus:id" element={<CreateSyllabus />} />
         <Route path="ChatMentor" element={<ChatMentor />} />
         <Route path="/DetailMyCourse/:id" element={<DetailMyCourse />} />
         <Route path="/DetailSyllabus/:id" element={<DetailSyllabus />} />
@@ -63,6 +64,8 @@ function App() {
         <Route path="/Voucher" element={<Voucher />} />
         <Route path="/DetailMentorRequest/:ID" element={<DetailMentorRequest />} />
         <Route path="/DetailCourseValidation/:id" element={<DetailCourseValidation />} />
+        <Route path="/Notification" element={<NotificationPage />} />
+
         <Route
           path="/dashboard"
           element={

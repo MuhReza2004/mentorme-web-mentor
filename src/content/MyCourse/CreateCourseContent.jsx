@@ -57,12 +57,24 @@ const CreateCourseContent = () => {
 
     try {
       const response = await createCourseMentor(courseData);
-      alert("Course berhasil dibuat!");
-      console.log("Success:", response);
-      navigate("/dashboard");
+      console.log("Response dari createCourseMentor:", response);
+
+      // Cari ID course dari response (dukung berbagai kemungkinan struktur response)
+      const courseId =
+        response?.data?.id ||
+        response?.data?.data?.id ||
+        response?.id ||
+        response?.data?.result?.id;
+
+      if (courseId) {
+        alert("Course berhasil dibuat!");
+        navigate(`/CreateSyllabus/${courseId}`);
+      } else {
+        alert("Course berhasil, tapi ID tidak ditemukan di response.");
+      }
     } catch (error) {
       alert("Gagal membuat course. Silakan coba lagi.");
-      console.error("Error:", error);
+      console.error("Error saat membuat course:", error);
     }
   };
 
@@ -174,7 +186,7 @@ const CreateCourseContent = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition"
+            className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition"
           >
             Create Course
           </button>
