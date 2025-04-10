@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { createLearningPath } from "../../../services/api";
+import { useState, useEffect } from "react";
+import { getCategories, createLearningPath } from "../../../services/api";
 
 const CreateLearningPathContent = () => {
   const [name, setName] = useState("");
@@ -7,6 +7,20 @@ const CreateLearningPathContent = () => {
   const [picture, setPicture] = useState(null);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const data = await getCategories();
+      setCategories(data.data || []);
+    } catch (err) {
+      setError("Gagal memuat kategori");
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,18 +54,25 @@ const CreateLearningPathContent = () => {
           onChange={(e) => setName(e.target.value)}
           className="w-full p-2 border border-gray-300 rounded"
         />
-        <input
-          type="text"
-          placeholder="Kategori"
+
+        <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
           className="w-full p-2 border border-gray-300 rounded"
-        />
+        >
+          <option value="">Pilih Kategori</option>
+          {categories.map((cat) => (
+            <option key={cat.ID} value={cat.ID}>
+              {cat.name}
+            </option>
+          ))}
+        </select>
+
         <input
           type="file"
           accept="image/*"
           onChange={(e) => setPicture(e.target.files[0])}
-           className="w-full p-2 border border-gray-300 rounded"
+          className="w-full p-2 border border-gray-300 rounded"
         />
         <button
           type="submit"

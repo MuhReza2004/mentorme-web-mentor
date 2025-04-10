@@ -29,6 +29,8 @@ import CreateCategory from "./pages/AdminPages/CreateCategoryPages/CreateCategor
 import CreateLearningPath from "./pages/AdminPages/CreateLearningPathPages/CreateLearningPathPages";
 import CreateNotification from "./pages/AdminPages/CreateNotificationPages/CreateNotification";
 import Voucher from "./pages/AdminPages/VoucherPages/VoucherPages";
+import NotificationPage from "./pages/Notification/NotificationPage";
+import ExchangeMoneyPage from "./pages/Exchange/ExchangeMoney/ExchangeMoneyPage";
 
 function App() {
   return (
@@ -44,11 +46,11 @@ function App() {
         <Route path="/CreateCourse" element={<CreateCourse />} />
         <Route path="/ProgressTrainee" element={<ProgressTrainee />} />
         <Route path="/TraineeActivity/:IDActivity" element={<TraineeActivity />} />
-        <Route path="/CreateSyllabus" element={<CreateSyllabus />} />
+        <Route path="/CreateSyllabus/:courseId" element={<CreateSyllabus />} />
         <Route path="ChatMentor" element={<ChatMentor />} />
-        <Route path="/DetailMyCourse" element={<DetailMyCourse />} />
-        <Route path="/DetailSyllabus" element={<DetailSyllabus />} />
-        <Route path="/MateriPembelajaran" element={<MateriPembelajaran />} />
+        <Route path="/DetailMyCourse/:id" element={<DetailMyCourse />} />
+        <Route path="/DetailSyllabus/:id" element={<DetailSyllabus />} />
+        <Route path="/MateriPembelajaran/:id" element={<MateriPembelajaran />} />
         <Route path="/DetailCreateSyllabus" element={<DetailCreateSyllabus />} />
         <Route path="/DetailActivityTrainee/:activityId" element={<DetailActivityTrainee />} />
         <Route path="/CourseValidation" element={<CourseValidation />} />
@@ -61,8 +63,12 @@ function App() {
         <Route path="/CreateCategory" element={<CreateCategory />} />
         <Route path="/DetailExchange" element={<DetailExchange />} />
         <Route path="/Voucher" element={<Voucher />} />
-        <Route path="/DetailMentorRequest/:email" element={<DetailMentorRequest />} />
-        <Route path="/DetailCourseValidation/:ID" element={<DetailCourseValidation />} />
+        <Route path="/DetailMentorRequest/:ID" element={<DetailMentorRequest />} />
+        <Route path="/DetailCourseValidation/:id" element={<DetailCourseValidation />} />
+        <Route path="/Notification" element={<NotificationPage />} />
+        <Route path="/Notification" element={<NotificationPage />} />
+        <Route path="/ExchangeMoney" element={<ExchangeMoneyPage />} />
+
         <Route
           path="/dashboard"
           element={

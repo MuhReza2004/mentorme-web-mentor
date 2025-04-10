@@ -102,8 +102,10 @@ export const createCourseMentor = async (formData) => {
     return response.data;
   } catch (error) {
     handleApiError(error);
+    throw new Error("Gagal membuat course. Silakan coba lagi.");
   }
 };
+
 
 // Menampilkan Data Mentor yang sudah di Acc
 
@@ -425,30 +427,54 @@ export const StartChat = async (formData) => {
   }
 };
     
-// // 🔹 Accept Mentor PUT
-// export const acceptMentor = async (email, reason = null) => {
-//   try {
-//     const token = getAuthToken();
-//     if (!token) {
-//       throw new Error("Token tidak ditemukan. Silakan login kembali.");
-//     }
+// 🔹 Accept Mentor PUT
+export const acceptMentor = async (id, reason, email) => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.put(
+      `${API_URL}/api/accepted`, // HAPUS SPASI di sini
+      {
+        reason: reason ?? null, // Pastikan null jika tidak ada alasan
+        email,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Request Error:", error);
+    throw error;
+  }
+};
 
-//     const response = await axios.put(
-//       `${API_URL}/api/accepted/${mentorId}`,
-//       { reason, email }, // Body request sesuai spesifikasi API
-//       {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//           "Content-Type": "application/json",
-//         },
-//       }
-//     );
 
-//     return response.data;
-//   } catch (error) {
-//     handleApiError(error);
-//   }
-// };
+// 🔹 Accept Project
+export const acceptProject = async (id, reason, email) => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.put(
+      `${API_URL}/api/project/accepted/${id}`, // Masukkan ID di URL sesuai konvensi REST
+      {
+        reason: reason ?? null,
+        email,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Request Error (acceptProject):", error);
+    throw error;
+  }
+};
+
+
 
 
 // ============================================
@@ -600,7 +626,7 @@ export const createVoucher = async (voucherData) => {
   try {
     const token = getAuthToken();
     const response = await axios.post(
-      `${API_URL}/api/voucher/new`,
+      `${API_URL}/api/voucher/created`,
       voucherData,
       {
         headers: {
@@ -653,3 +679,120 @@ export const deleteVoucher = async (voucherId) => {
     handleApiError(error);
   }
 };
+
+// 🔹 Mendapatkan Detail MyCourse berdasarkan ID
+export const getDetailMyCourse = async (id) => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.get(`${API_URL}/api/learn/project/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+// Membuat Syllabus Baru
+export const createSyllabus = async (courseId, data) => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.post(`${API_URL}/api/syllabus/new/${courseId}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        // "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+    }
+
+export const getMySylabus = async (id) => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.get(`${API_URL}/api/syllabus/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+export const getDetailSylabus = async (id) => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.get(`${API_URL}/api/syllabus/detail/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+// 🔹 Update Syllabus Berdasarkan ID
+export const updateSyllabus = async (syllabusId, formData) => {
+  try {
+    const token = getAuthToken();
+    if (!token) throw new Error("Token tidak ditemukan. Silakan login kembali.");
+
+    const response = await axios.put(
+      `${API_URL}/api/syllabus/update/${syllabusId}`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          // "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+
+export const getAllLearnPath = async () => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.get(`${API_URL}/api/all/learnpath`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+
+// Exchange API
+
+// Exchange Money
+
+export const PostExchangeMoney = async (formData) => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.post(`${API_URL}/api/change/money`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+}

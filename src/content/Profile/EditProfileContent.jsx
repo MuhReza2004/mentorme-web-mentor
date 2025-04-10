@@ -93,8 +93,8 @@ const EditProfileContent = () => {
         </div>
 
         <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-700">Role*</label>
-          <input type="text" name="role" className="w-full mt-1 p-2 border border-gray-300 rounded-lg" placeholder="Masukkan role Anda" onChange={handleInputChange} />
+          <label className="block text-sm font-medium text-gray-700">About*</label>
+          <input type="text" name="role" className="w-full mt-1 p-2 border border-gray-300 rounded-lg" placeholder="Masukkan deskripsi Anda" onChange={handleInputChange} />
         </div>
 
         <button type="submit" className="w-full bg-green-500 text-white py-2 rounded-lg font-semibold hover:bg-green-600">Simpan</button>

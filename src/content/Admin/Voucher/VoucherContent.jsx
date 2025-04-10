@@ -25,20 +25,26 @@ const VoucherContent = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
+  try {
     await createVoucher({
       ...form,
       piece: parseInt(form.piece),
       startTime: parseInt(form.startTime),
       endTime: parseInt(form.endTime),
     });
+    alert("Voucher berhasil dibuat!");
     setForm({ name: "", piece: "", startTime: "", endTime: "", info: "" });
-    fetchVouchers();
-  };
+  } catch (err) {
+    alert("Gagal membuat voucher. Silakan coba lagi.");
+    console.error(err);
+  }
+};
+
 
   const handleDelete = async (id) => {
     await deleteVoucher(id);
-    fetchVouchers();
+    // fetchVouchers();
   };
 
   const inputStyle = {

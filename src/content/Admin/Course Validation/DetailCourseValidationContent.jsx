@@ -1,37 +1,81 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { ListProjectPendingByAdmin, ListProjectRejectedByAdmin } from "../../../services/api";
+import { useParams, useNavigate } from "react-router-dom";
+import { acceptProject, ListProjectPendingByAdmin, ListProjectRejectedByAdmin } from "../../../services/api";
 import LoadingSpinner from "../../../components/Loading/LoadingSpinner";
 
+// Helper untuk mengubah YouTube link menjadi embed link
+const getYoutubeEmbedUrl = (url) => {
+  if (!url) return null;
+
+  if (url.includes("watch?v=")) {
+    return url.replace("watch?v=", "embed/");
+  }
+
+  if (url.includes("youtu.be/")) {
+    const videoId = url.split("youtu.be/")[1];
+    return `https://www.youtube.com/embed/${videoId}`;
+  }
+
+  return url; // fallback
+};
+
+
+
 const DetailCourseValidationContent = () => {
-  const {selectedFilter, setselectedFilter} = useState("Permintaan")
   const { id } = useParams(); // Ambil id dari URL
+  const navigate = useNavigate();
   const [project, setProject] = useState(null);
-  const [loading, setLoading] = useState(true); // 🔥 Tambahkan state loading
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchProjectDetail();
-  }, [id]); // Pastikan efek ini dipanggil setiap kali ID berubah
+  }, [id]);
+
+      const handleReject = async () => {
+  const reason = window.prompt("Masukkan alasan penolakan:");
+  if (!reason) return;
+
+  try {
+    await acceptProject(project.ID, reason, project.email);
+    alert("Project berhasil ditolak.");
+    navigate(-1);
+  } catch (error) {
+    alert("Gagal menolak project.");
+  }
+};
+
+const handleAccept = async () => {
+  try {
+    await acceptProject(project.ID, null, project.email);
+    alert("Project berhasil diterima.");
+    navigate(-1);
+  } catch (error) {
+    alert("Gagal menerima project.");
+  }
+};
 
   const fetchProjectDetail = async () => {
     setLoading(true);
     try {
-      const response = await ListProjectPendingByAdmin(); // Ambil data proyek pending
-      const projectData = response?.data.find((m) => m.id === id) || null;
-      
+      const pendingResponse = await ListProjectPendingByAdmin();
+      const projectData = pendingResponse?.data.find((p) => p.ID === id) || null;
+
       if (projectData?.status === "PENDING") {
-        setProject(projectData); // Jika status pending, set project
-      } else if (projectData?.status === "REJECTED") {
-        const rejectedResponse = await ListProjectRejectedByAdmin(); // Ambil data proyek rejected
-        const rejectedProjectData = rejectedResponse?.data.find((m) => m.id === id) || null;
-        setProject(rejectedProjectData); // Jika status rejected, set project
+        setProject(projectData);
+      } else {
+        const rejectedResponse = await ListProjectRejectedByAdmin();
+        const rejectedProject = rejectedResponse?.data.find((p) => p.ID === id) || null;
+        setProject(rejectedProject);
       }
-      
-      console.log(projectData); // 🔥 Tambahkan log untuk melihat data proyek 
+
+
+
+
+      console.log("Project data:", projectData);
     } catch (error) {
       console.error("Gagal mengambil detail proyek:", error);
     } finally {
-      setLoading(false); // 🔥 Matikan loading setelah data diambil
+      setLoading(false);
     }
   };
 
@@ -44,7 +88,11 @@ const DetailCourseValidationContent = () => {
   }
 
   if (!project) {
-    return <p className="text-center text-red-500">Data proyek tidak ditemukan.</p>;
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <p className="text-red-500 text-lg">Data proyek tidak ditemukan.</p>
+      </div>
+    );
   }
 
   return (
@@ -73,11 +121,11 @@ const DetailCourseValidationContent = () => {
         <div className="mb-6">
           <h2 className="text-xl font-semibold mb-2">Video Pengantar</h2>
           <div className="w-full h-48 bg-gray-200 flex items-center justify-center rounded-lg">
-            {project.videoUrl ? (
+            {project.linkVideo ? (
               <iframe
                 width="100%"
                 height="100%"
-                src={project.videoUrl.replace("watch?v=", "embed/")}
+                src={getYoutubeEmbedUrl(project.linkVideo)}
                 title="Video Pengantar"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -87,30 +135,40 @@ const DetailCourseValidationContent = () => {
               <span className="text-gray-500">Video tidak tersedia</span>
             )}
           </div>
+          <div>
+            <p className="text-gray-600 mt-2">Link Video: {project.linkVideo}</p>
+          </div>
         </div>
 
         {/* Profil Mentor */}
         <div className="mb-6">
           <h2 className="text-xl font-semibold mb-2">Profil Mentor</h2>
-          <p className="text-gray-700">{project.mentorProfile}</p>
+          <p className="text-gray-700">{project.about}</p>
         </div>
 
-        {/* Role Mentor */}
-        <div className="mb-6">
-          <h2 className="text-xl font-semibold mb-2">Role Mentor</h2>
-          <ul className="list-disc list-inside text-gray-700">
-            {project.mentorRoles?.map((role, index) => (
-              <li key={index}>{role}</li>
-            ))}
-          </ul>
-        </div>
 
         {/* Tombol Aksi */}
-        <div className="flex justify-end gap-2">
-          <button className="px-4 py-2 bg-gray-300 rounded-lg">Batal</button>
-          <button className="px-4 py-2 bg-red-500 text-white rounded-lg">Tolak</button>
-          <button className="px-4 py-2 bg-green-500 text-white rounded-lg">Terima</button>
-        </div>
+<div className="flex justify-end gap-2">
+  <button
+    className="px-4 py-2 bg-gray-300 rounded-lg"
+    onClick={() => navigate(-1)}
+  >
+    Batal
+  </button>
+  <button
+    className="px-4 py-2 bg-red-500 text-white rounded-lg"
+    onClick={handleReject}
+  >
+    Tolak
+  </button>
+  <button
+    className="px-4 py-2 bg-green-500 text-white rounded-lg"
+    onClick={handleAccept}
+  >
+    Terima
+  </button>
+</div>
+
       </div>
     </div>
   );

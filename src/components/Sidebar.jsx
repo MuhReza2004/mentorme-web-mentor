@@ -45,13 +45,18 @@ const SideBar = () => {
         <Home className="w-5 h-5 mr-2" />
         {isOpen && <span>Dashboard</span>}
       </NavLink>
-      <NavLink
-        to="/MyCourse"
-        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${location.pathname.includes("/MyCourse") ? "bg-white" : ""}`}
-      >
-        <Layers className="w-5 h-5 mr-2" />
-        {isOpen && <span>My Course</span>}
-      </NavLink>
+<NavLink
+  to="/MyCourse"
+  className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
+    ["/MyCourse", "/DetailMyCourse", "/MateriPembelajaran", "/DetailSyllabus"].some(path =>
+      location.pathname.includes(path)
+    ) ? "bg-white" : ""
+  }`}
+>
+  <Layers className="w-5 h-5 mr-2" />
+  {isOpen && <span>My Course</span>}
+</NavLink>
+
       <NavLink
         to="/Bantuan"
         className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${location.pathname.includes("/Bantuan") ? "bg-white" : ""}`}

@@ -39,6 +39,8 @@ const DashboardAdminContent = () => {
     visible: { opacity: 1, scale: 1, transition: { duration: 0.3 } },
   };
 
+
+
   return (
     <div className="p-6 bg-white min-h-screen">
       <h1 className="text-2xl font-bold mb-6 text-center">Validation Mentor</h1>
@@ -89,7 +91,7 @@ const DashboardAdminContent = () => {
                 {selectedFilter ==="Permintaan" && (
                 <button
                   className="text-blue-600 mt-2 font-medium hover:underline"
-                  onClick={() => navigate(`/DetailMentorRequest/${mentor.email}`)}
+                  onClick={() => navigate(`/DetailMentorRequest/${mentor.ID}`)}
                 >
                   Lihat Detail &gt;
                 </button>

@@ -148,8 +148,8 @@ const Register = () => {
             />
             <input
               type="text"
-              name="ability"
-              placeholder="Abilities"
+              name="About"
+              placeholder="About You"
               onChange={handleChange}
               required
               className="border p-3 w-full rounded"

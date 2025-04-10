@@ -1,4 +1,4 @@
-import { Bell, Plus } from "lucide-react";
+import { Bell, Plus, Wallet } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const NavbarMentor = () => {
@@ -12,6 +12,10 @@ const NavbarMentor = () => {
   const handleBellClick = () => {
     navigate("/notification");
   };
+  
+  const handleExchageMoneyClick = () =>{
+    navigate("/ExchangeMoney");
+  }
 
   const showCreateCourseButton =
     location.pathname === "/MyCourse" || location.pathname === "/dashboard";
@@ -36,6 +40,12 @@ const NavbarMentor = () => {
             className="bg-[#7DE2D1] p-2 rounded-full flex items-center justify-center hover:bg-teal-500 transition"
           >
             <Bell className="w-5 h-5 text-white" />
+          </button>
+          <button
+            onClick={handleExchageMoneyClick}
+            className="bg-green-200 p-2 rounded-full flex items-center justify-center hover:bg-teal-500 transition"
+          >
+            <Wallet className="w-5 h-5 text-white" />
           </button>
 
           {/* Create Course Button (for /MyCourse and /dashboard) */}
