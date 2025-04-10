@@ -102,8 +102,10 @@ export const createCourseMentor = async (formData) => {
     return response.data;
   } catch (error) {
     handleApiError(error);
+    throw new Error("Gagal membuat course. Silakan coba lagi.");
   }
 };
+
 
 // Menampilkan Data Mentor yang sudah di Acc
 
@@ -694,13 +696,13 @@ export const getDetailMyCourse = async (id) => {
 };
 
 // Membuat Syllabus Baru
-export const createSyllabus = async (formData) => {
+export const createSyllabus = async (courseId, data) => {
   try {
     const token = getAuthToken();
-    const response = await axios.post(`${API_URL}/api/syllabus/new`, formData, {
+    const response = await axios.post(`${API_URL}/api/syllabus/new/${courseId}`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "multipart/form-data",
+        // "Content-Type": "multipart/form-data",
       },
     });
     return response.data;
