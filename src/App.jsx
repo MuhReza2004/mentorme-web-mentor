@@ -30,6 +30,7 @@ import CreateLearningPath from "./pages/AdminPages/CreateLearningPathPages/Creat
 import CreateNotification from "./pages/AdminPages/CreateNotificationPages/CreateNotification";
 import Voucher from "./pages/AdminPages/VoucherPages/VoucherPages";
 import NotificationPage from "./pages/Notification/NotificationPage";
+import ExchangeMoneyPage from "./pages/Exchange/ExchangeMoney/ExchangeMoneyPage";
 
 function App() {
   return (
@@ -65,6 +66,8 @@ function App() {
         <Route path="/DetailMentorRequest/:ID" element={<DetailMentorRequest />} />
         <Route path="/DetailCourseValidation/:id" element={<DetailCourseValidation />} />
         <Route path="/Notification" element={<NotificationPage />} />
+        <Route path="/Notification" element={<NotificationPage />} />
+        <Route path="/ExchangeMoney" element={<ExchangeMoneyPage />} />
 
         <Route
           path="/dashboard"

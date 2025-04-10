@@ -774,3 +774,23 @@ export const getAllLearnPath = async () => {
     handleApiError(error);
   }
 };
+
+
+// Exchange API
+
+// Exchange Money
+
+export const PostExchangeMoney = async (formData) => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.post(`${API_URL}/api/change/money`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+}

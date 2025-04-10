@@ -135,6 +135,9 @@ const handleAccept = async () => {
               <span className="text-gray-500">Video tidak tersedia</span>
             )}
           </div>
+          <div>
+            <p className="text-gray-600 mt-2">Link Video: {project.linkVideo}</p>
+          </div>
         </div>
 
         {/* Profil Mentor */}
