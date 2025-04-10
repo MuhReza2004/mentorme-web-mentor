@@ -31,6 +31,7 @@ import CreateNotification from "./pages/AdminPages/CreateNotificationPages/Creat
 import Voucher from "./pages/AdminPages/VoucherPages/VoucherPages";
 import NotificationPage from "./pages/Notification/NotificationPage";
 import ExchangeMoneyPage from "./pages/Exchange/ExchangeMoney/ExchangeMoneyPage";
+import TraineeProgress from "./pages/DashboardPages/TraineeProgress";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
         <Route path="/CreateCourse" element={<CreateCourse />} />
         <Route path="/ProgressTrainee" element={<ProgressTrainee />} />
         <Route path="/TraineeActivity/:IDActivity" element={<TraineeActivity />} />
+        <Route path="/TraineeProgress/:activityId" element={<TraineeProgress />} />
         <Route path="/CreateSyllabus/:courseId" element={<CreateSyllabus />} />
         <Route path="ChatMentor" element={<ChatMentor />} />
         <Route path="/DetailMyCourse/:id" element={<DetailMyCourse />} />

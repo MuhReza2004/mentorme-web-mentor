@@ -796,3 +796,17 @@ export const PostExchangeMoney = async (formData) => {
     handleApiError(error);
   }
 }
+
+export const getActivityTrainee = async (activityId) => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.get(`${API_URL}/api/my/activity/${activityId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
