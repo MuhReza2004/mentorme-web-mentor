@@ -1,11 +1,12 @@
-// pages/DashboardMentorContent.jsx
 import { useEffect, useState } from "react";
 import { GetBuyProject } from "../../services/api";
 import CourseCard from "../../components/CourseCard";
+import { useNavigate } from "react-router-dom"; // gunakan ini
 
 const DashboardMentorContent = () => {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate(); // inisialisasi
 
   useEffect(() => {
     const fetchActivities = async () => {
@@ -13,7 +14,6 @@ const DashboardMentorContent = () => {
         const response = await GetBuyProject();
         if (response && response.data) {
           setActivities(response.data);
-          console.log("Activities:", response.data);
         }
       } catch (error) {
         console.error("Error fetching activities:", error);
@@ -48,10 +48,17 @@ const DashboardMentorContent = () => {
                   <CourseCard
                     key={item.ID}
                     course={item}
-                    status="completed"
+                    status="in-progress"
                     detailPath="/DetailActivityTrainee"
                     labelRole="Trainee"
-                  />
+                  >
+                    <button
+                      onClick={() => navigate(`/TraineeProgress/${item.ID}`)}
+                      className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg mt-2 transition"
+                    >
+                      Lihat Progress
+                    </button>
+                  </CourseCard>
                 ))}
               </div>
             </section>
@@ -65,10 +72,17 @@ const DashboardMentorContent = () => {
                   <CourseCard
                     key={item.ID}
                     course={item}
-                    status={"in-progress"}
+                    status="in-progress"
                     detailPath="/DetailActivityTrainee"
                     labelRole="Trainee"
-                  />
+                  >
+                    <button
+                      onClick={() => navigate(`/TraineeProgress/${item.ID}`)}
+                      className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg mt-2 transition"
+                    >
+                      Lihat Progress
+                    </button>
+                  </CourseCard>
                 ))}
               </div>
             </section>

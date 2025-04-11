@@ -46,15 +46,27 @@ function App() {
         <Route path="/MyCourse" element={<MyCourse />} />
         <Route path="/CreateCourse" element={<CreateCourse />} />
         <Route path="/ProgressTrainee" element={<ProgressTrainee />} />
-        <Route path="/TraineeActivity/:IDActivity" element={<TraineeActivity />} />
-        <Route path="/TraineeProgress/:activityId" element={<TraineeProgress />} />
+        <Route
+          path="/TraineeActivity/:IDActivity"
+          element={<TraineeActivity />}
+        />
+        <Route path="/TraineeProgress/:id" element={<TraineeProgress />} />
         <Route path="/CreateSyllabus/:courseId" element={<CreateSyllabus />} />
         <Route path="ChatMentor" element={<ChatMentor />} />
         <Route path="/DetailMyCourse/:id" element={<DetailMyCourse />} />
         <Route path="/DetailSyllabus/:id" element={<DetailSyllabus />} />
-        <Route path="/MateriPembelajaran/:id" element={<MateriPembelajaran />} />
-        <Route path="/DetailCreateSyllabus" element={<DetailCreateSyllabus />} />
-        <Route path="/DetailActivityTrainee/:activityId" element={<DetailActivityTrainee />} />
+        <Route
+          path="/MateriPembelajaran/:id"
+          element={<MateriPembelajaran />}
+        />
+        <Route
+          path="/DetailCreateSyllabus"
+          element={<DetailCreateSyllabus />}
+        />
+        <Route
+          path="/DetailActivityTrainee/:activityId"
+          element={<DetailActivityTrainee />}
+        />
         <Route path="/CourseValidation" element={<CourseValidation />} />
         <Route path="/DashboardAdmin" element={<DashboardAdmin />} />
         <Route path="/EditProfile" element={<EditProfile />} />
@@ -65,8 +77,14 @@ function App() {
         <Route path="/CreateCategory" element={<CreateCategory />} />
         <Route path="/DetailExchange" element={<DetailExchange />} />
         <Route path="/Voucher" element={<Voucher />} />
-        <Route path="/DetailMentorRequest/:ID" element={<DetailMentorRequest />} />
-        <Route path="/DetailCourseValidation/:id" element={<DetailCourseValidation />} />
+        <Route
+          path="/DetailMentorRequest/:ID"
+          element={<DetailMentorRequest />}
+        />
+        <Route
+          path="/DetailCourseValidation/:id"
+          element={<DetailCourseValidation />}
+        />
         <Route path="/Notification" element={<NotificationPage />} />
         <Route path="/Notification" element={<NotificationPage />} />
         <Route path="/ExchangeMoney" element={<ExchangeMoneyPage />} />
