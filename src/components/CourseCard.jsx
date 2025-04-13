@@ -6,10 +6,10 @@ const CourseCard = ({
   status,
   detailPath,
   labelRole = "MENTOR",
-  progres,
+  children,
 }) => {
   const navigate = useNavigate();
-  console.log(detailPath, course.id || course.ID)
+  console.log(detailPath, course.id || course.ID);
   const getStatusLabel = () => {
     switch (status) {
       case "accepted":
@@ -63,26 +63,27 @@ const CourseCard = ({
           </span>
         </p>
 
-
-        <button
-          onClick={() => navigate(`${detailPath}/${course.id || course.ID}`)}
-          
-          className="mt-4 w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2.5 rounded-lg transition duration-300 transform hover:scale-[1.02] flex items-center justify-center space-x-2"
-        >
-          <span>Lihat Detail</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            viewBox="0 0 20 20"
-            fill="currentColor"
+        <div>
+          <button
+            onClick={() => navigate(`${detailPath}/${course.id || course.ID}`)}
+            className="mt-4 w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2.5 rounded-lg transition duration-300 transform hover:scale-[1.02] flex items-center justify-center space-x-2"
           >
-            <path
-              fillRule="evenodd"
-              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>
+            <span>Lihat Detail</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+          {children && <div className="mt-2">{children}</div>}
+        </div>
       </div>
     </div>
   );
