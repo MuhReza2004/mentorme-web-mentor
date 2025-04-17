@@ -9,8 +9,7 @@ const CourseCard = ({
   children,
 }) => {
   const navigate = useNavigate();
-  console.log(detailPath, course.id || course.ID);
-  const getStatusLabel = () => {
+    const getStatusLabel = () => {
     switch (status) {
       case "accepted":
         return { text: "Diterima", color: "bg-green-500" };

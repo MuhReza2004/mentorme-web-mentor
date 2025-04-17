@@ -15,23 +15,25 @@ const DashboardAdminContent = () => {
   }, [selectedFilter]);
 
   const fetchMentors = async () => {
-    setLoading(true);
-    try {
-      let data = [];
-      if (selectedFilter === "Permintaan") {
-        const response = await ListMentorPendingByAdmin();
-        data = response?.data || [];
-      } else if (selectedFilter === "Ditolak") {
-        const response = await ListMentorRejectedByAdmin();
-        data = response?.data || [];
-      }
-      setMentors(data);
-    } catch (error) {
-      console.error("Gagal mengambil data mentor:", error);
-    } finally {
-      setLoading(false);
+  setLoading(true);
+  try {
+    let data = [];
+    if (selectedFilter === "Permintaan") {
+      const response = await ListMentorPendingByAdmin();
+      data = response?.data || [];
+      console.log("DATA YANG DITERIMA:", response);
+    } else if (selectedFilter === "Ditolak") {
+      const response = await ListMentorRejectedByAdmin();
+      data = response || [];
     }
-  };
+    setMentors(data);
+  } catch (error) {
+    console.error("Gagal mengambil data mentor:", error);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   // Animasi card
   const cardVariants = {
