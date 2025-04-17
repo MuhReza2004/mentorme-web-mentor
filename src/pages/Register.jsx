@@ -18,7 +18,6 @@ const Register = () => {
   const [files, setFiles] = useState({ cv: null, ktp: null, picture: null });
 
   const navigate = useNavigate();
-
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
@@ -28,7 +27,6 @@ const Register = () => {
   const handleFileChange = (e) => {
     const { name, files } = e.target;
     const file = files[0];
-
     if (!file) return;
 
     if (file.size > MAX_FILE_SIZE) {
@@ -75,97 +73,68 @@ const Register = () => {
     }
   };
 
-  const handleLoginClick = () => {
-    navigate("/login");
-  };
-
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="bg-white shadow-md rounded-lg flex max-w-4xl w-full">
-        <div className="w-1/2 flex flex-col items-center justify-start ">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-green-100 to-green-300 px-4 py-10">
+      <div className="bg-white shadow-2xl rounded-xl flex max-w-5xl w-full overflow-hidden">
+        {/* LEFT SECTION */}
+        <div className="w-1/2 flex flex-col items-center justify-center bg-white p-8">
           <img
-            alt="MentorME logo"
-            className="mb-4"
-            height="150"
             src="/Logo/LOGO MENTORME NEW (1).png"
-            width="150"
+            alt="MentorMe Logo"
+            className="w-28 mb-4"
           />
-          <img
-            alt="Cartoon deer holding books"
-            className="mb-4"
-            height="200"
-            src="/Icon/Maskot.png"
-            width="200"
-          />
-          <p className="text-center text-lg">
-            To be mentor, unlock your potential
+          <img src="/Icon/Maskot.png" alt="Mascot" className="w-44 mb-4" />
+          <p className="text-center text-lg font-semibold text-gray-600">
+            To be mentor, unlock your potential!
           </p>
         </div>
-        <div className="w-1/2 bg-green-300 p-8 rounded-r-lg">
-          <h2 className="text-2xl font-bold mb-6 text-center">
+
+        {/* RIGHT SECTION */}
+        <div className="w-1/2 bg-white p-10">
+          <h2 className="text-3xl font-bold text-center text-green-700 mb-6">
             Daftar Sebagai Mentor
           </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <input
-              type="text"
-              name="fullName"
-              placeholder="Nama Lengkap"
-              onChange={handleChange}
-              required
-              className="border p-3 w-full rounded"
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="E-Mail"
-              onChange={handleChange}
-              required
-              className="border p-3 w-full rounded"
-            />
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              onChange={handleChange}
-              required
-              className="border p-3 w-full rounded"
-            />
-            <input
-              type="password"
-              name="confirmPassword"
-              placeholder="Confirm Password"
-              onChange={handleChange}
-              required
-              className="border p-3 w-full rounded"
-            />
-            <input
-              type="text"
-              name="portfolio"
-              placeholder="Portfolio Link"
-              onChange={handleChange}
-              required
-              className="border p-3 w-full rounded"
-            />
-            <input
-              type="text"
-              name="About"
-              placeholder="About You"
-              onChange={handleChange}
-              required
-              className="border p-3 w-full rounded"
-            />
+            {[
+              { name: "fullName", type: "text", placeholder: "Nama Lengkap" },
+              { name: "email", type: "email", placeholder: "Email" },
+              { name: "password", type: "password", placeholder: "Password" },
+              {
+                name: "confirmPassword",
+                type: "password",
+                placeholder: "Konfirmasi Password",
+              },
+              {
+                name: "portfolio",
+                type: "text",
+                placeholder: "Link Portfolio",
+              },
+              { name: "About", type: "text", placeholder: "Tentang Anda" },
+            ].map((input) => (
+              <input
+                key={input.name}
+                name={input.name}
+                type={input.type}
+                placeholder={input.placeholder}
+                onChange={handleChange}
+                required
+                className="border border-gray-300 rounded px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-green-400 transition"
+              />
+            ))}
 
             {/* Upload Files */}
-            {["cv", "ktp", "picture"].map((fileType) => (
-              <div
-                key={fileType}
-                className="border p-3 rounded text-center relative cursor-pointer bg-gray-100"
-              >
-                <label className="block cursor-pointer">
-                  <span className="text-gray-700">
+            <div className="space-y-3">
+              {["cv", "ktp", "picture"].map((fileType) => (
+                <label
+                  key={fileType}
+                  className="block border border-dashed border-gray-300 rounded px-4 py-4 bg-gray-50 text-center cursor-pointer hover:bg-gray-100 transition"
+                >
+                  <span className="text-sm text-gray-600">
                     {files[fileType]
-                      ? files[fileType].name
-                      : `Upload ${fileType.toUpperCase()}`}
+                      ? `Uploaded: ${files[fileType].name}`
+                      : `Upload ${fileType.toUpperCase()} ${
+                          fileType === "picture" ? "(image)" : "(PDF)"
+                        }`}
                   </span>
                   <input
                     type="file"
@@ -175,27 +144,30 @@ const Register = () => {
                     className="hidden"
                   />
                 </label>
-              </div>
-            ))}
+              ))}
+            </div>
 
             <button
               type="submit"
-              className="bg-green-500 text-white font-bold py-3 rounded hover:bg-green-700 transition w-full"
               disabled={isLoading}
+              className={`w-full py-3 rounded font-semibold text-white transition ${
+                isLoading
+                  ? "bg-green-400 cursor-not-allowed"
+                  : "bg-green-500 hover:bg-green-600"
+              }`}
             >
               {isLoading ? "Loading..." : "Daftar"}
             </button>
           </form>
-          <div className="text-center mt-4">
-            <p className="text-center text-gray-700 mt-4">
-              Sudah punya akun?{" "}
-              <span
-                className="text-green-600 cursor-pointer"
-                onClick={handleLoginClick}
-              >
-                Login Disini!
-              </span>
-            </p>
+
+          <div className="text-center mt-5 text-sm text-gray-600">
+            Sudah punya akun?{" "}
+            <span
+              onClick={() => navigate("/login")}
+              className="text-green-700 font-medium cursor-pointer hover:underline"
+            >
+              Login disini!
+            </span>
           </div>
         </div>
       </div>
