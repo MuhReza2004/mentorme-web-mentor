@@ -22,6 +22,7 @@ const DetailActivityTraineeContent = () => {
       try {
         const response = await GetDetailActivityTrainee(activityId);
         setActivityData(response.data);
+        console.log("DATA progress:", response.data); // ini akan log sekali
       } catch (err) {
         console.error("Gagal fetch data:", err);
         setError("Gagal memuat data.");
@@ -32,9 +33,6 @@ const DetailActivityTraineeContent = () => {
 
     fetchActivityData();
   }, [activityId]);
-  // console.log("Jumlah train:", activityData?.train?.length);
-  // console.log("Isi train[0]:", activityData?.train?.[0]);
-  console.log("DATA:", activityData); // ini akan log sekali
 
   if (loading) return <div className="text-center p-6">Loading...</div>;
   if (error)
@@ -71,7 +69,7 @@ const DetailActivityTraineeContent = () => {
                 </h3>
                 <div className="flex gap-2 mt-2">
                   <button
-                    className={`px-4 py-2 rounded w-full ${
+                    className={`px-4 py-2 rounded  ${
                       item.statusReport
                         ? "bg-blue-500 hover:bg-blue-600 text-white"
                         : "bg-green-500 hover:bg-green-600 text-white"
@@ -83,24 +81,6 @@ const DetailActivityTraineeContent = () => {
                     {item.statusReport
                       ? "Edit Laporan"
                       : "Isi Laporan Aktivitas"}
-                  </button>
-
-                  <button
-                    className="px-4 py-2 rounded w-full bg-gray-200 hover:bg-gray-300 text-gray-800"
-                    onClick={() =>
-                      navigate(`/TraineeProgress/${item.IDActivity}`)
-                    }
-                  >
-                    Lihat Kegiatan
-                  </button>
-
-                  <button
-                    onClick={() =>
-                      navigate(`/TraineeProgress/${item.IDActivity}`)
-                    }
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
-                  >
-                    Lihat Semua Progress
                   </button>
                 </div>
               </div>

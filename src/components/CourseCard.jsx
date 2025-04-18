@@ -38,7 +38,7 @@ const CourseCard = ({
               : "/Icon/Maskot.png"
           }
           alt={course.materialName}
-          className="w-full h-40 object-cover transform transition-transform duration-300 group-hover:scale-105"
+          className="w-full h-40 object-contain transform transition-transform duration-300 group-hover:scale-105"
         />
         {statusLabel && (
           <div className="absolute top-4 right-4">

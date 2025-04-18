@@ -117,10 +117,15 @@ const CourseContent = () => {
         </div>
       </header>
 
-      <div className="grid grid-cols-4 gap-6">
+      <div className="flex flex-wrap gap-4 justify-center ">
         {getCurrentCourses().length > 0 ? (
           getCurrentCourses().map((course) => (
-            <CourseCard key={course.id} course={course} status={activeTab} detailPath={'/DetailMyCourse'}  />
+            <CourseCard
+              key={course.id}
+              course={course}
+              status={activeTab}
+              detailPath={"/DetailMyCourse"}
+            />
           ))
         ) : (
           <div className="col-span-4">

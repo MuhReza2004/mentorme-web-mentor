@@ -12,25 +12,25 @@ const NavbarMentor = () => {
   const handleBellClick = () => {
     navigate("/notification");
   };
-  
-  const handleExchageMoneyClick = () =>{
+
+  const handleExchageMoneyClick = () => {
     navigate("/ExchangeMoney");
-  }
+  };
 
   const showCreateCourseButton =
     location.pathname === "/MyCourse" || location.pathname === "/dashboard";
 
   return (
-    <div className="bg-white shadow-sm py-2">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+    <div className="bg-white shadow-sm py-2f ">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-end items-end">
         {/* Search Bar */}
-        <div className="w-1/2">
+        {/* <div className="w-1/2">
           <input
             type="text"
             placeholder="Search..."
             className="w-full py-2 px-4 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-teal-400"
           />
-        </div>
+        </div> */}
 
         {/* Right Section */}
         <div className="flex items-center space-x-4">
@@ -54,7 +54,7 @@ const NavbarMentor = () => {
               onClick={handleCreateClick}
               className="bg-[#7DE2D1] px-4 py-2 rounded-xl text-white font-semibold hover:bg-teal-500 transition hover:scale-105"
             >
-              Create Course
+              BUAT KURSUS
             </button>
           )}
         </div>
