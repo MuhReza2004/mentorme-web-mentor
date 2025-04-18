@@ -19,25 +19,24 @@ const DashboardAdminContent = () => {
   }, [selectedFilter]);
 
   const fetchMentors = async () => {
-  setLoading(true);
-  try {
-    let data = [];
-    if (selectedFilter === "Permintaan") {
-      const response = await ListMentorPendingByAdmin();
-      data = response?.data || [];
-      console.log("DATA YANG DITERIMA:", response);
-    } else if (selectedFilter === "Ditolak") {
-      const response = await ListMentorRejectedByAdmin();
-      data = response || [];
+    setLoading(true);
+    try {
+      let data = [];
+      if (selectedFilter === "Permintaan") {
+        const response = await ListMentorPendingByAdmin();
+        data = response?.data || [];
+        console.log("DATA YANG DITERIMA:", response);
+      } else if (selectedFilter === "Ditolak") {
+        const response = await ListMentorRejectedByAdmin();
+        data = response || [];
+      }
+      setMentors(data);
+    } catch (error) {
+      console.error("Gagal mengambil data mentor:", error);
+    } finally {
+      setLoading(false);
     }
-    setMentors(data);
-  } catch (error) {
-    console.error("Gagal mengambil data mentor:", error);
-  } finally {
-    setLoading(false);
-  }
-};
-
+  };
 
   // Animasi card
   const cardVariants = {
@@ -90,19 +89,7 @@ const DashboardAdminContent = () => {
                       : "/DetailMentorRejected"
                   }
                   labelRole="MENTOR"
-                >
-                  {/* Tombol Lihat Detail hanya muncul di tab Permintaan */}
-                  {selectedFilter === "Permintaan" && (
-                    <button
-                      className="text-blue-600 mt-2 font-medium hover:underline"
-                      onClick={() =>
-                        navigate(`/DetailMentorRequest/${mentor.ID}`)
-                      }
-                    >
-                      Lihat Detail &gt;
-                    </button>
-                  )}
-                </CourseCard>
+                ></CourseCard>
               </motion.div>
             ))
           ) : (
