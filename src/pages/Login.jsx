@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginMentor } from "../services/api";
+import { getFcmToken, removeFcmToken } from "../services/getFcmToken"; // Pastikan path-nya benar
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -18,37 +19,46 @@ const Login = () => {
     setError("");
 
     try {
-      const response = await loginMentor(formData);
-      console.log(response);
-      console.log(response.code);
+      // Hapus token FCM lama
+      await removeFcmToken();
+
+      // Ambil FCM Token baru
+      const fcmToken = await getFcmToken();
+
+      // Payload login
+      const payload = {
+        ...formData,
+        fcmToken, // Token FCM dikirim ke backend
+      };
+
+      const response = await loginMentor(payload);
 
       if (response.code === 401) {
-        const errorMessage = response.error;
-
-        setError(errorMessage);
-        // alert(errorMessage);
+        setError(response.error);
+        return;
       }
-      console.log("Response Data:", response.data);
-      localStorage.setItem("nameUser", response.data.nameUser);  // Pastikan 'name' ada dalam response.data
-      console.log("Name saved to localStorage:", localStorage.getItem("nameUser"));
-      localStorage.setItem("email", response.data.email);  // Pastikan 'name' ada dalam response.data
-      console.log("Name saved to localStorage:", localStorage.getItem("email"));
-      localStorage.setItem("user", JSON.stringify(response.data));
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("role", response.data.role.role);
-      console.log("Role saved to localStorage:", localStorage.getItem("role"));
-      
-      if (response.data.role.role === "MENTOR") {
-    navigate("/dashboard");
-  } else if (response.data.role.role === "ADMIN") {
-    navigate("/DashboardAdmin");
-  } else {
-  setError("Data pengguna tidak valid.");
-}
-      
+
+      const { data } = response;
+
+      // Simpan data login ke localStorage
+      localStorage.setItem("nameUser", data.nameUser);
+      localStorage.setItem("email", data.email);
+      localStorage.setItem("user", JSON.stringify(data));
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("role", data.role.role);
+
+      // Navigasi berdasarkan role
+      if (data.role.role === "MENTOR") {
+        navigate("/dashboard");
+      } else if (data.role.role === "ADMIN") {
+        navigate("/DashboardAdmin");
+      } else {
+        setError("Data pengguna tidak valid.");
+      }
+
     } catch (error) {
-      console.error("Terjadi kesalahan saat menghubungkan ke server!", error);
-      // setError("Terjadi kesalahan saat menghubungkan ke server");
+      console.error("Terjadi kesalahan saat login:", error);
+      setError("Terjadi kesalahan saat login.");
     } finally {
       setLoading(false);
     }
@@ -68,6 +78,7 @@ const Login = () => {
           className="w-40 ml-2"
         />
       </div>
+
       <div className="w-1/2 flex flex-col items-center justify-center  p-8">
         <img src="/Icon/Maskot.png" alt="Mentor Mascot" className="w-64 mb-4" />
         <p className="text-gray-600 text-lg font-medium">
@@ -97,7 +108,7 @@ const Login = () => {
           </div>
 
           <div>
-            <label className="text-gray-700  font-medium">Password</label>
+            <label className="text-gray-700 font-medium">Password</label>
             <input
               type="password"
               name="password"

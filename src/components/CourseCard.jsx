@@ -5,7 +5,7 @@ const CourseCard = ({
   course,
   status,
   detailPath,
-  labelRole = "MENTOR",
+  // labelRole = "MENTOR",
   children,
 }) => {
   const navigate = useNavigate();
@@ -57,7 +57,7 @@ const CourseCard = ({
           {course.materialName}
         </h3>
         <p className="text-sm text-gray-600 mb-2 truncate">
-          {labelRole}:{" "}
+          {/* {labelRole}:{" "} */}
           <span className="text-green-600">
             {course.fullName || course.mentor || course.trainee}
           </span>
