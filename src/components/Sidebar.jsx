@@ -11,8 +11,10 @@ import {
   BookOpenCheck,
   CircleHelp,
 } from "lucide-react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { deleteToken, messaging, getToken } from "../firebaseConfig";
+
 
 const SideBar = () => {
   const location = useLocation();
@@ -20,6 +22,7 @@ const SideBar = () => {
   const [name, setName] = useState("");
   const [isOpen, setIsOpen] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedRole = localStorage.getItem("role");
@@ -28,13 +31,18 @@ const SideBar = () => {
     if (storedName) setName(storedName);
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("name");
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    localStorage.removeItem("role");
-    setRole(null);
-    window.location.href = "/login";
+   const handleLogout = async () => {
+    try {
+      // Hapus FCM Token
+      await deleteToken(messaging);
+      console.log("✅ FCM token deleted");
+    } catch (err) {
+      console.error("❌ Error deleting FCM token:", err);
+    }
+
+    // Hapus semua data di localStorage
+    localStorage.clear();
+    navigate("/login"); // Navigasi ke halaman login
   };
 
   const renderMentorLinks = () => (
