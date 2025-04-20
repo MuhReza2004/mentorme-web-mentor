@@ -29,23 +29,25 @@ const Login = () => {
         // alert(errorMessage);
       }
       console.log("Response Data:", response.data);
-      localStorage.setItem("nameUser", response.data.nameUser);  // Pastikan 'name' ada dalam response.data
-      console.log("Name saved to localStorage:", localStorage.getItem("nameUser"));
-      localStorage.setItem("email", response.data.email);  // Pastikan 'name' ada dalam response.data
+      localStorage.setItem("nameUser", response.data.nameUser); // Pastikan 'name' ada dalam response.data
+      console.log(
+        "Name saved to localStorage:",
+        localStorage.getItem("nameUser")
+      );
+      localStorage.setItem("email", response.data.email); // Pastikan 'name' ada dalam response.data
       console.log("Name saved to localStorage:", localStorage.getItem("email"));
       localStorage.setItem("user", JSON.stringify(response.data));
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("role", response.data.role.role);
       console.log("Role saved to localStorage:", localStorage.getItem("role"));
-      
+
       if (response.data.role.role === "MENTOR") {
-    navigate("/dashboard");
-  } else if (response.data.role.role === "ADMIN") {
-    navigate("/DashboardAdmin");
-  } else {
-  setError("Data pengguna tidak valid.");
-}
-      
+        navigate("/dashboard");
+      } else if (response.data.role.role === "ADMIN") {
+        navigate("/DashboardAdmin");
+      } else {
+        setError("Data pengguna tidak valid.");
+      }
     } catch (error) {
       console.error("Terjadi kesalahan saat menghubungkan ke server!", error);
       // setError("Terjadi kesalahan saat menghubungkan ke server");
