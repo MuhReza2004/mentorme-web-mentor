@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getMessaging, getToken, deleteToken } from "firebase/messaging";  // Import Firebase Messaging
+import { getPerformance } from "firebase/performance";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDUWdYOWbyKdl8TUsRIIw1pwt8AQXzT6LY",
@@ -19,5 +20,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const messaging = getMessaging(app);  // Inisialisasi Firebase Messaging
+const perf = getPerformance(app);
 
-export { auth, db, messaging, getToken, deleteToken };
+export { auth, db, messaging, getToken, deleteToken, perf };
