@@ -28,7 +28,7 @@ const DashboardAdminContent = () => {
         console.log("DATA YANG DITERIMA:", response);
       } else if (selectedFilter === "Ditolak") {
         const response = await ListMentorRejectedByAdmin();
-        data = response || [];
+        data = response?.data || [];
       }
       setMentors(data);
     } catch (error) {
