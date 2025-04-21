@@ -80,36 +80,47 @@ if (!mentor) {
         <h1 className="text-2xl font-bold mb-4">Validation Mentor</h1>
 
         <div className="flex items-center gap-6 mb-6">
-          <img 
-            src={`data:image/png;base64,${mentor.picture}`} 
-            alt="Mentor Image"  
-            className="w-24 h-24 object-cover rounded-lg mb-4" 
-          />
+<img 
+  src={mentor.picture} 
+  alt="Mentor"  
+  className="w-24 h-24 object-cover rounded-lg mb-4" 
+/>
           <div>
             <p className="text-lg font-semibold">Nama: <span className="font-normal">{mentor.fullName}</span></p>
             <p className="text-lg font-semibold">Email: <span className="font-normal">{mentor.email}</span></p>
             <p className="text-lg font-semibold">Ability: <span className="font-normal">{mentor.ability}</span></p>
-            <p className="text-lg font-semibold">Portofolio: <span className="font-normal">{mentor.portfolio}</span></p>
+            <p className="text-lg font-semibold">Portofolio:{" "}
+  {mentor.portfolio ? (
+    <a href={mentor.portfolio} className="text-blue-500 underline" target="_blank" rel="noopener noreferrer">
+      {mentor.portfolio}
+    </a>
+  ) : (
+    <span className="font-normal">Tidak tersedia</span>
+  )}
+</p>
+
           </div>
         </div>
 
-        {/* KTP Section */}
-        <div className="bg-white p-4 border rounded-lg shadow-md mb-4">
-          <h2 className="text-lg font-semibold mb-2">KTP</h2>
-          <div className="h-40 bg-gray-200 flex items-center justify-center rounded-lg">
-            <embed src={`data:application/pdf;base64,${mentor.ktp}`} type="application/pdf" width="100%" height="100%" />
-          </div>
-          <a href={`data:application/pdf;base64,${mentor.ktp}`} download="KTP.pdf" className="text-blue-500 underline">Download KTP</a>
-        </div>
+       {/* KTP Section */}
+<div className="bg-white p-4 border rounded-lg shadow-md mb-4">
+  <h2 className="text-lg font-semibold mb-2">KTP</h2>
+  <div className="h-40 bg-gray-200 flex items-center justify-center rounded-lg">
+    <embed src={mentor.ktp} type="application/pdf" width="100%" height="100%" />
+  </div>
+  <a href={mentor.ktp} download="KTP.pdf" className="text-blue-500 underline">Download KTP</a>
+</div>
 
-        {/* CV Section */}
-        <div className="bg-white p-4 border rounded-lg shadow-md mb-6">
-          <h2 className="text-lg font-semibold mb-2">Curriculum Vitae</h2>
-          <div className="h-40 bg-gray-200 flex items-center justify-center rounded-lg">
-            <embed src={`data:application/pdf;base64,${mentor.cv}`} type="application/pdf" width="100%" height="100%" />
-          </div>
-          <a href={`data:application/pdf;base64,${mentor.cv}`} download="CV.pdf" className="text-blue-500 underline">Download CV</a>
-        </div>
+
+       {/* CV Section */}
+<div className="bg-white p-4 border rounded-lg shadow-md mb-6">
+  <h2 className="text-lg font-semibold mb-2">Curriculum Vitae</h2>
+  <div className="h-40 bg-gray-200 flex items-center justify-center rounded-lg">
+    <embed src={mentor.cv} type="application/pdf" width="100%" height="100%" />
+  </div>
+  <a href={mentor.cv} download="CV.pdf" className="text-blue-500 underline">Download CV</a>
+</div>
+
 
         <div className="flex justify-end gap-2">
           <button
