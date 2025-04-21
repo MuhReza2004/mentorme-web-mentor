@@ -9,9 +9,12 @@ import {
   FolderPlus,
   BellPlus,
   BookOpenCheck,
+  CircleHelp,
 } from "lucide-react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { deleteToken, messaging, getToken } from "../firebaseConfig";
+
 
 const SideBar = () => {
   const location = useLocation();
@@ -19,6 +22,7 @@ const SideBar = () => {
   const [name, setName] = useState("");
   const [isOpen, setIsOpen] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedRole = localStorage.getItem("role");
@@ -27,42 +31,56 @@ const SideBar = () => {
     if (storedName) setName(storedName);
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("name");
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    localStorage.removeItem("role");
-    setRole(null);
-    window.location.href = "/login";
+   const handleLogout = async () => {
+    try {
+      // Hapus FCM Token
+      await deleteToken(messaging);
+      console.log("✅ FCM token deleted");
+    } catch (err) {
+      console.error("❌ Error deleting FCM token:", err);
+    }
+
+    // Hapus semua data di localStorage
+    localStorage.clear();
+    navigate("/login"); // Navigasi ke halaman login
   };
 
   const renderMentorLinks = () => (
     <>
       <NavLink
         to="/dashboard"
-        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${location.pathname.includes("/dashboard") ? "bg-white" : ""}`}
+        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
+          location.pathname.includes("/dashboard") ? "bg-white" : ""
+        }`}
       >
         <Home className="w-5 h-5 mr-2" />
-        {isOpen && <span>Dashboard</span>}
+        {isOpen && <span>BERANDA</span>}
       </NavLink>
-<NavLink
-  to="/MyCourse"
-  className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
-    ["/MyCourse", "/DetailMyCourse", "/MateriPembelajaran", "/DetailSyllabus"].some(path =>
-      location.pathname.includes(path)
-    ) ? "bg-white" : ""
-  }`}
->
-  <Layers className="w-5 h-5 mr-2" />
-  {isOpen && <span>My Course</span>}
-</NavLink>
+      <NavLink
+        to="/MyCourse"
+        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
+          [
+            "/MyCourse",
+            "/DetailMyCourse",
+            "/MateriPembelajaran",
+            "/DetailSyllabus",
+          ].some((path) => location.pathname.includes(path))
+            ? "bg-white"
+            : ""
+        }`}
+      >
+        <Layers className="w-5 h-5 mr-2" />
+        {isOpen && <span>KURSUS SAYA</span>}
+      </NavLink>
 
       <NavLink
         to="/Bantuan"
-        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${location.pathname.includes("/Bantuan") ? "bg-white" : ""}`}
+        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
+          location.pathname.includes("/Bantuan") ? "bg-white" : ""
+        }`}
       >
-        <Layers className="w-5 h-5 mr-2" />
-        {isOpen && <span>Bantuan</span>}
+        <CircleHelp className="w-5 h-5 mr-2" />
+        {isOpen && <span>BANTUAN</span>}
       </NavLink>
     </>
   );
@@ -71,42 +89,54 @@ const SideBar = () => {
     <>
       <NavLink
         to="/DashboardAdmin"
-        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${location.pathname.includes("/DashboardAdmin") ? "bg-white" : ""}`}
+        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
+          location.pathname.includes("/DashboardAdmin") ? "bg-white" : ""
+        }`}
       >
         <Home className="w-5 h-5 mr-2" />
-        {isOpen && <span>Dashboard Admin</span>}
+        {isOpen && <span>BERANDA ADMIN</span>}
       </NavLink>
       <NavLink
         to="/CourseValidation"
-        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${location.pathname.includes("/CourseValidation") ? "bg-white" : ""}`}
+        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
+          location.pathname.includes("/CourseValidation") ? "bg-white" : ""
+        }`}
       >
         <Layers className="w-5 h-5 mr-2" />
-        {isOpen && <span>Course Validation</span>}
+        {isOpen && <span>VALIDASI KURSUS</span>}
       </NavLink>
       <NavLink
         to="/Voucher"
-        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${location.pathname.includes("/Voucher") ? "bg-white" : ""}`}
+        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
+          location.pathname.includes("/Voucher") ? "bg-white" : ""
+        }`}
       >
         <Gift className="w-5 h-5 mr-2" />
         {isOpen && <span>Create Voucher</span>}
       </NavLink>
       <NavLink
         to="/CreateCategory"
-        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${location.pathname.includes("/CreateCategory") ? "bg-white" : ""}`}
+        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
+          location.pathname.includes("/CreateCategory") ? "bg-white" : ""
+        }`}
       >
         <FolderPlus className="w-5 h-5 mr-2" />
         {isOpen && <span>Create Category</span>}
       </NavLink>
       <NavLink
         to="/CreateLearningPath"
-        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${location.pathname.includes("/CreateLearningPath") ? "bg-white" : ""}`}
+        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
+          location.pathname.includes("/CreateLearningPath") ? "bg-white" : ""
+        }`}
       >
         <BookOpenCheck className="w-5 h-5 mr-2" />
         {isOpen && <span>Create Learning Path</span>}
       </NavLink>
       <NavLink
         to="/CreateNotification"
-        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${location.pathname.includes("/CreateNotification") ? "bg-white" : ""}`}
+        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
+          location.pathname.includes("/CreateNotification") ? "bg-white" : ""
+        }`}
       >
         <BellPlus className="w-5 h-5 mr-2" />
         {isOpen && <span>Create Notifications</span>}
@@ -115,11 +145,17 @@ const SideBar = () => {
   );
 
   return (
-    <div className={`flex flex-col min-h-screen bg-green-200 shadow-lg transition-all duration-300 ease-in-out ${isOpen ? "w-64" : "w-20"}`}>
+    <div
+      className={`flex flex-col min-h-screen bg-green-200 shadow-lg transition-all duration-300 ease-in-out ${
+        isOpen ? "w-64" : "w-20"
+      }`}
+    >
       {/* Toggle Button */}
       {role === "MENTOR" && (
         <button
-          className={`p-2 mt-2 rounded-full hover:bg-black-200 transition-all duration-300 ${isOpen ? "self-end mr-3" : "mx-auto"}`}
+          className={`p-2 mt-2 rounded-full hover:bg-black-200 transition-all duration-300 ${
+            isOpen ? "self-end mr-3" : "mx-auto"
+          }`}
           onClick={() => setIsOpen(!isOpen)}
         >
           <Menu size={24} />
@@ -139,7 +175,7 @@ const SideBar = () => {
 
       {/* User Info + Dropdown */}
       <div className="relative">
-        <div 
+        <div
           className="flex items-center space-x-2 cursor-pointer px-3"
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         >
@@ -154,14 +190,23 @@ const SideBar = () => {
               <span className="block text-sm">{role}</span>
             </div>
           )}
-          {isOpen && (isDropdownOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />)}
+          {isOpen &&
+            (isDropdownOpen ? (
+              <ChevronUp size={16} />
+            ) : (
+              <ChevronDown size={16} />
+            ))}
         </div>
 
         {/* Mentor-specific dropdown */}
         {isDropdownOpen && isOpen && role === "MENTOR" && (
           <div className="absolute top-full left-3 bg-white shadow-md rounded-lg p-3 mt-2 w-48 z-10">
-            <NavLink to="/EditProfile" className="block p-2 hover:bg-gray-100">Edit Profile</NavLink>
-            <NavLink to="/Exchange" className="block p-2 hover:bg-gray-100">Exchange</NavLink>
+            <NavLink to="/EditProfile" className="block p-2 hover:bg-gray-100">
+              EDIT PROFIL
+            </NavLink>
+            <NavLink to="/Exchange" className="block p-2 hover:bg-gray-100">
+              TARIK TUNAI
+            </NavLink>
           </div>
         )}
       </div>
@@ -174,16 +219,17 @@ const SideBar = () => {
         {role === "ADMIN" && renderAdminLinks()}
 
         {/* Common Link for All Roles */}
-<NavLink
-  to="/ChatMentor"
-  className={({ isActive }) =>
-    `flex items-center p-2 rounded-lg w-full hover:bg-white ${isActive ? "bg-white" : ""}`
-  }
->
-  <Mail className="w-5 h-5 mr-2" />
-  <span>Chat</span>
-</NavLink>
-
+        <NavLink
+          to="/ChatMentor"
+          className={({ isActive }) =>
+            `flex items-center p-2 rounded-lg w-full hover:bg-white ${
+              isActive ? "bg-white" : ""
+            }`
+          }
+        >
+          <Mail className="w-5 h-5 mr-2" />
+          {isOpen && <span>CHAT</span>}
+        </NavLink>
 
         {/* Logout */}
         <button
@@ -191,7 +237,7 @@ const SideBar = () => {
           className="flex items-center p-2 text-gray-800 hover:bg-green-300 rounded-lg"
         >
           <img src="/Icon/logout.png" className="w-6 h-6 mr-2" />
-          {isOpen && <span>Logout</span>}
+          {isOpen && <span>KELUAR</span>}
         </button>
       </nav>
     </div>

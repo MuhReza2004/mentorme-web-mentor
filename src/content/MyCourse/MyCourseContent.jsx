@@ -15,32 +15,37 @@ const CourseContent = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        setIsLoading(true);
-        setError(null);
-        const [accepted, pending, rejected] = await Promise.all([
-          getAccpetedMentor(),
-          getPendingMentor(),
-          getRejectedMentor(),
-        ]);
-        setAcceptedCourses(accepted?.data || []);
-        setPendingCourses(pending?.data || []);
-        setRejectedCourses(rejected?.data || []);
-        console.log("Accepted Courses:", accepted?.data);
-        console.log("Pending Courses:", pending?.data);
-        console.log("Rejected Courses:", rejected?.data);
-      } catch (err) {
-        console.error("Terjadi kesalahan:", err);
-        setError(err.message || "Gagal memuat data");
-      } finally {
-        setIsLoading(false);
-      }
-    };
+ useEffect(() => {
+  const fetchCourses = async () => {
+    try {
+      setIsLoading(true);
+      setError(null);
 
-    fetchCourses();
-  }, []);
+      if (activeTab === "accepted" && acceptedCourses.length === 0) {
+        const response = await getAccpetedMentor();
+        setAcceptedCourses(response?.data || []);
+      }
+
+      if (activeTab === "pending" && pendingCourses.length === 0) {
+        const response = await getPendingMentor();
+        setPendingCourses(response?.data || []);
+      }
+
+      if (activeTab === "rejected" && rejectedCourses.length === 0) {
+        const response = await getRejectedMentor();
+        setRejectedCourses(response?.data || []);
+      }
+    } catch (err) {
+      console.error("Terjadi kesalahan:", err);
+      setError(err.message || "Gagal memuat data");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  fetchCourses();
+}, [activeTab]);
+
 
   const getCurrentCourses = () => {
     if (activeTab === "accepted") return acceptedCourses;
@@ -112,10 +117,15 @@ const CourseContent = () => {
         </div>
       </header>
 
-      <div className="grid grid-cols-4 gap-6">
+      <div className="flex flex-wrap gap-4 justify-center ">
         {getCurrentCourses().length > 0 ? (
           getCurrentCourses().map((course) => (
-            <CourseCard key={course.id} course={course} status={activeTab} detailPath={'/DetailMyCourse'}  />
+            <CourseCard
+              key={course.id}
+              course={course}
+              status={activeTab}
+              detailPath={"/DetailMyCourse"}
+            />
           ))
         ) : (
           <div className="col-span-4">

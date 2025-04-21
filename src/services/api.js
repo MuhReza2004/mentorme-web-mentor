@@ -106,7 +106,6 @@ export const createCourseMentor = async (formData) => {
   }
 };
 
-
 // Menampilkan Data Mentor yang sudah di Acc
 
 export const getAccpetedMentor = async () => {
@@ -192,14 +191,11 @@ export const GetBuyProject = async () => {
 export const GetDetailActivityTrainee = async (activityId) => {
   try {
     const token = getAuthToken();
-    const response = await axios.get(
-      `${API_URL}/api/activity/${activityId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`, // Tambahkan token ke header Authorization
-        },
-      }
-    );
+    const response = await axios.get(`${API_URL}/api/activity/${activityId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Tambahkan token ke header Authorization
+      },
+    });
     return response.data;
   } catch (error) {
     handleApiError(error);
@@ -214,12 +210,16 @@ export const reportActivityByMentor = async (IDActivity, formData) => {
       throw new Error("Token tidak ditemukan. Silakan login terlebih dahulu.");
     }
 
-    const response = await axios.put(`${API_URL}/api/report/${IDActivity}`, formData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const response = await axios.put(
+      `${API_URL}/api/report/${IDActivity}`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
 
     return response.data;
   } catch (error) {
@@ -258,11 +258,14 @@ export const DetailProjectPendingByAdmin = async (projectId) => {
       throw new Error("Token tidak ditemukan. SIlahkan login terlebih dahulu.");
     }
 
-    const response = await axios.get(`${API_URL}/api/project/pending/${projectId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.get(
+      `${API_URL}/api/project/pending/${projectId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     handleApiError(error);
@@ -296,11 +299,14 @@ export const DetailProjectAcceptedByAdmin = async (projectId) => {
       throw new Error("Token tidak ditemukan. SIlahkan login terlebih dahulu.");
     }
 
-    const response = await axios.get(`${API_URL}/api/project/all/${projectId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.get(
+      `${API_URL}/api/project/all/${projectId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     handleApiError(error);
@@ -334,11 +340,14 @@ export const DetailProjectRejectedByAdmin = async (projectId) => {
       throw new Error("Token tidak ditemukan. SIlahkan login terlebih dahulu.");
     }
 
-    const response = await axios.get(`${API_URL}/api/project/reject/${projectId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.get(
+      `${API_URL}/api/project/reject/${projectId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     handleApiError(error);
@@ -426,7 +435,7 @@ export const StartChat = async (formData) => {
     handleApiError(error);
   }
 };
-    
+
 // 🔹 Accept Mentor PUT
 export const acceptMentor = async (id, reason, email) => {
   try {
@@ -449,7 +458,6 @@ export const acceptMentor = async (id, reason, email) => {
     throw error;
   }
 };
-
 
 // 🔹 Accept Project
 export const acceptProject = async (id, reason, email) => {
@@ -474,9 +482,6 @@ export const acceptProject = async (id, reason, email) => {
   }
 };
 
-
-
-
 // ============================================
 // ✅ MENTOR FEATURE SECTION
 // ============================================
@@ -488,12 +493,16 @@ export const updateMentorProfile = async (formData) => {
       throw new Error("Token tidak ditemukan. Silakan login kembali.");
     }
 
-    const response = await axios.put(`${API_URL}/api/profile/mentor/update`, formData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const response = await axios.put(
+      `${API_URL}/api/profile/mentor/update`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
 
     return response.data;
   } catch (error) {
@@ -530,7 +539,6 @@ export const createCategory = async (categoryName) => {
   }
 };
 
-
 // 🔹 Mendapatkan Semua Kategori
 export const getCategories = async () => {
   try {
@@ -545,7 +553,6 @@ export const getCategories = async () => {
     handleApiError(error);
   }
 };
-
 
 // ============================================
 // ✅ LEARNING PATH FEATURE SECTION
@@ -571,7 +578,6 @@ export const createLearningPath = async (name, categoryName, pictureFile) => {
     handleApiError(error);
   }
 };
-
 
 // ============================================
 // ✅ NOTIFICATION FEATURE SECTION
@@ -610,7 +616,6 @@ export const getAllNotifications = async () => {
     handleApiError(error);
   }
 };
-
 
 // ============================================
 // ✅ VOUCHER FEATURE SECTION
@@ -699,17 +704,21 @@ export const getDetailMyCourse = async (id) => {
 export const createSyllabus = async (courseId, data) => {
   try {
     const token = getAuthToken();
-    const response = await axios.post(`${API_URL}/api/syllabus/new/${courseId}`, data, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        // "Content-Type": "multipart/form-data",
-      },
-    });
+    const response = await axios.post(
+      `${API_URL}/api/syllabus/new/${courseId}`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          // "Content-Type": "multipart/form-data",
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     handleApiError(error);
   }
-    }
+};
 
 export const getMySylabus = async (id) => {
   try {
@@ -743,7 +752,8 @@ export const getDetailSylabus = async (id) => {
 export const updateSyllabus = async (syllabusId, formData) => {
   try {
     const token = getAuthToken();
-    if (!token) throw new Error("Token tidak ditemukan. Silakan login kembali.");
+    if (!token)
+      throw new Error("Token tidak ditemukan. Silakan login kembali.");
 
     const response = await axios.put(
       `${API_URL}/api/syllabus/update/${syllabusId}`,
@@ -762,7 +772,6 @@ export const updateSyllabus = async (syllabusId, formData) => {
   }
 };
 
-
 export const getAllLearnPath = async () => {
   try {
     const token = getAuthToken();
@@ -776,7 +785,6 @@ export const getAllLearnPath = async () => {
     handleApiError(error);
   }
 };
-
 
 // Exchange API
 
@@ -795,16 +803,19 @@ export const PostExchangeMoney = async (formData) => {
   } catch (error) {
     handleApiError(error);
   }
-}
+};
 
 export const getActivityTrainee = async (activityId) => {
   try {
     const token = getAuthToken();
-    const response = await axios.get(`${API_URL}/api/my/activity/${activityId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.get(
+      `${API_URL}/api/my/activity/${activityId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     handleApiError(error);

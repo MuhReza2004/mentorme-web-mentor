@@ -32,6 +32,7 @@ import Voucher from "./pages/AdminPages/VoucherPages/VoucherPages";
 import NotificationPage from "./pages/Notification/NotificationPage";
 import ExchangeMoneyPage from "./pages/Exchange/ExchangeMoney/ExchangeMoneyPage";
 import TraineeProgress from "./pages/DashboardPages/TraineeProgress";
+import LoginPage from "./pages/Login";
 
 function App() {
   return (
@@ -40,7 +41,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/mentors" element={<MentorsPage />} />
         <Route path="/MyCourse" element={<MyCourse />} />

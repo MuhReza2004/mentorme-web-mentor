@@ -2,7 +2,11 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import LoadingSpinner from "../../../components/Loading/LoadingSpinner";
-import { ListMentorPendingByAdmin, ListMentorRejectedByAdmin } from "../../../services/api";
+import {
+  ListMentorPendingByAdmin,
+  ListMentorRejectedByAdmin,
+} from "../../../services/api";
+import CourseCard from "../../../components/CourseCard";
 
 const DashboardAdminContent = () => {
   const [selectedFilter, setSelectedFilter] = useState("Permintaan");
@@ -21,6 +25,7 @@ const DashboardAdminContent = () => {
       if (selectedFilter === "Permintaan") {
         const response = await ListMentorPendingByAdmin();
         data = response?.data || [];
+        console.log("DATA YANG DITERIMA:", response);
       } else if (selectedFilter === "Ditolak") {
         const response = await ListMentorRejectedByAdmin();
         data = response?.data || [];
@@ -38,8 +43,6 @@ const DashboardAdminContent = () => {
     hidden: { opacity: 0, scale: 0.9 },
     visible: { opacity: 1, scale: 1, transition: { duration: 0.3 } },
   };
-
-
 
   return (
     <div className="p-6 bg-white min-h-screen">
@@ -68,38 +71,31 @@ const DashboardAdminContent = () => {
           <LoadingSpinner size="10" color="blue-500" />
         </div>
       ) : (
-        <div className="grid grid-cols-4 gap-6">
+        <div className="flex flex-wrap gap-4 justify-center">
           {mentors.length > 0 ? (
             mentors.map((mentor, index) => (
               <motion.div
                 key={index}
-                className="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center text-center border transition hover:shadow-xl"
                 variants={cardVariants}
                 initial="hidden"
                 animate="visible"
               >
-                <img
-                  src={`data:image/png;base64,${mentor.picture}`}
-                  alt="Mentor Image"
-                  className="w-24 h-24 object-cover rounded-lg mb-4"
-                />
-                <h2 className="text-lg font-semibold text-gray-800 truncate">
-                  {mentor.fullName}
-                </h2>
-                <p className="text-sm text-red-500 font-semibold">{mentor.status}</p>
-
-                {selectedFilter ==="Permintaan" && (
-                <button
-                  className="text-blue-600 mt-2 font-medium hover:underline"
-                  onClick={() => navigate(`/DetailMentorRequest/${mentor.ID}`)}
-                >
-                  Lihat Detail &gt;
-                </button>
-                )}
+                <CourseCard
+                  course={mentor}
+                  status={mentor.status}
+                  detailPath={
+                    selectedFilter === "Permintaan"
+                      ? "/DetailMentorRequest"
+                      : "/DetailMentorRejected"
+                  }
+                  labelRole="MENTOR"
+                ></CourseCard>
               </motion.div>
             ))
           ) : (
-            <p className="text-center w-full col-span-full text-gray-500">Tidak ada data mentor.</p>
+            <p className="text-center w-full col-span-full text-gray-500">
+              Tidak ada data mentor.
+            </p>
           )}
         </div>
       )}

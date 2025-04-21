@@ -5,11 +5,11 @@ const CourseCard = ({
   course,
   status,
   detailPath,
-  labelRole = "MENTOR",
   children,
 }) => {
   const navigate = useNavigate();
-  console.log(detailPath, course.id || course.ID);
+  const courseId = course.id || course.ID;  // memastikan id konsisten
+
   const getStatusLabel = () => {
     switch (status) {
       case "accepted":
@@ -33,13 +33,9 @@ const CourseCard = ({
     <div className="group bg-white rounded-xl shadow-md hover:shadow-xl overflow-hidden transition-all duration-300 transform hover:-translate-y-1 w-64">
       <div className="relative">
         <img
-          src={
-            course.picture
-              ? `data:image/png;base64,${course.picture}`
-              : "/Icon/Maskot.png"
-          }
+          src={course.picture || "/Icon/Maskot.png"}  // fallback gambar
           alt={course.materialName}
-          className="w-full h-40 object-cover transform transition-transform duration-300 group-hover:scale-105"
+          className="w-full h-40 object-contain transform transition-transform duration-300 group-hover:scale-105"
         />
         {statusLabel && (
           <div className="absolute top-4 right-4">
@@ -57,7 +53,6 @@ const CourseCard = ({
           {course.materialName}
         </h3>
         <p className="text-sm text-gray-600 mb-2 truncate">
-          {labelRole}:{" "}
           <span className="text-green-600">
             {course.fullName || course.mentor || course.trainee}
           </span>
@@ -65,7 +60,7 @@ const CourseCard = ({
 
         <div>
           <button
-            onClick={() => navigate(`${detailPath}/${course.id || course.ID}`)}
+            onClick={() => navigate(`${detailPath}/${courseId}`)}  // menggunakan courseId yang konsisten
             className="mt-4 w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2.5 rounded-lg transition duration-300 transform hover:scale-[1.02] flex items-center justify-center space-x-2"
           >
             <span>Lihat Detail</span>
