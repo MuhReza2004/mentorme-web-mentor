@@ -60,7 +60,7 @@ const LoginContent = () => {
       }
     } catch (error) {
       console.error("Terjadi kesalahan saat login:", error);
-      setError("Terjadi kesalahan saat login.");
+      setError("Email atau Password Salah.");
     } finally {
       setLoading(false);
     }

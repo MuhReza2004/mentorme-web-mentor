@@ -38,6 +38,15 @@ const DashboardMentorContent = () => {
         <div className="flex justify-center items-center h-40">
           <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-green-600"></div>
         </div>
+      ) : activities.length === 0 ? (
+        <div className="text-center py-16 ">
+          <h2 className="text-xl font-semibold mb-2">
+            Belum ada user user yang membeli course Anda
+          </h2>
+          <p className="text-gray-600 mb-4">
+            Silakan melakukan promosi untuk menarik lebih banyak pembeli.
+          </p>
+        </div>
       ) : (
         <>
           {completedLessons.length > 0 && (
