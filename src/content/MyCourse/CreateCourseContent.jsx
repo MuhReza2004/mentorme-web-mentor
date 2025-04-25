@@ -14,6 +14,7 @@ const CreateCourseContent = () => {
     price: "",
     learningPath: "",
     picture: null,
+    learningMethod: "",
   });
 
   useEffect(() => {
@@ -37,6 +38,28 @@ const CreateCourseContent = () => {
     });
   };
 
+  const handlePriceChange = (e) => {
+    const value = e.target.value;
+    const numberString = value.replace(/[^,\d]/g, "").toString();
+    const split = numberString.split(",");
+    const sisa = split[0].length % 3;
+    let rupiah = split[0].substr(0, sisa);
+    const ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+    if (ribuan) {
+      const separator = sisa ? "." : "";
+      rupiah += separator + ribuan.join(".");
+    }
+
+    const formatted =
+      split[1] !== undefined ? "Rp " + rupiah + "," + split[1] : "Rp " + rupiah;
+
+    setFormData({
+      ...formData,
+      price: formatted,
+    });
+  };
+
   const handleFileChange = (e) => {
     setFormData({
       ...formData,
@@ -51,36 +74,31 @@ const CreateCourseContent = () => {
     courseData.append("info", formData.info);
     courseData.append("linkVideo", formData.linkVideo);
     courseData.append("materialName", formData.materialName);
-    courseData.append("price", formData.price);
+    courseData.append("price", formData.price.replace(/[^\d]/g, "")); // hanya angka
     courseData.append("learningPath", formData.learningPath);
     courseData.append("picture", formData.picture);
+    courseData.append("learningMethod", formData.learningMethod);
 
-try {
-  const response = await createCourseMentor(courseData);
-  console.log("RESPON DARI API:", response);
+    try {
+      const response = await createCourseMentor(courseData);
+      console.log("RESPON DARI API:", response);
 
-  if (response?.code === 201) {
-    // const courseId = response.data.ID || response.data.id;
-    // console.log("ID course:", courseId);
-    // console.log("RESPON DARI API:", response);
-
-    // if (!courseId) throw new Error("ID course tidak ditemukan di response");
-    const courseId = response.data.id;
-    alert("Course berhasil dibuat!");
-    navigate(`/CreateSyllabus/${courseId}`);
-  } else {
-    throw new Error("Response tidak valid");
-  }
-} catch (error) {
-  alert("Gagal membuat course. Silakan coba lagi.");
-  console.error("Error:", error);
-}
+      if (response?.code === 201) {
+        const courseId = response.data.id;
+        alert("Course berhasil dibuat!");
+        navigate(`/CreateSyllabus/${courseId}`);
+      } else {
+        throw new Error("Response tidak valid");
+      }
+    } catch (error) {
+      alert("Gagal membuat course. Silakan coba lagi.");
+      console.error("Error:", error);
+    }
   };
 
   return (
     <div className="bg-gray-100 min-h-screen p-6">
       <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg">
-        {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
           className="flex items-center text-blue-500 hover:text-blue-700 mb-4"
@@ -88,10 +106,8 @@ try {
           <FaArrowLeft className="mr-2" /> Back
         </button>
 
-        {/* Title */}
         <h2 className="text-2xl font-bold mb-6">Create Course</h2>
 
-        {/* Form */}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2">
@@ -138,16 +154,15 @@ try {
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2">Price</label>
             <input
-              type="number"
+              type="text"
               name="price"
               value={formData.price}
-              onChange={handleChange}
+              onChange={handlePriceChange}
               className="w-full border rounded-lg p-2"
               required
             />
           </div>
 
-          {/* Dropdown Learning Path */}
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2">
               Learning Path
@@ -170,6 +185,24 @@ try {
 
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2">
+              Learning Method
+            </label>
+            <select
+              name="learningMethod"
+              value={formData.learningMethod}
+              onChange={handleChange}
+              className="w-full border rounded-lg p-2"
+              required
+            >
+              <option value="">Pilih Metode Pembelajaran</option>
+              <option value="online">Online</option>
+              <option value="offline">Offline</option>
+              <option value="hybrid">Hybrid</option>
+            </select>
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">
               Upload Picture
             </label>
             <input
@@ -182,7 +215,6 @@ try {
             />
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition"

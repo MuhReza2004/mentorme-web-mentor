@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { Send, AlertTriangle } from "lucide-react";
-import { db } from "/src/firebaseConfig";
 import {
   collection,
   addDoc,
@@ -11,6 +10,7 @@ import {
   where,
 } from "firebase/firestore";
 import { GetHistoryChat } from "../../services/api";
+import { db } from "../../firebaseConfig";
 
 const ChatContent = ({ selectedChatRoom }) => {
   const [messages, setMessages] = useState([]);
@@ -95,6 +95,8 @@ const ChatContent = ({ selectedChatRoom }) => {
         sender: name,
         senderEmail: email,
         senderRole: role,
+        receiverRole: role,
+        receiverEmail: email,
         roomId: selectedChatRoom,
         timestamp: serverTimestamp(),
       });
@@ -109,7 +111,7 @@ const ChatContent = ({ selectedChatRoom }) => {
     <div className="flex h-screen bg-gray-100">
       <div className="flex-1 flex flex-col justify-between bg-white p-4">
         <h2 className="font-bold text-xl mb-4">
-          Name: {mentorName || ""}
+          {/* Name: {mentorName || ""} */}
         </h2>
 
         <div className="flex flex-col gap-2 flex-1 overflow-y-auto">

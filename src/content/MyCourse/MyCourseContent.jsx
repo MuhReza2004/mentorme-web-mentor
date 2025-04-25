@@ -15,37 +15,37 @@ const CourseContent = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
- useEffect(() => {
-  const fetchCourses = async () => {
-    try {
-      setIsLoading(true);
-      setError(null);
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
 
-      if (activeTab === "accepted" && acceptedCourses.length === 0) {
-        const response = await getAccpetedMentor();
-        setAcceptedCourses(response?.data || []);
+        if (activeTab === "accepted" && acceptedCourses.length === 0) {
+          const response = await getAccpetedMentor();
+          setAcceptedCourses(response?.data || []);
+        }
+
+        if (activeTab === "pending" && pendingCourses.length === 0) {
+          const response = await getPendingMentor();
+          setPendingCourses(response?.data || []);
+          console.log(response?.data);
+        }
+
+        if (activeTab === "rejected" && rejectedCourses.length === 0) {
+          const response = await getRejectedMentor();
+          setRejectedCourses(response?.data || []);
+        }
+      } catch (err) {
+        console.error("Terjadi kesalahan:", err);
+        setError(err.message || "Gagal memuat data");
+      } finally {
+        setIsLoading(false);
       }
+    };
 
-      if (activeTab === "pending" && pendingCourses.length === 0) {
-        const response = await getPendingMentor();
-        setPendingCourses(response?.data || []);
-      }
-
-      if (activeTab === "rejected" && rejectedCourses.length === 0) {
-        const response = await getRejectedMentor();
-        setRejectedCourses(response?.data || []);
-      }
-    } catch (err) {
-      console.error("Terjadi kesalahan:", err);
-      setError(err.message || "Gagal memuat data");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  fetchCourses();
-}, [activeTab]);
-
+    fetchCourses();
+  }, [activeTab]);
 
   const getCurrentCourses = () => {
     if (activeTab === "accepted") return acceptedCourses;

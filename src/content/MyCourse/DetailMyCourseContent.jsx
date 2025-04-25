@@ -5,14 +5,23 @@ import { FaMoneyBillWave } from "react-icons/fa";
 import { FaChevronRight } from "react-icons/fa6";
 
 // Fungsi bantu untuk konversi YouTube URL ke embed
-const convertToEmbedUrl = (url) => {
-  try {
-    const videoId = new URL(url).searchParams.get("v");
-    return `https://www.youtube.com/embed/${videoId}`;
-  } catch {
-    return null;
+const getYoutubeEmbedUrl = (url) => {
+  if (!url) return null;
+
+  if (url.includes("watch?v=")) {
+    return url.replace("watch?v=", "embed/");
   }
+
+  if (url.includes("youtu.be/")) {
+    const videoId = url.split("youtu.be/")[1];
+    return `https://www.youtube.com/embed/${videoId}`;
+  }
+
+  return url; // fallback
 };
+
+
+
 
 const DetailMyCourseContent = () => {
   const { id } = useParams(); // Ambil ID dari URL
@@ -45,7 +54,7 @@ const DetailMyCourseContent = () => {
   if (!course) {
     return <div className="p-6">Loading...</div>;
   }
-
+console.log("COURSE:", course.linkVideo);
   return (
     <div className="bg-gray-100 min-h-screen p-6">
       <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg">

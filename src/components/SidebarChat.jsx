@@ -13,7 +13,7 @@ const RightSidebar = ({ onSelectChat }) => {
         if (response?.data) {
           let filteredChats = response.data;
 
-          if (role === "MENTOR" || role === "ADMIN") {
+          if (role === "mentor" || role === "admin") {
             filteredChats = filteredChats.filter(
               (chat) => chat.nameMentor?.toLowerCase() !== "admin"
             );
@@ -29,15 +29,22 @@ const RightSidebar = ({ onSelectChat }) => {
     fetchChatRooms();
   }, [role]);
 
-  // Cek apakah chat belum dibuka
   const isNewMessage = (chatId) => {
     const lastOpened = localStorage.getItem(`lastSeen_${chatId}`);
-    return !lastOpened; // jika belum pernah dibuka, dianggap baru
+    return !lastOpened;
   };
 
   const handleSelectChat = (chatId) => {
     localStorage.setItem(`lastSeen_${chatId}`, new Date().toISOString());
     onSelectChat(chatId);
+  };
+
+  const getDisplayName = (chat) => {
+    if (role === "MENTOR") {
+      return chat.emailMentor || "Tanpa Nama";
+    }  else  {
+      return chat.nameCustomer || "Tanpa Nama";
+    }
   };
 
   return (
@@ -51,11 +58,10 @@ const RightSidebar = ({ onSelectChat }) => {
             onClick={() => handleSelectChat(chat.idRoom)}
           >
             <div>
-              <p className="font-semibold">{chat.nameMentor || "Tanpa Nama"}</p>
+              <p className="font-semibold">{getDisplayName(chat)}</p>
               <p className="text-xs text-gray-500">Room ID: {chat.idRoom}</p>
             </div>
 
-            {/* Penanda baru */}
             {isNewMessage(chat.idRoom) && (
               <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full">
                 Baru

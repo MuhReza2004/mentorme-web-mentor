@@ -17,22 +17,22 @@ const Footer = () => {
           <h2 className="text-lg font-semibold text-start">Tautan</h2>
           <ul className="mt-2 space-y-2 text-start">
             <li>
-              <a href="#" className="hover:underline">
+              <a href="/" className="hover:underline">
                 Beranda
               </a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <a href="/mentor" className="hover:underline">
                 Mentor
               </a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <a href="/features" className="hover:underline">
                 Fitur
               </a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <a href="/about" className="hover:underline">
                 Tentang
               </a>
             </li>

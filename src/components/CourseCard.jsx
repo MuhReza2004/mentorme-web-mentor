@@ -1,4 +1,3 @@
-// components/CourseCard.jsx
 import { useNavigate } from "react-router-dom";
 
 const CourseCard = ({
@@ -29,11 +28,22 @@ const CourseCard = ({
 
   const statusLabel = getStatusLabel();
 
+  // Pastikan gambar valid dan sesuai format Firebase Storage URL
+let rawUrl = course.picture || "/Icon/Maskot.png";
+
+let imageUrl = rawUrl;
+
+// Kalau URL-nya dobel "https", ambil hanya dari yang terakhir
+if (rawUrl.includes("https://") && rawUrl.split("https://").length > 2) {
+  const parts = rawUrl.split("https://");
+  imageUrl = "https://" + parts[parts.length - 1]; // ambil bagian terakhir
+}
+
   return (
     <div className="group bg-white rounded-xl shadow-md hover:shadow-xl overflow-hidden transition-all duration-300 transform hover:-translate-y-1 w-64">
       <div className="relative">
         <img
-          src={course.picture || "/Icon/Maskot.png"}  // fallback gambar
+          src={imageUrl}  // Menggunakan imageUrl yang sudah diperbaiki
           alt={course.materialName}
           className="w-full h-40 object-contain transform transition-transform duration-300 group-hover:scale-105"
         />
@@ -60,7 +70,7 @@ const CourseCard = ({
 
         <div>
           <button
-            onClick={() => navigate(`${detailPath}/${courseId}`)}  // menggunakan courseId yang konsisten
+            onClick={() => navigate(`${detailPath}/${courseId}`)}  // Menggunakan courseId yang konsisten
             className="mt-4 w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2.5 rounded-lg transition duration-300 transform hover:scale-[1.02] flex items-center justify-center space-x-2"
           >
             <span>Lihat Detail</span>
