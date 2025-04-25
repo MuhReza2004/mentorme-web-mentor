@@ -655,7 +655,7 @@ export const createVoucher = async (voucherData) => {
 export const getAllVouchers = async () => {
   try {
     const token = getAuthToken();
-    const response = await axios.get(`${API_URL}/api/voucher/all`, {
+    const response = await axios.get(`${API_URL}/api/voucher/get`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

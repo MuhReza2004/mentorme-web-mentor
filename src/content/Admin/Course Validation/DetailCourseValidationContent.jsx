@@ -95,6 +95,20 @@ const handleAccept = async () => {
     );
   }
 
+let rawUrl = project.picture || "/Icon/Maskot.png";
+let imageUrl = rawUrl;
+
+// Cek apakah URL mengandung informasi bucket yang valid
+if (rawUrl.includes("https://storage.googleapis.com/")) {
+  // Memastikan URL dimulai dengan storage.googleapis.com dan menghapus bagian yang tidak valid
+  imageUrl = rawUrl.replace(/^.*?https:\/\/storage\.googleapis\.com\//, 'https://storage.googleapis.com/');
+} else {
+  // Tangani fallback jika URL tidak valid
+  imageUrl = "/Icon/Maskot.png"; // Gambar default jika URL tidak valid
+}
+
+console.log("Final Image URL:", imageUrl);
+
   return (
     <div className="flex flex-col items-center p-6 bg-gray-100 min-h-screen">
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-4xl">
@@ -107,7 +121,7 @@ const handleAccept = async () => {
         {/* Mentor Info */}
         <div className="flex items-center gap-4 mb-6">
           <img
-            src={`data:image/png;base64,${project.picture}`}
+            src={imageUrl}
             alt="Mentor Image"
             className="w-24 h-24 object-cover rounded-lg mb-4"
           />
