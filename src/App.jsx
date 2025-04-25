@@ -1,10 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Register from "./pages/Register";
 import Home from "./pages/HomePage";
-import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-import AboutPage from "./pages/about";
-import MentorsPage from "./pages/mentors";
 import MyCourse from "./pages/MyCource";
 import CreateCourse from "./pages/CreateCourse";
 import ProgressTrainee from "./pages/ProgressTrainee";
@@ -33,6 +30,9 @@ import NotificationPage from "./pages/Notification/NotificationPage";
 import ExchangeMoneyPage from "./pages/Exchange/ExchangeMoney/ExchangeMoneyPage";
 import TraineeProgress from "./pages/DashboardPages/TraineeProgress";
 import LoginPage from "./pages/Login";
+import AboutPages from "./pages/LandingPages/AboutPages";
+import FeaturesPage from "./pages/LandingPages/FeaturesPage";
+import MentorPage from "./pages/LandingPages/MentorsPages";
 
 function App() {
   return (
@@ -42,8 +42,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/mentors" element={<MentorsPage />} />
+        <Route path="/mentors" element={<MentorPage />} />
         <Route path="/MyCourse" element={<MyCourse />} />
         <Route path="/CreateCourse" element={<CreateCourse />} />
         <Route path="/ProgressTrainee" element={<ProgressTrainee />} />
@@ -69,6 +68,8 @@ function App() {
           element={<DetailActivityTrainee />}
         />
         <Route path="/CourseValidation" element={<CourseValidation />} />
+        <Route path="/About" element={<AboutPages />} />
+        <Route path="/features" element={<FeaturesPage />} />
         <Route path="/DashboardAdmin" element={<DashboardAdmin />} />
         <Route path="/EditProfile" element={<EditProfile />} />
         <Route path="/Exchange" element={<Exchange />} />

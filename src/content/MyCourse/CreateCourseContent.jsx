@@ -197,6 +197,7 @@ const CreateCourseContent = () => {
               <option value="">Pilih Metode Pembelajaran</option>
               <option value="online">Online</option>
               <option value="offline">Offline</option>
+              <option value="hybrid">Hybrid</option>
             </select>
           </div>
 
