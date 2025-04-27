@@ -6,6 +6,7 @@ import {
 } from "../../services/api";
 import ErrorBoundary from "../../components/ErrorBoundary";
 import CourseCard from "../../components/CourseCard";
+import { motion, AnimatePresence } from "framer-motion";
 
 const CourseContent = () => {
   const [activeTab, setActiveTab] = useState("accepted");
@@ -29,7 +30,6 @@ const CourseContent = () => {
         if (activeTab === "pending" && pendingCourses.length === 0) {
           const response = await getPendingMentor();
           setPendingCourses(response?.data || []);
-          console.log(response?.data);
         }
 
         if (activeTab === "rejected" && rejectedCourses.length === 0) {
@@ -117,32 +117,42 @@ const CourseContent = () => {
         </div>
       </header>
 
-      <div className="flex flex-wrap gap-4 justify-center ">
-        {getCurrentCourses().length > 0 ? (
-          getCurrentCourses().map((course) => (
-            <CourseCard
-              key={course.id}
-              course={course}
-              status={activeTab}
-              detailPath={"/DetailMyCourse"}
-            />
-          ))
-        ) : (
-          <div className="col-span-4">
-            <div className="text-center p-12 bg-white rounded-lg shadow">
-              <p className="text-xl font-semibold text-gray-600 mb-2">
-                Belum ada Course yang{" "}
-                {activeTab === "accepted"
-                  ? "diterima"
-                  : activeTab === "pending"
-                  ? "menunggu"
-                  : "ditolak"}
-              </p>
-              <p className="text-gray-400">Silakan cek tab lainnya</p>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeTab}
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -50 }}
+          transition={{ duration: 0.4 }}
+          className="flex flex-wrap gap-4 justify-center"
+        >
+          {getCurrentCourses().length > 0 ? (
+            getCurrentCourses().map((course) => (
+              <CourseCard
+                key={course.id}
+                course={course}
+                status={activeTab}
+                detailPath="/DetailMyCourse"
+                showDetailButton={activeTab !== "rejected"} // <-- ini dia perbaikannya
+              />
+            ))
+          ) : (
+            <div className="col-span-4">
+              <div className="text-center p-12 bg-white rounded-lg shadow">
+                <p className="text-xl font-semibold text-gray-600 mb-2">
+                  Belum ada Course yang{" "}
+                  {activeTab === "accepted"
+                    ? "diterima"
+                    : activeTab === "pending"
+                    ? "menunggu"
+                    : "ditolak"}
+                </p>
+                <p className="text-gray-400">Silakan cek tab lainnya</p>
+              </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </motion.div>
+      </AnimatePresence>
     </main>
   );
 };
