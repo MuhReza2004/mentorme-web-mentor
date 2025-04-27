@@ -16,9 +16,27 @@ const RegisterContent = () => {
   });
 
   const [files, setFiles] = useState({ cv: null, ktp: null, picture: null });
-
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+
+  const validateInput = () => {
+    const newErrors = {};
+    if (!formData.fullName.trim())
+      newErrors.fullName = "Nama lengkap wajib diisi.";
+    if (!formData.email.trim() || !/\S+@\S+\.\S+/.test(formData.email))
+      newErrors.email = "Email tidak valid.";
+    if (formData.password.length < 8)
+      newErrors.password = "Password harus minimal 8 karakter.";
+    if (formData.password !== formData.confirmPassword)
+      newErrors.confirmPassword = "Password tidak cocok.";
+    if (
+      !formData.portfolio.trim() ||
+      !/^https?:\/\/.+/.test(formData.portfolio)
+    )
+      newErrors.portfolio = "Link portfolio tidak valid.";
+    return newErrors;
+  };
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -30,12 +48,12 @@ const RegisterContent = () => {
     if (!file) return;
 
     if (file.size > MAX_FILE_SIZE) {
-      alert("File size must be less than 2MB");
+      alert("Ukuran file harus kurang dari 2MB.");
       return;
     }
 
     if ((name === "cv" || name === "ktp") && file.type !== "application/pdf") {
-      alert("CV and KTP must be in PDF format");
+      alert("CV dan KTP harus dalam format PDF.");
       return;
     }
 
@@ -44,8 +62,9 @@ const RegisterContent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match");
+    const validationErrors = validateInput();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
       return;
     }
 
@@ -60,14 +79,15 @@ const RegisterContent = () => {
     setIsLoading(true);
 
     try {
-      await registerMentor(data); // Assuming registerMentor is defined elsewhere
-      alert("Registration Successful");
+      await registerMentor(data);
+      alert("Pendaftaran berhasil.");
       navigate("/login");
     } catch (error) {
       const errorMessage =
-        error.response?.data?.message || "Registration Failed";
+        error.response?.data?.message ||
+        "Pendaftaran gagal. Silakan coba lagi.";
       alert(errorMessage);
-      console.error(error);
+      console.error("Error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -109,17 +129,23 @@ const RegisterContent = () => {
                 type: "text",
                 placeholder: "Link Portfolio",
               },
-              { name: "About", type: "text", placeholder: "Tentang Anda" },
+              { name: "ability", type: "text", placeholder: "Tentang Anda" },
             ].map((input) => (
-              <input
-                key={input.name}
-                name={input.name}
-                type={input.type}
-                placeholder={input.placeholder}
-                onChange={handleChange}
-                required
-                className="border border-gray-300 rounded px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-green-400 transition"
-              />
+              <div key={input.name}>
+                <input
+                  name={input.name}
+                  type={input.type}
+                  placeholder={input.placeholder}
+                  onChange={handleChange}
+                  required
+                  className="border border-gray-300 rounded px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-green-400 transition"
+                />
+                {errors[input.name] && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors[input.name]}
+                  </p>
+                )}
+              </div>
             ))}
 
             {/* Upload Files */}

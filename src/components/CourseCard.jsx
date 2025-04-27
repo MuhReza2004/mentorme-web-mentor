@@ -4,10 +4,11 @@ const CourseCard = ({
   course,
   status,
   detailPath,
+  showDetailButton = true, // <--- Tambahkan default props showDetailButton = true
   children,
 }) => {
   const navigate = useNavigate();
-  const courseId = course.id || course.ID;  // memastikan id konsisten
+  const courseId = course.id || course.ID;
 
   const getStatusLabel = () => {
     switch (status) {
@@ -28,22 +29,19 @@ const CourseCard = ({
 
   const statusLabel = getStatusLabel();
 
-  // Pastikan gambar valid dan sesuai format Firebase Storage URL
-let rawUrl = course.picture || "/Icon/Maskot.png";
-
-let imageUrl = rawUrl;
-
-// Kalau URL-nya dobel "https", ambil hanya dari yang terakhir
-if (rawUrl.includes("https://") && rawUrl.split("https://").length > 2) {
-  const parts = rawUrl.split("https://");
-  imageUrl = "https://" + parts[parts.length - 1]; // ambil bagian terakhir
-}
+  // Validasi gambar
+  let rawUrl = course.picture || "/Icon/Maskot.png";
+  let imageUrl = rawUrl;
+  if (rawUrl.includes("https://") && rawUrl.split("https://").length > 2) {
+    const parts = rawUrl.split("https://");
+    imageUrl = "https://" + parts[parts.length - 1];
+  }
 
   return (
     <div className="group bg-white rounded-xl shadow-md hover:shadow-xl overflow-hidden transition-all duration-300 transform hover:-translate-y-1 w-64">
       <div className="relative">
         <img
-          src={imageUrl}  // Menggunakan imageUrl yang sudah diperbaiki
+          src={imageUrl}
           alt={course.materialName}
           className="w-full h-40 object-contain transform transition-transform duration-300 group-hover:scale-105"
         />
@@ -68,27 +66,31 @@ if (rawUrl.includes("https://") && rawUrl.split("https://").length > 2) {
           </span>
         </p>
 
-        <div>
-          <button
-            onClick={() => navigate(`${detailPath}/${courseId}`)}  // Menggunakan courseId yang konsisten
-            className="mt-4 w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2.5 rounded-lg transition duration-300 transform hover:scale-[1.02] flex items-center justify-center space-x-2"
-          >
-            <span>Lihat Detail</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
+        {/* Hanya tampilkan tombol kalau showDetailButton true */}
+        {showDetailButton && (
+          <div>
+            <button
+              onClick={() => navigate(`${detailPath}/${courseId}`)}
+              className="mt-4 w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2.5 rounded-lg transition duration-300 transform hover:scale-[1.02] flex items-center justify-center space-x-2"
             >
-              <path
-                fillRule="evenodd"
-                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button>
-          {children && <div className="mt-2">{children}</div>}
-        </div>
+              <span>Lihat Detail</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+        )}
+
+        {children && <div className="mt-2">{children}</div>}
       </div>
     </div>
   );
