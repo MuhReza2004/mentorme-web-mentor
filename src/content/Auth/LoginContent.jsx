@@ -49,6 +49,7 @@ const LoginContent = () => {
       localStorage.setItem("user", JSON.stringify(response.data));
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("role", response.data.role.role);
+      localStorage.setItem("ProfilePicture", response.data.pictureUser);
       console.log("Role saved to localStorage:", localStorage.getItem("role"));
 
       if (response.data.role.role === "MENTOR") {
