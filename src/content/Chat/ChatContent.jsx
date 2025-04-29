@@ -36,7 +36,9 @@ const ChatContent = ({ selectedChatRoom }) => {
     const unsubscribe = onSnapshot(
       q,
       (snapshot) => {
-        setMessages(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+        setMessages(
+          snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+        );
       },
       (error) => {
         console.error("Error mendapatkan pesan real-time:", error);
@@ -151,14 +153,19 @@ const ChatContent = ({ selectedChatRoom }) => {
           <div className="flex-1 flex items-center border border-gray-300 rounded-lg p-2">
             <input
               type="text"
-              placeholder={email ? "Ketik pesan..." : "Silakan login untuk mengirim pesan"}
+              placeholder={
+                email ? "Ketik pesan..." : "Silakan login untuk mengirim pesan"
+              }
               className="flex-1 outline-none px-2"
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && sendMessage()}
               disabled={!email || !selectedChatRoom}
             />
-            <Send className="text-gray-500 cursor-pointer" onClick={sendMessage} />
+            <Send
+              className="text-gray-500 cursor-pointer"
+              onClick={sendMessage}
+            />
           </div>
         </div>
       </div>

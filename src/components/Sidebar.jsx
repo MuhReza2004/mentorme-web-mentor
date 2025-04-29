@@ -13,13 +13,13 @@ import {
 } from "lucide-react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { deleteToken, messaging, getToken } from "../firebaseConfig";
-
+import { deleteToken, messaging } from "../firebaseConfig";
 
 const SideBar = () => {
   const location = useLocation();
   const [role, setRole] = useState(null);
   const [name, setName] = useState("");
+  const [profilePicture, setProfilePicture] = useState("");
   const [isOpen, setIsOpen] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
@@ -27,22 +27,33 @@ const SideBar = () => {
   useEffect(() => {
     const storedRole = localStorage.getItem("role");
     const storedName = localStorage.getItem("nameUser");
+    const storedProfilePicture = localStorage.getItem("ProfilePicture");
+
     if (storedRole) setRole(storedRole);
     if (storedName) setName(storedName);
+
+    if (storedProfilePicture) {
+      // Ambil hanya bagian URL yang valid dari profilePicture
+      const httpsIndex = storedProfilePicture.lastIndexOf("https://");
+      const cleanedProfilePicture =
+        httpsIndex !== -1
+          ? storedProfilePicture.substring(httpsIndex)
+          : storedProfilePicture;
+
+      setProfilePicture(cleanedProfilePicture);
+      console.log("✅ Cleaned profilePicture:", cleanedProfilePicture);
+    }
   }, []);
 
-   const handleLogout = async () => {
+  const handleLogout = async () => {
     try {
-      // Hapus FCM Token
       await deleteToken(messaging);
       console.log("✅ FCM token deleted");
     } catch (err) {
       console.error("❌ Error deleting FCM token:", err);
     }
-
-    // Hapus semua data di localStorage
     localStorage.clear();
-    navigate("/login"); // Navigasi ke halaman login
+    navigate("/login");
   };
 
   const renderMentorLinks = () => (
@@ -72,7 +83,6 @@ const SideBar = () => {
         <Layers className="w-5 h-5 mr-2" />
         {isOpen && <span>KURSUS SAYA</span>}
       </NavLink>
-
       <NavLink
         to="/Bantuan"
         className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
@@ -150,7 +160,6 @@ const SideBar = () => {
         isOpen ? "w-64" : "w-20"
       }`}
     >
-      {/* Toggle Button */}
       {role === "MENTOR" && (
         <button
           className={`p-2 mt-2 rounded-full hover:bg-black-200 transition-all duration-300 ${
@@ -162,7 +171,6 @@ const SideBar = () => {
         </button>
       )}
 
-      {/* Logo */}
       <div className="flex flex-col items-center">
         {isOpen && (
           <img
@@ -173,16 +181,15 @@ const SideBar = () => {
         )}
       </div>
 
-      {/* User Info + Dropdown */}
       <div className="relative">
         <div
           className="flex items-center space-x-2 cursor-pointer px-3"
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         >
           <img
-            src="https://www.w3schools.com/howto/img_avatar.png"
+            src={profilePicture || "/default-avatar.png"}
             alt="User"
-            className="w-8 h-8 rounded-full"
+            className="w-8 h-8 rounded-full object-cover"
           />
           {isOpen && (
             <div>
@@ -198,7 +205,6 @@ const SideBar = () => {
             ))}
         </div>
 
-        {/* Mentor-specific dropdown */}
         {isDropdownOpen && isOpen && role === "MENTOR" && (
           <div className="absolute top-full left-3 bg-white shadow-md rounded-lg p-3 mt-2 w-48 z-10">
             <NavLink to="/EditProfile" className="block p-2 hover:bg-gray-100">
@@ -213,12 +219,10 @@ const SideBar = () => {
 
       <hr className="my-2 border-gray-300 items-start" />
 
-      {/* Navigation Menu */}
       <nav className="flex flex-col py-7 gap-2 px-3">
         {role === "MENTOR" && renderMentorLinks()}
         {role === "ADMIN" && renderAdminLinks()}
 
-        {/* Common Link for All Roles */}
         <NavLink
           to="/ChatMentor"
           className={({ isActive }) =>
@@ -231,7 +235,6 @@ const SideBar = () => {
           {isOpen && <span>CHAT</span>}
         </NavLink>
 
-        {/* Logout */}
         <button
           onClick={handleLogout}
           className="flex items-center p-2 text-gray-800 hover:bg-green-300 rounded-lg"

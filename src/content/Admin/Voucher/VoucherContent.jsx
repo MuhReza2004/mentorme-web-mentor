@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { createVoucher, getAllVouchers, deleteVoucher } from "../../../services/api";
+import {
+  createVoucher,
+  getAllVouchers,
+  deleteVoucher,
+} from "../../../services/api";
 
 const VoucherContent = () => {
   const [vouchers, setVouchers] = useState([]);
@@ -25,22 +29,21 @@ const VoucherContent = () => {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    await createVoucher({
-      ...form,
-      piece: parseInt(form.piece),
-      startTime: parseInt(form.startTime),
-      endTime: parseInt(form.endTime),
-    });
-    alert("Voucher berhasil dibuat!");
-    setForm({ name: "", piece: "", startTime: "", endTime: "", info: "" });
-  } catch (err) {
-    alert("Gagal membuat voucher. Silakan coba lagi.");
-    console.error(err);
-  }
-};
-
+    e.preventDefault();
+    try {
+      await createVoucher({
+        ...form,
+        piece: parseInt(form.piece),
+        startTime: parseInt(form.startTime),
+        endTime: parseInt(form.endTime),
+      });
+      alert("Voucher berhasil dibuat!");
+      setForm({ name: "", piece: "", startTime: "", endTime: "", info: "" });
+    } catch (err) {
+      alert("Gagal membuat voucher. Silakan coba lagi.");
+      console.error(err);
+    }
+  };
 
   const handleDelete = async (id) => {
     await deleteVoucher(id);
@@ -57,36 +60,102 @@ const VoucherContent = () => {
 
   return (
     <div style={{ padding: "24px", maxWidth: "800px", margin: "0 auto" }}>
-      <div style={{ border: "1px solid #ccc", borderRadius: "8px", padding: "20px", marginBottom: "24px" }}>
+      <div
+        style={{
+          border: "1px solid #ccc",
+          borderRadius: "8px",
+          padding: "20px",
+          marginBottom: "24px",
+        }}
+      >
         <h2 style={{ marginBottom: "16px" }}>Buat Voucher Baru</h2>
         <form onSubmit={handleSubmit} style={{ display: "grid", gap: "12px" }}>
           <div>
-            <label>Nama Voucher</label><br />
-            <input type="text" name="name" value={form.name} onChange={handleChange} required style={inputStyle} />
+            <label>Nama Voucher</label>
+            <br />
+            <input
+              type="text"
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              required
+              style={inputStyle}
+            />
           </div>
           <div>
-            <label>Potongan (%)</label><br />
-            <input type="number" name="piece" value={form.piece} onChange={handleChange} required style={inputStyle} />
+            <label>Potongan (%)</label>
+            <br />
+            <input
+              type="number"
+              name="piece"
+              value={form.piece}
+              onChange={handleChange}
+              required
+              style={inputStyle}
+            />
           </div>
           <div>
-            <label>Hari Mulai (0 = Now)</label><br />
-            <input type="number" name="startTime" value={form.startTime} onChange={handleChange} min={0} max={6} required style={inputStyle} />
+            <label>Hari Mulai (0 = Now)</label>
+            <br />
+            <input
+              type="number"
+              name="startTime"
+              value={form.startTime}
+              onChange={handleChange}
+              min={0}
+              max={6}
+              required
+              style={inputStyle}
+            />
           </div>
           <div>
-            <label>Hari Berakhir (0 = Now)</label><br />
-            <input type="number" name="endTime" value={form.endTime} onChange={handleChange} min={0} max={6} required style={inputStyle} />
+            <label>Hari Berakhir (0 = Now)</label>
+            <br />
+            <input
+              type="number"
+              name="endTime"
+              value={form.endTime}
+              onChange={handleChange}
+              min={0}
+              required
+              style={inputStyle}
+            />
           </div>
           <div>
-            <label>Deskripsi Voucher</label><br />
-            <textarea name="info" value={form.info} onChange={handleChange} rows="3" required style={inputStyle} />
+            <label>Deskripsi Voucher</label>
+            <br />
+            <textarea
+              name="info"
+              value={form.info}
+              onChange={handleChange}
+              rows="3"
+              required
+              style={inputStyle}
+            />
           </div>
-          <button type="submit" style={{ padding: "10px", backgroundColor: "#2563eb", color: "#fff", border: "none", borderRadius: "4px", cursor: "pointer" }}>
+          <button
+            type="submit"
+            style={{
+              padding: "10px",
+              backgroundColor: "#2563eb",
+              color: "#fff",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer",
+            }}
+          >
             Simpan Voucher
           </button>
         </form>
       </div>
 
-      <div style={{ border: "1px solid #ccc", borderRadius: "8px", padding: "20px" }}>
+      <div
+        style={{
+          border: "1px solid #ccc",
+          borderRadius: "8px",
+          padding: "20px",
+        }}
+      >
         <h2 style={{ marginBottom: "16px" }}>Daftar Voucher</h2>
         {vouchers.length === 0 ? (
           <p>Tidak ada voucher.</p>
@@ -108,8 +177,12 @@ const VoucherContent = () => {
                 <strong>{voucher.name}</strong>
                 <p style={{ margin: 0 }}>
                   Potongan: {voucher.piece}%<br />
-                  {voucher.info}<br />
-                  Berlaku: {new Date(voucher.dateStart).toLocaleDateString()} - {new Date(voucher.dateEnd).toLocaleDateString()}
+                  {voucher.info}
+                  <br />
+                  Berlaku: {new Date(
+                    voucher.dateStart
+                  ).toLocaleDateString()} -{" "}
+                  {new Date(voucher.dateEnd).toLocaleDateString()}
                 </p>
               </div>
               <button
