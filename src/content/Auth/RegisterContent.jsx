@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../../src/styles.css";
 import { registerMentor } from "../../services/api";
+import { Eye, EyeOff } from "lucide-react";
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024;
 
@@ -19,6 +20,8 @@ const RegisterContent = () => {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const validateInput = () => {
     const newErrors = {};
@@ -118,10 +121,9 @@ const RegisterContent = () => {
             {[
               { name: "fullName", type: "text", placeholder: "Nama Lengkap" },
               { name: "email", type: "email", placeholder: "Email" },
-              { name: "password", type: "password", placeholder: "Password" },
+              { name: "password", placeholder: "Password" },
               {
                 name: "confirmPassword",
-                type: "password",
                 placeholder: "Konfirmasi Password",
               },
               {
@@ -130,23 +132,63 @@ const RegisterContent = () => {
                 placeholder: "Link Portfolio",
               },
               { name: "ability", type: "text", placeholder: "Tentang Anda" },
-            ].map((input) => (
-              <div key={input.name}>
-                <input
-                  name={input.name}
-                  type={input.type}
-                  placeholder={input.placeholder}
-                  onChange={handleChange}
-                  required
-                  className="border border-gray-300 rounded px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-green-400 transition"
-                />
-                {errors[input.name] && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors[input.name]}
-                  </p>
-                )}
-              </div>
-            ))}
+            ].map((input) => {
+              if (
+                input.name === "password" ||
+                input.name === "confirmPassword"
+              ) {
+                const show =
+                  input.name === "password"
+                    ? showPassword
+                    : showConfirmPassword;
+                const toggle =
+                  input.name === "password"
+                    ? () => setShowPassword((prev) => !prev)
+                    : () => setShowConfirmPassword((prev) => !prev);
+                return (
+                  <div key={input.name} className="relative">
+                    <input
+                      name={input.name}
+                      type={show ? "text" : "password"}
+                      placeholder={input.placeholder}
+                      onChange={handleChange}
+                      required
+                      className="border border-gray-300 rounded px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-green-400 transition"
+                    />
+                    <button
+                      type="button"
+                      onClick={toggle}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-green-500"
+                    >
+                      {show ? <EyeOff size={20} /> : <Eye size={20} />}
+                    </button>
+                    {errors[input.name] && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors[input.name]}
+                      </p>
+                    )}
+                  </div>
+                );
+              }
+
+              return (
+                <div key={input.name}>
+                  <input
+                    name={input.name}
+                    type={input.type}
+                    placeholder={input.placeholder}
+                    onChange={handleChange}
+                    required
+                    className="border border-gray-300 rounded px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-green-400 transition"
+                  />
+                  {errors[input.name] && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors[input.name]}
+                    </p>
+                  )}
+                </div>
+              );
+            })}
 
             {/* Upload Files */}
             <div className="space-y-3">

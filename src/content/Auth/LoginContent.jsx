@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react"; // Import icon Lucide
 
 import { loginMentor } from "../../services/api";
 import { getFcmToken, removeFcmToken } from "../../services/getFcmToken";
@@ -9,6 +10,7 @@ const LoginContent = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,37 +22,23 @@ const LoginContent = () => {
     setError("");
 
     try {
-      // Hapus token FCM lama
       await removeFcmToken();
-
-      // Ambil FCM Token baru
       const fcmToken = await getFcmToken();
 
-      // Payload login
-      const payload = {
-        ...formData,
-        fcmToken, // Token FCM dikirim ke backend
-      };
-
+      const payload = { ...formData, fcmToken };
       const response = await loginMentor(payload);
 
       if (response.code === 401) {
         setError(response.error);
         return;
       }
-      console.log("Response Data:", response.data);
-      localStorage.setItem("nameUser", response.data.nameUser); // Pastikan 'name' ada dalam response.data
-      console.log(
-        "Name saved to localStorage:",
-        localStorage.getItem("nameUser")
-      );
-      localStorage.setItem("email", response.data.email); // Pastikan 'name' ada dalam response.data
-      console.log("Name saved to localStorage:", localStorage.getItem("email"));
+
+      localStorage.setItem("nameUser", response.data.nameUser);
+      localStorage.setItem("email", response.data.email);
       localStorage.setItem("user", JSON.stringify(response.data));
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("role", response.data.role.role);
       localStorage.setItem("ProfilePicture", response.data.pictureUser);
-      console.log("Role saved to localStorage:", localStorage.getItem("role"));
 
       if (response.data.role.role === "MENTOR") {
         navigate("/dashboard");
@@ -82,7 +70,7 @@ const LoginContent = () => {
         />
       </div>
 
-      <div className="w-1/2 flex flex-col items-center justify-center  p-8">
+      <div className="w-1/2 flex flex-col items-center justify-center p-8">
         <img src="/Icon/Maskot.png" alt="Mentor Mascot" className="w-64 mb-4" />
         <p className="text-gray-600 text-lg font-medium">
           To be mentor, unlock your potential
@@ -112,17 +100,24 @@ const LoginContent = () => {
 
           <div>
             <label className="text-gray-700 font-medium">Password</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Enter your password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-green-500"
-            />
-            <div className="text-right text-sm text-gray-700 cursor-pointer mt-1">
-              Forgot Password?
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Enter your password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-green-500 pr-10"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-3 text-gray-600"
+                aria-label="Toggle password visibility"
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
             </div>
           </div>
 
