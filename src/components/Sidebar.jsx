@@ -143,6 +143,15 @@ const SideBar = () => {
         {isOpen && <span>Create Learning Path</span>}
       </NavLink>
       <NavLink
+        to="/BuyCourseTrainee"
+        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
+          location.pathname.includes("/BuyCourseTrainee") ? "bg-white" : ""
+        }`}
+      >
+        <BookOpenCheck className="w-5 h-5 mr-2" />
+        {isOpen && <span>Course yang dibeli trainee</span>}
+      </NavLink>
+      <NavLink
         to="/CreateNotification"
         className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
           location.pathname.includes("/CreateNotification") ? "bg-white" : ""

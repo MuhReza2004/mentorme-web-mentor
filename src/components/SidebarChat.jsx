@@ -13,7 +13,7 @@ const RightSidebar = ({ onSelectChat }) => {
         if (response?.data) {
           let filteredChats = response.data;
 
-          if (role === "mentor" || role === "admin") {
+          if (role === "mentor") {
             filteredChats = filteredChats.filter(
               (chat) => chat.nameMentor?.toLowerCase() !== "admin"
             );
