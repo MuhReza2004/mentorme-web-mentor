@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Eye, EyeOff } from "lucide-react"; // Import icon Lucide
-
+import { Eye, EyeOff } from "lucide-react";
 import { loginMentor } from "../../services/api";
 import { getFcmToken, removeFcmToken } from "../../services/getFcmToken";
 
@@ -9,8 +8,8 @@ const LoginContent = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -26,30 +25,38 @@ const LoginContent = () => {
       const fcmToken = await getFcmToken();
 
       const payload = { ...formData, fcmToken };
-      const response = await loginMentor(payload);
+      const response = await loginMentor(payload); // response.data sudah di-return dari api.js
+      const resData = response;
 
-      if (response.code === 401) {
-        setError(response.error);
+      if (resData.code === 401) {
+        setError(
+          resData.error || resData.message || "Email atau Password salah."
+        );
         return;
       }
 
-      localStorage.setItem("nameUser", response.data.nameUser);
-      localStorage.setItem("email", response.data.email);
-      localStorage.setItem("user", JSON.stringify(response.data));
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("role", response.data.role.role);
-      localStorage.setItem("ProfilePicture", response.data.pictureUser);
+      localStorage.setItem("nameUser", resData.data.nameUser);
+      localStorage.setItem("email", resData.data.email);
+      localStorage.setItem("user", JSON.stringify(resData.data));
+      localStorage.setItem("token", resData.data.token);
+      localStorage.setItem("role", resData.data.role.role);
+      localStorage.setItem("ProfilePicture", resData.data.pictureUser);
 
-      if (response.data.role.role === "MENTOR") {
+      if (resData.data.role.role === "MENTOR") {
         navigate("/dashboard");
-      } else if (response.data.role.role === "ADMIN") {
+      } else if (resData.data.role.role === "ADMIN") {
         navigate("/DashboardAdmin");
       } else {
         setError("Data pengguna tidak valid.");
       }
-    } catch (error) {
-      console.error("Terjadi kesalahan saat login:", error);
-      setError("Email atau Password Salah.");
+    } catch (err) {
+      console.error("Terjadi kesalahan saat login:", err);
+      // Ambil error dari server jika ada
+      if (err.response && err.response.data && err.response.data.error) {
+        setError(err.response.data.error);
+      } else {
+        setError("Terjadi kesalahan saat login. Silakan coba lagi.");
+      }
     } finally {
       setLoading(false);
     }

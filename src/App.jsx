@@ -33,6 +33,7 @@ import LoginPage from "./pages/Login";
 import AboutPages from "./pages/LandingPages/AboutPages";
 import FeaturesPage from "./pages/LandingPages/FeaturesPage";
 import MentorPage from "./pages/LandingPages/MentorsPages";
+import BuyTraineePage from "./pages/AdminPages/BuyCourseTraineePages/BuyCourseTraineePage";
 
 function App() {
   return (
@@ -77,6 +78,7 @@ function App() {
         <Route path="/CreateNotification" element={<CreateNotification />} />
         <Route path="/CreateLearningPath" element={<CreateLearningPath />} />
         <Route path="/CreateCategory" element={<CreateCategory />} />
+        <Route path="/BuyCourseTrainee" element={<BuyTraineePage />} />
         <Route path="/DetailExchange" element={<DetailExchange />} />
         <Route path="/Voucher" element={<Voucher />} />
         <Route

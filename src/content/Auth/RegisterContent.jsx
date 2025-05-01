@@ -22,6 +22,7 @@ const RegisterContent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false); // State untuk modal sukses
 
   const validateInput = () => {
     const newErrors = {};
@@ -83,8 +84,8 @@ const RegisterContent = () => {
 
     try {
       await registerMentor(data);
-      alert("Pendaftaran berhasil.");
-      navigate("/login");
+      console.log(response.data);
+      setShowSuccessModal(true); // Tampilkan modal sukses
     } catch (error) {
       const errorMessage =
         error.response?.data?.message ||
@@ -96,8 +97,55 @@ const RegisterContent = () => {
     }
   };
 
+  const handleModalClose = () => {
+    setShowSuccessModal(false);
+    navigate("/login"); // Redirect ke halaman login setelah menutup modal
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-green-100 to-green-300 px-4 py-10">
+      {/* Modal Sukses */}
+      {showSuccessModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+            <div className="text-center">
+              <svg
+                className="mx-auto h-12 w-12 text-green-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+              <h3 className="text-lg font-medium text-gray-900 mt-3">
+                Pendaftaran Berhasil!
+              </h3>
+              <div className="mt-2">
+                <p className="text-sm text-gray-500">
+                  Pendaftaran berhasil, tunggu 1x24 jam untuk verifikasi akun
+                  Anda.
+                </p>
+              </div>
+              <div className="mt-4">
+                <button
+                  type="button"
+                  className="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:text-sm"
+                  onClick={handleModalClose}
+                >
+                  Mengerti
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="bg-white shadow-2xl rounded-xl flex max-w-5xl w-full overflow-hidden">
         {/* LEFT SECTION */}
         <div className="w-1/2 flex flex-col items-center justify-center bg-white p-8">

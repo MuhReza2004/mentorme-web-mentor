@@ -700,6 +700,20 @@ export const getDetailMyCourse = async (id) => {
   }
 };
 
+export const GetAdminLearing = async () => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.get(`${API_URL}/api/admin/learning`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
 // Membuat Syllabus Baru
 export const createSyllabus = async (courseId, data) => {
   try {
