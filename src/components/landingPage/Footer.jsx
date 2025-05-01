@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 const Footer = () => {
   return (
     <footer className="bg-[#379888] text-white py-8 mt-10">
@@ -6,7 +8,7 @@ const Footer = () => {
           <img
             src="/Icon/Maskot.png"
             alt="MentorMe Logo"
-            className="w-16 mb-2 "
+            className="w-16 mb-2"
           />
           <p className="text-sm text-start">
             Platform mentoring yang menghubungkan mentor profesional dengan
@@ -17,24 +19,24 @@ const Footer = () => {
           <h2 className="text-lg font-semibold text-start">Tautan</h2>
           <ul className="mt-2 space-y-2 text-start">
             <li>
-              <a href="/" className="hover:underline">
+              <NavLink to="/" className="hover:underline">
                 Beranda
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a href="/mentor" className="hover:underline">
+              <NavLink to="/mentors" className="hover:underline">
                 Mentor
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a href="/features" className="hover:underline">
+              <NavLink to="/features" className="hover:underline">
                 Fitur
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a href="/about" className="hover:underline">
+              <NavLink to="/about" className="hover:underline">
                 Tentang
-              </a>
+              </NavLink>
             </li>
           </ul>
         </div>
@@ -51,6 +53,8 @@ const Footer = () => {
           <div className="flex justify-center md:justify-start space-x-4 mt-2">
             <a
               href="https://www.instagram.com/mentorme_id/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-white text-2xl hover:text-gray-200"
             >
               <img
@@ -61,12 +65,14 @@ const Footer = () => {
             </a>
             <a
               href="https://www.tiktok.com/@mentorme_id"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-white text-2xl hover:text-gray-200"
             >
               <img
                 src="/Logo/tiktok.png"
-                alt="instagram logo"
-                className="w-full h-[40px] "
+                alt="tiktok logo"
+                className="w-full h-[40px]"
               />
             </a>
           </div>
