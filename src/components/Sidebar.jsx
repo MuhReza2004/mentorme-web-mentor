@@ -33,7 +33,6 @@ const SideBar = () => {
     if (storedName) setName(storedName);
 
     if (storedProfilePicture) {
-      // Ambil hanya bagian URL yang valid dari profilePicture
       const httpsIndex = storedProfilePicture.lastIndexOf("https://");
       const cleanedProfilePicture =
         httpsIndex !== -1
@@ -42,6 +41,19 @@ const SideBar = () => {
 
       setProfilePicture(cleanedProfilePicture);
     }
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1024) {
+        setIsOpen(false);
+      } else {
+        setIsOpen(true);
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleLogout = async () => {
@@ -55,10 +67,15 @@ const SideBar = () => {
     navigate("/login");
   };
 
+  const handleLinkClick = () => {
+    if (window.innerWidth < 1024) setIsOpen(false);
+  };
+
   const renderMentorLinks = () => (
     <>
       <NavLink
         to="/dashboard"
+        onClick={handleLinkClick}
         className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
           location.pathname.includes("/dashboard") ? "bg-white" : ""
         }`}
@@ -68,6 +85,7 @@ const SideBar = () => {
       </NavLink>
       <NavLink
         to="/MyCourse"
+        onClick={handleLinkClick}
         className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
           [
             "/MyCourse",
@@ -84,6 +102,7 @@ const SideBar = () => {
       </NavLink>
       <NavLink
         to="/Bantuan"
+        onClick={handleLinkClick}
         className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
           location.pathname.includes("/Bantuan") ? "bg-white" : ""
         }`}
@@ -96,69 +115,27 @@ const SideBar = () => {
 
   const renderAdminLinks = () => (
     <>
-      <NavLink
-        to="/DashboardAdmin"
-        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
-          location.pathname.includes("/DashboardAdmin") ? "bg-white" : ""
-        }`}
-      >
-        <Home className="w-5 h-5 mr-2" />
-        {isOpen && <span>BERANDA ADMIN</span>}
-      </NavLink>
-      <NavLink
-        to="/CourseValidation"
-        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
-          location.pathname.includes("/CourseValidation") ? "bg-white" : ""
-        }`}
-      >
-        <Layers className="w-5 h-5 mr-2" />
-        {isOpen && <span>VALIDASI KURSUS</span>}
-      </NavLink>
-      <NavLink
-        to="/Voucher"
-        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
-          location.pathname.includes("/Voucher") ? "bg-white" : ""
-        }`}
-      >
-        <Gift className="w-5 h-5 mr-2" />
-        {isOpen && <span>Create Voucher</span>}
-      </NavLink>
-      <NavLink
-        to="/CreateCategory"
-        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
-          location.pathname.includes("/CreateCategory") ? "bg-white" : ""
-        }`}
-      >
-        <FolderPlus className="w-5 h-5 mr-2" />
-        {isOpen && <span>Create Category</span>}
-      </NavLink>
-      <NavLink
-        to="/CreateLearningPath"
-        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
-          location.pathname.includes("/CreateLearningPath") ? "bg-white" : ""
-        }`}
-      >
-        <BookOpenCheck className="w-5 h-5 mr-2" />
-        {isOpen && <span>Create Learning Path</span>}
-      </NavLink>
-      <NavLink
-        to="/BuyCourseTrainee"
-        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
-          location.pathname.includes("/BuyCourseTrainee") ? "bg-white" : ""
-        }`}
-      >
-        <BookOpenCheck className="w-5 h-5 mr-2" />
-        {isOpen && <span>Course yang dibeli trainee</span>}
-      </NavLink>
-      <NavLink
-        to="/CreateNotification"
-        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
-          location.pathname.includes("/CreateNotification") ? "bg-white" : ""
-        }`}
-      >
-        <BellPlus className="w-5 h-5 mr-2" />
-        {isOpen && <span>Create Notifications</span>}
-      </NavLink>
+      {[
+        "/DashboardAdmin",
+        "/CourseValidation",
+        "/Voucher",
+        "/CreateCategory",
+        "/CreateLearningPath",
+        "/BuyCourseTrainee",
+        "/CreateNotification",
+      ].map((path, idx) => (
+        <NavLink
+          key={idx}
+          to={path}
+          onClick={handleLinkClick}
+          className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
+            location.pathname.includes(path) ? "bg-white" : ""
+          }`}
+        >
+          <Layers className="w-5 h-5 mr-2" />
+          {isOpen && <span>{path.replace("/", "").toUpperCase()}</span>}
+        </NavLink>
+      ))}
     </>
   );
 
@@ -215,10 +192,18 @@ const SideBar = () => {
 
         {isDropdownOpen && isOpen && role === "MENTOR" && (
           <div className="absolute top-full left-3 bg-white shadow-md rounded-lg p-3 mt-2 w-48 z-10">
-            <NavLink to="/EditProfile" className="block p-2 hover:bg-gray-100">
+            <NavLink
+              to="/EditProfile"
+              onClick={handleLinkClick}
+              className="block p-2 hover:bg-gray-100"
+            >
               EDIT PROFIL
             </NavLink>
-            <NavLink to="/Exchange" className="block p-2 hover:bg-gray-100">
+            <NavLink
+              to="/Exchange"
+              onClick={handleLinkClick}
+              className="block p-2 hover:bg-gray-100"
+            >
               TARIK TUNAI
             </NavLink>
           </div>
@@ -233,6 +218,7 @@ const SideBar = () => {
 
         <NavLink
           to="/ChatMentor"
+          onClick={handleLinkClick}
           className={({ isActive }) =>
             `flex items-center p-2 rounded-lg w-full hover:bg-white ${
               isActive ? "bg-white" : ""
@@ -244,7 +230,10 @@ const SideBar = () => {
         </NavLink>
 
         <button
-          onClick={handleLogout}
+          onClick={() => {
+            handleLogout();
+            handleLinkClick();
+          }}
           className="flex items-center p-2 text-gray-800 hover:bg-green-300 rounded-lg"
         >
           <img src="/Icon/logout.png" className="w-6 h-6 mr-2" />
