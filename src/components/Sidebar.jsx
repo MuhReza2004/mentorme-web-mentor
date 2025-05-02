@@ -115,27 +115,76 @@ const SideBar = () => {
 
   const renderAdminLinks = () => (
     <>
-      {[
-        "/DashboardAdmin",
-        "/CourseValidation",
-        "/Voucher",
-        "/CreateCategory",
-        "/CreateLearningPath",
-        "/BuyCourseTrainee",
-        "/CreateNotification",
-      ].map((path, idx) => (
-        <NavLink
-          key={idx}
-          to={path}
-          onClick={handleLinkClick}
-          className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
-            location.pathname.includes(path) ? "bg-white" : ""
-          }`}
-        >
-          <Layers className="w-5 h-5 mr-2" />
-          {isOpen && <span>{path.replace("/", "").toUpperCase()}</span>}
-        </NavLink>
-      ))}
+      <NavLink
+        to="/DashboardAdmin"
+        onClick={handleLinkClick}
+        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
+          location.pathname.includes("/DashboardAdmin") ? "bg-white" : ""
+        }`}
+      >
+        <Home className="w-5 h-5 mr-2" />
+        {isOpen && <span>DASHBOARD</span>}
+      </NavLink>
+      <NavLink
+        to="/CourseValidation"
+        onClick={handleLinkClick}
+        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
+          location.pathname.includes("/CourseValidation") ? "bg-white" : ""
+        }`}
+      >
+        <BookOpenCheck className="w-5 h-5 mr-2" />
+        {isOpen && <span>COURSE VALIDATION</span>}
+      </NavLink>
+      <NavLink
+        to="/Voucher"
+        onClick={handleLinkClick}
+        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
+          location.pathname.includes("/Voucher") ? "bg-white" : ""
+        }`}
+      >
+        <Gift className="w-5 h-5 mr-2" />
+        {isOpen && <span>VOUCHER</span>}
+      </NavLink>
+      <NavLink
+        to="/CreateCategory"
+        onClick={handleLinkClick}
+        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
+          location.pathname.includes("/CreateCategory") ? "bg-white" : ""
+        }`}
+      >
+        <FolderPlus className="w-5 h-5 mr-2" />
+        {isOpen && <span>CREATE CATEGORY</span>}
+      </NavLink>
+      <NavLink
+        to="/CreateLearningPath"
+        onClick={handleLinkClick}
+        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
+          location.pathname.includes("/CreateLearningPath") ? "bg-white" : ""
+        }`}
+      >
+        <BookOpenCheck className="w-5 h-5 mr-2" />
+        {isOpen && <span>LEARNING PATH</span>}
+      </NavLink>
+      <NavLink
+        to="/BuyCourseTrainee"
+        onClick={handleLinkClick}
+        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
+          location.pathname.includes("/BuyCourseTrainee") ? "bg-white" : ""
+        }`}
+      >
+        <Layers className="w-5 h-5 mr-2" />
+        {isOpen && <span>BUY COURSE</span>}
+      </NavLink>
+      <NavLink
+        to="/CreateNotification"
+        onClick={handleLinkClick}
+        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
+          location.pathname.includes("/CreateNotification") ? "bg-white" : ""
+        }`}
+      >
+        <BellPlus className="w-5 h-5 mr-2" />
+        {isOpen && <span>NOTIFICATION</span>}
+      </NavLink>
     </>
   );
 
