@@ -15,7 +15,6 @@ const TraineeProgressContent = () => {
       try {
         const res = await getActivityTrainee(id);
         setData(res.data);
-        console.log("DATA trainee:", res.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
