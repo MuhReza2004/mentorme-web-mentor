@@ -861,3 +861,39 @@ export const getActivityTrainee = async (activityId) => {
     handleApiError(error);
   }
 };
+
+export const GetWithdrawAdmin = async () => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.get(
+      `${API_URL}/api/admin/history/transaction`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+export const UpdateWithdrawalStatus = async (id, status) => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.put(
+      `${API_URL}/api/admin/withdrawal/status/${id}`,
+      { status }, // Send status in request body
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
+};

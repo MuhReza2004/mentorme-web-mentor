@@ -34,6 +34,7 @@ import AboutPages from "./pages/LandingPages/AboutPages";
 import FeaturesPage from "./pages/LandingPages/FeaturesPage";
 import MentorPage from "./pages/LandingPages/MentorsPages";
 import BuyTraineePage from "./pages/AdminPages/BuyCourseTraineePages/BuyCourseTraineePage";
+import WithdrawPage from "./pages/AdminPages/WithdrawPages/WithdrawPage";
 
 function App() {
   return (
@@ -92,6 +93,7 @@ function App() {
         <Route path="/Notification" element={<NotificationPage />} />
         <Route path="/Notification" element={<NotificationPage />} />
         <Route path="/ExchangeMoney" element={<ExchangeMoneyPage />} />
+        <Route path="/WithdrawAdmin" element={<WithdrawPage />} />
 
         <Route
           path="/dashboard"
