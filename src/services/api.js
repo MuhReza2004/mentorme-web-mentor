@@ -6,13 +6,29 @@ const API_URL = import.meta.env.VITE_API_BASE_URL;
 const handleApiError = (error) => {
   if (error.response) {
     console.error("Server Error:", error.response.data);
-    throw new Error(error.response.data.message || "Server error");
+    // Prioritaskan properti 'error' dari response
+    const serverError = error.response.data;
+    throw {
+      code: error.response.status,
+      error: serverError.error || serverError.message,
+      message: serverError.message,
+      data: serverError.data,
+      ...serverError, // Spread semua properti tambahan
+    };
   } else if (error.request) {
     console.error("No Response from Server:", error.request);
-    throw new Error("No response from server. Please try again.");
+    throw {
+      code: 0,
+      error: "Network Error",
+      message: "No response from server. Please try again.",
+    };
   } else {
     console.error("Request Error:", error.message);
-    throw new Error(error.message);
+    throw {
+      code: -1,
+      error: "Error",
+      message: error.message,
+    };
   }
 };
 
@@ -44,12 +60,22 @@ export const loginMentor = async (formData) => {
   try {
     const response = await axios.post(`${API_URL}/api/login/user`, formData);
     if (response.data.token) {
-      localStorage.setItem("token", response.data.token); // Simpan token ke localStorage
-      localStorage.setItem("role", response.data.role.role); // Simpan token ke localStorage
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("role", response.data.role.role);
     }
     return response.data;
   } catch (error) {
-    handleApiError(error);
+    // Lempar error dengan struktur yang konsisten
+    if (error.response) {
+      const serverError = error.response.data;
+      throw {
+        code: error.response.status,
+        error: serverError.error || serverError.message,
+        message: serverError.message,
+        ...serverError,
+      };
+    }
+    throw error;
   }
 };
 

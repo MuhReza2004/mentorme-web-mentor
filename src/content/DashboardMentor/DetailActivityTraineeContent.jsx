@@ -24,7 +24,6 @@ const DetailActivityTraineeContent = () => {
       try {
         const response = await GetDetailActivityTrainee(activityId);
         setActivityData(response.data);
-        console.log("DATA progress:", response.data);
       } catch (err) {
         console.error("Gagal fetch data:", err);
         setError("Gagal memuat data.");

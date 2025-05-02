@@ -21,7 +21,7 @@ const BantuanContent = () => {
   const email = localStorage.getItem("email");
   const name = localStorage.getItem("nameUser") || "Anonim";
   const role = localStorage.getItem("role") || "User";
-    console.log("Role:", name);
+
   useEffect(() => {
     const initChat = async () => {
       try {

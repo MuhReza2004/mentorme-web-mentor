@@ -41,7 +41,6 @@ const SideBar = () => {
           : storedProfilePicture;
 
       setProfilePicture(cleanedProfilePicture);
-      console.log("✅ Cleaned profilePicture:", cleanedProfilePicture);
     }
   }, []);
 
