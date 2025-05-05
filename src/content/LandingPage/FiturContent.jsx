@@ -15,7 +15,7 @@ const FeaturesContent = () => {
             className="w-64 md:w-72"
           />
           <div>
-            <h3 className="text-lg font-semibold bg-teal-600 text-white p-2 rounded-full -md w-50">
+            <h3 className="text-lg font-semibold bg-teal-600 text-white p-2 rounded-full w-fit">
               Konsultasi 1:1
             </h3>
             <p className="text-sm text-gray-700 mt-2 max-w-md">
@@ -34,7 +34,7 @@ const FeaturesContent = () => {
             className="w-64 md:w-72"
           />
           <div>
-            <h3 className="text-lg font-semibold bg-teal-600 text-white p-2 rounded-full -md w-50">
+            <h3 className="text-lg font-semibold bg-teal-600 text-white p-2 rounded-full w-fit">
               Project Marketplace
             </h3>
             <p className="text-sm text-gray-700 mt-2 max-w-md">
@@ -49,19 +49,14 @@ const FeaturesContent = () => {
       {/* Kenapa Harus MentorMe */}
       <div className="text-center">
         <div className="flex items-center justify-center gap-4 mb-8">
-          {/* Gambar kiri */}
           <img
             src="/AssetsLandingPage/icon-15.png"
             alt="Orang berpikir"
             className="w-40 h-40"
           />
-
-          {/* Judul */}
           <h2 className="text-xl md:text-2xl font-bold text-emerald-600 text-center">
             Kenapa harus MentorMe?
           </h2>
-
-          {/* Gambar kanan */}
           <img
             src="/AssetsLandingPage/icon-1.png"
             alt="Orang semangat"
@@ -69,7 +64,7 @@ const FeaturesContent = () => {
           />
         </div>
 
-        <div className="grid grid-cols-4 gap-4 justify-items-center">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 justify-items-center">
           {[
             "Harga Terjangkau",
             "Project Nyata",
@@ -93,6 +88,9 @@ const FeaturesContent = () => {
         <h3 className="text-lg md:text-xl font-bold mb-2">
           Download Aplikasinya Sekarang!
         </h3>
+
+        {/* Komentar sementara store buttons */}
+        {/*
         <div className="flex justify-center gap-4 mt-4 mb-6 flex-wrap">
           <a
             href="https://play.google.com/store"
@@ -115,6 +113,18 @@ const FeaturesContent = () => {
               alt="Download on the App Store"
               className="w-36 h-12 object-contain"
             />
+          </a>
+        </div>
+        */}
+
+        <div className="mt-6">
+          <a
+            href="https://drive.google.com/file/d/1eDr63qPavXif2mqSnS1rtailBRj2y5Br/view?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-full shadow-md transition-all duration-300"
+          >
+            🚀 Unduh Aplikasi Sekarang (via Google Drive)
           </a>
         </div>
       </div>
