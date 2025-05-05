@@ -22,7 +22,7 @@ const RegisterContent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false); // State untuk modal sukses
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const validateInput = () => {
     const newErrors = {};
@@ -83,7 +83,7 @@ const RegisterContent = () => {
     setIsLoading(true);
 
     try {
-      await registerMentor(data);
+      const response = await registerMentor(data);
       console.log(response.data);
       setShowSuccessModal(true); // Tampilkan modal sukses
     } catch (error) {

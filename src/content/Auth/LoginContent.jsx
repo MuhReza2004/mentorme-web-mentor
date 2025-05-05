@@ -26,6 +26,7 @@ const LoginContent = () => {
 
       const payload = { ...formData, fcmToken };
       const response = await loginMentor(payload);
+      console.log("Response:", response);
 
       // Handle success response
       if (response.data) {

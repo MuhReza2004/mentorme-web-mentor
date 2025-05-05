@@ -10,6 +10,7 @@ import {
   BellPlus,
   BookOpenCheck,
   CircleHelp,
+  Wallet,
 } from "lucide-react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -173,6 +174,16 @@ const SideBar = () => {
         }`}
       >
         <Layers className="w-5 h-5 mr-2" />
+        {isOpen && <span>BUY COURSE</span>}
+      </NavLink>
+      <NavLink
+        to="/WithdrawAdmin"
+        onClick={handleLinkClick}
+        className={`flex items-center p-2 rounded-lg w-full hover:bg-white ${
+          location.pathname.includes("/BuyCourseTrainee") ? "bg-white" : ""
+        }`}
+      >
+        <Wallet className="w-5 h-5 mr-2" />
         {isOpen && <span>BUY COURSE</span>}
       </NavLink>
       <NavLink

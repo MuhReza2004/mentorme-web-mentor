@@ -1,3 +1,5 @@
+import { User } from "lucide-react";
+
 const AboutContent = () => {
   return (
     <div className="px-4 py-10 md:px-20 lg:px-40 bg-white text-gray-800">
@@ -18,9 +20,12 @@ const AboutContent = () => {
             Apa itu MentorMe?
           </h2>
           <p className="text-sm md:text-base text-gray-600 text-justify">
-            MentorMe adalah Aplikasi Inovatif yang menghubungkan mahasiswa dan
-            mentor yang berprofesional dalam bidangnya. bla bla bla sedikit
-            keunggulan mentorme.
+            MentoMe adalah platform edukasi yang menghubungkan mahasiswa dan
+            pelajar dengan mentor melalui sesi konsultasi 1:1 dan pembelajaran
+            berbasis proyek nyata. Dengan pendekatan praktis dan personal,
+            MentorMe hadir untuk membantu kamu mengembangkan skill, membangun
+            portofolio, serta mendapatkan arahan langsung dari orang-orang yang
+            berpengalaman di bidangnya.
           </p>
         </div>
       </div>
@@ -31,9 +36,13 @@ const AboutContent = () => {
           Sejarah MentorMe
         </h2>
         <p className="max-w-2xl mx-auto text-sm md:text-base text-gray-600">
-          MentorMe berawal dari ... penjelasan singkat kenapa MentorMe bisa
-          hadir dan diciptakan oleh founder mulai dari keresahan yang dialami
-          oleh si founder sendiri.
+          Semua berawal dari sebuah kamar kos sederhana. Sang founder terpikir,
+          "Gimana kalau ada platform yang bisa mempertemukan mahasiswa dengan
+          mentor? Mahasiswa bisa belajar langsung dari ahlinya, dan di sisi
+          lain, siapa pun—termasuk mahasiswa—juga bisa menjadi mentor dan
+          menambah penghasilan." Dari pemikiran itulah, MentorMe lahir—sebuah
+          aplikasi yang menjembatani kebutuhan belajar dan berbagi ilmu, dengan
+          cara yang praktis, kolaboratif, dan berdampak nyata.
           <br />
           <br />
           Kemudian akhirnya founder membayangkan untuk membuat aplikasi
@@ -73,33 +82,39 @@ const AboutContent = () => {
               {
                 name: "Muh. Reza",
                 role: "Full-stack Developer, MentorMe",
-                img: "/AssetsLandingPage/reza-2.JPG",
+                img: "/Mentor/reza-2.webp",
               },
               {
                 name: "Indira Renata Pangrean",
                 role: "Data Analytics & Human Resource, MentorMe",
-                img: "/AssetsLandingPage/renata.JPG",
+                img: "/Mentor/renata.webp",
               },
               {
                 name: "Idama Wahda Nur",
                 role: "Financial, MentorMe",
-                img: "/AssetsLandingPage/idama.JPG",
+                img: "/Mentor/idama.webp",
               },
               {
                 name: "Nahwa",
                 role: "Digital Marketing, MentorMe",
-                img: "/AssetsLandingPage/zidan.JPG",
+                img: null, // Tidak ada gambar
               },
             ].map((person, index) => (
               <div
                 key={index}
                 className="flex flex-col items-center text-center"
               >
-                <img
-                  src={person.img}
-                  alt={person.name}
-                  className="w-24 h-24 md:w-28 md:h-28 object-cover rounded-full shadow mb-2"
-                />
+                {person.img ? (
+                  <img
+                    src={person.img}
+                    alt={person.name}
+                    className="w-24 h-24 md:w-28 md:h-28 object-cover rounded-full shadow mb-2"
+                  />
+                ) : (
+                  <div className="w-24 h-24 md:w-28 md:h-28 flex items-center justify-center rounded-full shadow mb-2 bg-gray-100 text-gray-400">
+                    <User className="w-10 h-10" />
+                  </div>
+                )}
                 <p className="font-semibold text-sm">{person.name}</p>
                 <p className="text-xs text-gray-500">{person.role}</p>
               </div>
