@@ -17,8 +17,9 @@ export default function Features() {
             Konsultasi 1:1
           </h3>
           <p className="text-sm text-gray-700 mt-2 max-w-md">
-            Penjelasan secara ringkas mengenai fitur konsultasi, tentang apa itu
-            konsultasi dan apa keuntungannya.
+            Butuh arahan langsung? Konsultasi bareng mentor secara pribadi buat
+            nanya apapun mulai dari persiapan karir, tugas, sampai pengembangan
+            diri.
           </p>
         </div>
       </div>
@@ -35,8 +36,9 @@ export default function Features() {
             Project Marketplace
           </h3>
           <p className="text-sm text-gray-700 mt-2 max-w-md">
-            Penjelasan secara ringkas mengenai fitur project marketplace,
-            tentang apa itu project marketplace dan apa keuntungannya.
+            Belajar sambil praktek! Di sini kamu bisa beli project nyata sambil
+            kursus, cocok banget buat ningkatin skill dan nambah ini portofolio
+            kamu.
           </p>
         </div>
       </div>

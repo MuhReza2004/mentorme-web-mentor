@@ -19,8 +19,9 @@ const FeaturesContent = () => {
               Konsultasi 1:1
             </h3>
             <p className="text-sm text-gray-700 mt-2 max-w-md">
-              Penjelasan secara ringkas mengenai fitur konsultasi, tentang apa
-              itu konsultasi dan apa keuntungannya.
+              Butuh arahan langsung? Konsultasi bareng mentor secara pribadi
+              buat nanya apapun mulai dari persiapan karir, tugas, sampai
+              pengembangan diri.
             </p>
           </div>
         </div>
@@ -37,8 +38,9 @@ const FeaturesContent = () => {
               Project Marketplace
             </h3>
             <p className="text-sm text-gray-700 mt-2 max-w-md">
-              Penjelasan secara ringkas mengenai fitur project marketplace,
-              tentang apa itu project marketplace dan apa keuntungannya.
+              Belajar sambil praktek! Di sini kamu bisa beli project nyata
+              sambil kursus, cocok banget buat ningkatin skill dan nambah ini
+              portofolio kamu.
             </p>
           </div>
         </div>
@@ -68,14 +70,19 @@ const FeaturesContent = () => {
         </div>
 
         <div className="grid grid-cols-4 gap-4 justify-items-center">
-          {[1, 2, 3, 4].map((num) => (
-            <div key={num} className="flex flex-col items-center text-center">
+          {[
+            "Harga Terjangkau",
+            "Project Nyata",
+            "Relasi Profesional",
+            "Pengembangan Skill",
+          ].map((label, index) => (
+            <div key={index} className="flex flex-col items-center text-center">
               <img
-                src={`/AssetsLandingPage/benefit/benefit-${num}.png`}
-                alt={`Benefit ${num}`}
+                src={`/AssetsLandingPage/benefit/benefit-${index + 1}.png`}
+                alt={label}
                 className="w-20 md:w-24"
               />
-              <p className="mt-2 text-sm font-medium">Benefit {num}</p>
+              <p className="mt-2 text-sm font-medium">{label}</p>
             </div>
           ))}
         </div>
@@ -120,23 +127,34 @@ const FeaturesContent = () => {
         <div className="space-y-4 max-w-2xl mx-auto text-left">
           {[
             {
-              question: "Apa itu React?",
-              answer: "React adalah library JavaScript untuk membangun UI.",
+              question: "Apa itu MentorMe?",
+              answer:
+                "MentorMe adalah platform yang menghubungkan mahasiswa dan mentor untuk mentoring 1:1 dan pembelajaran berbasis proyek nyata.",
             },
             {
-              question: "Apa itu Vite?",
+              question: "Siapa saja yang bisa menggunakan MentorMe?",
               answer:
-                "Vite adalah build tool yang cepat untuk pengembangan frontend.",
+                " Mahasiswa, pelajar, atau siapa saja yang ingin mengembangkan skill dan mendapatkan bimbingan dari mentor",
             },
             {
-              question: "Apa itu Tailwind CSS?",
+              question: "Apa itu fitur Project Marketplace?",
               answer:
-                "Tailwind CSS adalah framework CSS utilitas untuk membangun desain responsif.",
+                "Fitur ini memungkinkan kamu membeli proyek nyata layaknya kursus. Kamu bisa belajar dari studi kasus langsung yang didampingi oleh mentor dan menambah portofolio.",
             },
             {
-              question: "Bagaimana cara menggunakan Vite?",
+              question: "Bagaimana cara melakukan konsultasi 1:1?",
               answer:
-                "Vite dapat digunakan dengan mudah melalui CLI atau integrasi dengan berbagai framework.",
+                "Kamu bisa booking sesi dengan mentor, menentukan topik yang ingin dibahas, lalu berkonsultasi secara langsung melalui aplikasi.",
+            },
+            {
+              question: "Apakah saya bisa menjadi mentor juga?",
+              answer:
+                " Bisa banget! Kami membuka kesempatan bagi profesional dan ahli di bidang tertentu untuk bergabung sebagai mentor di MentorMe! Semua proyek yang kamu kerjakan bisa kamu pakai sebagai bagian dari portofolio profesional.",
+            },
+            {
+              question: "Bagaimana cara melakukan konsultasi 1:1?",
+              answer:
+                "Cukup download aplikasinya, daftar akun untuk menjadi trainee! Jika ingin menjadi Mentor silahkan daftarkan diri di website MentorMe!",
             },
           ].map((item, index) => (
             <details

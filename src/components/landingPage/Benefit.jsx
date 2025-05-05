@@ -1,8 +1,8 @@
 const benefits = [
-  { image: "/images/benefit1.png", title: "Benefit 1" },
-  { image: "/images/benefit2.png", title: "Benefit 2" },
-  { image: "/images/benefit3.png", title: "Benefit 3" },
-  { image: "/images/benefit4.png", title: "Benefit 4" },
+  { image: "/images/benefit1.png", title: "harga Terjangkau" },
+  { image: "/images/benefit2.png", title: "Project Nyata" },
+  { image: "/images/benefit3.png", title: "Relasi Profesional" },
+  { image: "/images/benefit4.png", title: "Pengembangan Skill" },
 ];
 
 const courses = [
