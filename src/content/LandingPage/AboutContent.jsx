@@ -130,7 +130,7 @@ const AboutContent = () => {
           Ingin menjadi bagian dari MentorMe?
         </h3>
         <p className="mb-4">Download Aplikasinya Sekarang!</p>
-        <div className="flex justify-center gap-4 mb-6 flex-wrap">
+        {/* <div className="flex justify-center gap-4 mb-6 flex-wrap">
           <a
             href="https://play.google.com/"
             target="_blank"
@@ -152,6 +152,17 @@ const AboutContent = () => {
               alt="App Store"
               className="w-32 h-10 object-contain"
             />
+          </a>
+        </div> */}
+
+        <div className="mt-6">
+          <a
+            href="https://drive.google.com/file/d/1eDr63qPavXif2mqSnS1rtailBRj2y5Br/view?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-full shadow-md transition-all duration-300"
+          >
+            🚀 Unduh Aplikasi Sekarang (via Google Drive)
           </a>
         </div>
 
