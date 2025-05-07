@@ -20,7 +20,11 @@ const WithdrawContent = () => {
     try {
       setIsLoading(true);
       const response = await GetWithdrawAdmin();
-      if (response.error) {
+      if (response === null) {
+        // Handle null response specifically
+        setWithdrawData([]);
+        setError(null);
+      } else if (response.error) {
         setError(response.error);
       } else {
         setWithdrawData(response.data || []);
@@ -135,8 +139,29 @@ const WithdrawContent = () => {
         </div>
 
         {withdrawData.length === 0 ? (
-          <div className="text-center py-6">
-            <p className="text-gray-500">No withdrawal data available</p>
+          <div className="flex justify-center items-center py-16">
+            <div className="text-center">
+              <svg
+                className="mx-auto h-12 w-12 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                ></path>
+              </svg>
+              <p className="mt-2 text-lg font-medium text-gray-900">
+                Belum ada Permintaan Withdraw
+              </p>
+              <p className="mt-1 text-sm text-gray-500">
+                Withdrawal data akan muncul di sini ketika ada permintaan
+              </p>
+            </div>
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -243,16 +268,30 @@ const WithdrawContent = () => {
           </div>
         )}
 
-        <div className="mt-6 flex justify-between items-center">
-          <div className="text-sm text-gray-500">
-            <p>
-              Request ID:{" "}
-              <span className="font-mono">
-                {withdrawData.length > 0 ? withdrawData[0].idRequest : "N/A"}
-              </span>
-            </p>
+        {withdrawData.length > 0 && (
+          <div className="mt-6 flex justify-between items-center">
+            <div className="text-sm text-gray-500">
+              <p>
+                Request ID:{" "}
+                <span className="font-mono">
+                  {withdrawData.length > 0 ? withdrawData[0].idRequest : "N/A"}
+                </span>
+              </p>
+            </div>
+            <div className="flex space-x-2">
+              <button
+                onClick={fetchWithdrawData}
+                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+                disabled={isLoading}
+              >
+                {isLoading ? "Loading..." : "Refresh"}
+              </button>
+            </div>
           </div>
-          <div className="flex space-x-2">
+        )}
+
+        {withdrawData.length === 0 && (
+          <div className="mt-6 flex justify-center">
             <button
               onClick={fetchWithdrawData}
               className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
@@ -261,7 +300,7 @@ const WithdrawContent = () => {
               {isLoading ? "Loading..." : "Refresh"}
             </button>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Status Update Modal */}

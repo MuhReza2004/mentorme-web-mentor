@@ -39,7 +39,7 @@ const DetailMentorRequestContent = () => {
     try {
       await acceptMentor(mentor.ID, null, mentor.email);
       alert("Mentor berhasil diterima.");
-      navigate("/DashboardAdminContent");
+      navigate("/DashboardAdmin");
     } catch (error) {
       console.error("Gagal menerima mentor:", error);
       alert("Gagal menerima mentor.");

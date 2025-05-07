@@ -101,6 +101,7 @@ const EditProfileContent = () => {
             accept=".png, .jpeg, .jpg"
             className="hidden"
             onChange={handleFileChange}
+            required
           />
         </div>
         <p className="mt-2 text-sm font-semibold">FOTO PROFILE</p>
@@ -118,6 +119,7 @@ const EditProfileContent = () => {
             className="w-full mt-1 p-2 border border-gray-300 rounded-lg"
             placeholder="Masukkan nama lengkap"
             onChange={handleInputChange}
+            required
           />
         </div>
 
@@ -128,6 +130,7 @@ const EditProfileContent = () => {
             name="cv"
             className="w-full mt-1 p-2 border border-gray-300 rounded-lg"
             onChange={handleFileChange}
+            required
           />
         </div>
 
@@ -140,6 +143,7 @@ const EditProfileContent = () => {
             name="ktp"
             className="w-full mt-1 p-2 border border-gray-300 rounded-lg"
             onChange={handleFileChange}
+            required
           />
         </div>
 
@@ -153,6 +157,7 @@ const EditProfileContent = () => {
             className="w-full mt-1 p-2 border border-gray-300 rounded-lg"
             placeholder="Masukkan link portofolio"
             onChange={handleInputChange}
+            required
           />
         </div>
 
@@ -166,6 +171,7 @@ const EditProfileContent = () => {
             className="w-full mt-1 p-2 border border-gray-300 rounded-lg"
             placeholder="Masukkan deskripsi Anda"
             onChange={handleInputChange}
+            required
           />
         </div>
 

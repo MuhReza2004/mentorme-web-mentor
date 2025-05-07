@@ -7,6 +7,25 @@ const FeaturesContent = () => {
           Fitur Aplikasi MentorMe
         </h2>
 
+        {/* Silabus Belajar */}
+        <div className="flex flex-row-reverse items-center gap-6 md:gap-12 text-left">
+          <img
+            src="/AssetsLandingPage/silabus-1.png"
+            alt="Konsultasi 1:1"
+            className="w-64 md:w-72"
+          />
+          <div>
+            <h3 className="text-lg font-semibold bg-teal-600 text-white p-2 rounded-full -md w-50 flex items-center justify-center">
+              Silabus Belajar
+            </h3>
+            <p className="text-sm text-gray-700 mt-2 max-w-md">
+              Belajar jadi lebih terarah! Silabus belajar yang sudah disusun
+              mentor siap membantumu belajar dengan lebih terstruktur dan
+              efisien.
+            </p>
+          </div>
+        </div>
+
         {/* Project Marketplace */}
         <div className="flex flex-row items-center gap-6 md:gap-12 text-left">
           <img
@@ -15,7 +34,7 @@ const FeaturesContent = () => {
             className="w-64 md:w-72"
           />
           <div>
-            <h3 className="text-lg font-semibold bg-teal-600 text-white p-2 rounded-full w-fit">
+            <h3 className="text-lg font-semibold bg-teal-600 text-white p-2 rounded-full -md w-50 flex items-center justify-center">
               Konsultasi 1:1
             </h3>
             <p className="text-sm text-gray-700 mt-2 max-w-md">
@@ -34,7 +53,7 @@ const FeaturesContent = () => {
             className="w-64 md:w-72"
           />
           <div>
-            <h3 className="text-lg font-semibold bg-teal-600 text-white p-2 rounded-full w-fit">
+            <h3 className="text-lg font-semibold bg-teal-600 text-white p-2 rounded-full -md w-50 flex items-center justify-center">
               Project Marketplace
             </h3>
             <p className="text-sm text-gray-700 mt-2 max-w-md">

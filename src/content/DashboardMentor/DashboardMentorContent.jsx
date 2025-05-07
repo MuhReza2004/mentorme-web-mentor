@@ -41,7 +41,7 @@ const DashboardMentorContent = () => {
       ) : activities.length === 0 ? (
         <div className="text-center py-16 ">
           <h2 className="text-xl font-semibold mb-2">
-            Belum ada user user yang membeli course Anda
+            Belum ada user yang membeli course Anda
           </h2>
           <p className="text-gray-600 mb-4">
             Silakan melakukan promosi untuk menarik lebih banyak pembeli.
