@@ -20,6 +20,7 @@ const WithdrawContent = () => {
     try {
       setIsLoading(true);
       const response = await GetWithdrawAdmin();
+      console.log("Withdraw Data Response:", response); // Debugging line
       if (response === null) {
         // Handle null response specifically
         setWithdrawData([]);

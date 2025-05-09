@@ -7,6 +7,8 @@ import {
 
 const VoucherContent = () => {
   const [vouchers, setVouchers] = useState([]);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState(null);
   const [form, setForm] = useState({
     name: "",
     piece: "",
@@ -39,15 +41,33 @@ const VoucherContent = () => {
       });
       alert("Voucher berhasil dibuat!");
       setForm({ name: "", piece: "", startTime: "", endTime: "", info: "" });
+      fetchVouchers(); // Refresh the voucher list after creating a new one
     } catch (err) {
       alert("Gagal membuat voucher. Silakan coba lagi.");
-      console.error(err);
     }
   };
 
   const handleDelete = async (id) => {
-    await deleteVoucher(id);
-    // fetchVouchers();
+    if (!window.confirm("Apakah Anda yakin ingin menghapus voucher ini?")) {
+      return;
+    }
+
+    setIsDeleting(true);
+    setDeleteError(null);
+
+    try {
+      await deleteVoucher(id);
+      // Optimistic update - langsung hapus dari state tanpa menunggu response
+      setVouchers(vouchers.filter((voucher) => voucher.ID !== id));
+      alert("Voucher berhasil dihapus!");
+    } catch (err) {
+      setDeleteError("Gagal menghapus voucher. Silakan coba lagi.");
+
+      // Jika gagal, muat ulang data asli
+      fetchVouchers();
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   const inputStyle = {

@@ -519,7 +519,7 @@ export const updateMentorProfile = async (formData) => {
       throw new Error("Token tidak ditemukan. Silakan login kembali.");
     }
 
-    const response = await axios.put(
+    const response = await axios.patch(
       `${API_URL}/api/profile/mentor/update`,
       formData,
       {
@@ -697,17 +697,22 @@ export const getAllVouchers = async () => {
  * Endpoint: DELETE /api/voucher/:id
  * Authorization: Required (Bearer Token)
  */
+
 export const deleteVoucher = async (voucherId) => {
   try {
     const token = getAuthToken();
-    const response = await axios.delete(`${API_URL}/api/voucher/${voucherId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.delete(
+      `${API_URL}/api/voucher/delete/${voucherId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     handleApiError(error);
+    throw error; // Tambahkan ini untuk melempar error ke komponen
   }
 };
 
@@ -895,5 +900,20 @@ export const UpdateWithdrawalStatus = async (id, status) => {
     return response.data;
   } catch (error) {
     return handleApiError(error);
+  }
+};
+
+// Profle
+export const getProfile = async () => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.get(`${API_URL}/api/profile/mentor`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
   }
 };

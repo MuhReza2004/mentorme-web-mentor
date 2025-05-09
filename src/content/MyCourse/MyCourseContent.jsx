@@ -30,6 +30,7 @@ const CourseContent = () => {
         if (activeTab === "pending" && pendingCourses.length === 0) {
           const response = await getPendingMentor();
           setPendingCourses(response?.data || []);
+          console.log("data pending mentor: ", response?.data || []);
         }
 
         if (activeTab === "rejected" && rejectedCourses.length === 0) {
@@ -133,7 +134,7 @@ const CourseContent = () => {
                 course={course}
                 status={activeTab}
                 detailPath="/DetailMyCourse"
-                showDetailButton={activeTab !== "rejected"} // <-- ini dia perbaikannya
+                showDetailButton={activeTab !== "rejected"}
               />
             ))
           ) : (

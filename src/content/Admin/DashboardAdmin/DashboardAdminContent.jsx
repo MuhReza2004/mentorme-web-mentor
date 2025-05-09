@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { getPendingMentor, getRejectedMentor } from "../../../services/api";
 import LoadingSpinner from "../../../components/Loading/LoadingSpinner";
-import {
-  ListMentorPendingByAdmin,
-  ListMentorRejectedByAdmin,
-} from "../../../services/api";
 import CourseCard from "../../../components/CourseCard";
 
 const DashboardAdminContent = () => {
@@ -23,11 +20,12 @@ const DashboardAdminContent = () => {
     try {
       let data = [];
       if (selectedFilter === "Permintaan") {
-        const response = await ListMentorPendingByAdmin();
+        const response = await getPendingMentor();
         data = response?.data || [];
+        console.log("data pending mentor: ", data);
         console.log("DATA YANG DITERIMA:", response);
       } else if (selectedFilter === "Ditolak") {
-        const response = await ListMentorRejectedByAdmin();
+        const response = await getRejectedMentor();
         data = response?.data || [];
       }
       setMentors(data);
