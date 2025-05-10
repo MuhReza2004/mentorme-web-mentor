@@ -147,9 +147,9 @@ const ChatContent = ({ selectedChatRoom }) => {
         </div>
 
         <div className="flex items-center gap-2 mt-4">
-          <button className="bg-red-500 text-white px-4 py-2 rounded-lg flex items-center gap-1">
+          {/* <button className="bg-red-500 text-white px-4 py-2 rounded-lg flex items-center gap-1">
             <AlertTriangle size={16} /> Laporkan
-          </button>
+          </button> */}
           <div className="flex-1 flex items-center border border-gray-300 rounded-lg p-2">
             <input
               type="text"

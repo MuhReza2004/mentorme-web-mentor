@@ -519,7 +519,7 @@ export const updateMentorProfile = async (formData) => {
       throw new Error("Token tidak ditemukan. Silakan login kembali.");
     }
 
-    const response = await axios.patch(
+    const response = await axios.put(
       `${API_URL}/api/profile/mentor/update`,
       formData,
       {

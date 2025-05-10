@@ -119,7 +119,7 @@ const BantuanContent = () => {
       {/* Chat input */}
       <div className="mt-2 flex items-center border border-gray-300 rounded-full px-2 py-1 gap-1">
         <button className="text-gray-500 p-1">
-          <Plus size={16} />
+          {/* <Plus size={16} /> */}
         </button>
         <input
           type="text"
@@ -131,7 +131,7 @@ const BantuanContent = () => {
           disabled={!roomId}
         />
         <button className="text-gray-500 p-1">
-          <ImageIcon size={16} />
+          {/* <ImageIcon size={16} /> */}
         </button>
         <button onClick={sendMessage} className="text-gray-500 p-1">
           <Send size={16} />

@@ -22,8 +22,6 @@ const DashboardAdminContent = () => {
       if (selectedFilter === "Permintaan") {
         const response = await getPendingMentor();
         data = response?.data || [];
-        console.log("data pending mentor: ", data);
-        console.log("DATA YANG DITERIMA:", response);
       } else if (selectedFilter === "Ditolak") {
         const response = await getRejectedMentor();
         data = response?.data || [];
