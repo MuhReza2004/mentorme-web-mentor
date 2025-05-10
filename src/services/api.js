@@ -161,7 +161,7 @@ export const getPendingMentor = async () => {
       throw new Error("Token tidak ditemukan. Silakan login kembali.");
     }
 
-    const response = await axios.get(`${API_URL}/api/pending/mentor`, {
+    const response = await axios.get(`${API_URL}/api/mentor/pending`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -181,7 +181,7 @@ export const getRejectedMentor = async () => {
       throw new Error("Token tidak ditemukan. Silakan login kembali.");
     }
 
-    const response = await axios.get(`${API_URL}/api/reject/mentor`, {
+    const response = await axios.get(`${API_URL}/api/user/reject`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
